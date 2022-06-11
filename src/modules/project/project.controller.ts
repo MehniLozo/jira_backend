@@ -36,7 +36,7 @@ export class ProjectController {
     return await this.projectService.getProjects();
   }
 
-  @Delete('/project') //with id param
+  @Delete('/project/:id') //with id param
   @ApiCreatedResponse({
     description: 'Delete a specified project',
     type: Boolean,

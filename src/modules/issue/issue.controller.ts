@@ -36,9 +36,9 @@ export class IssueController {
     return await this.issueService.getIssuesByProject(id);
   }
 
-  @Get('/issue')
+  @Get('/issue/:id')
   @ApiCreatedResponse({
-    description: 'List all registered issues',
+    description: 'List specified registered issue',
     type: Issue,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
@@ -49,7 +49,7 @@ export class IssueController {
   }
 
 
-  @Delete('/issue') //with id param
+  @Delete('/issue/:id') //with id param
   @ApiCreatedResponse({
     description: 'Delete a specified issue by id',
     type: Boolean,
