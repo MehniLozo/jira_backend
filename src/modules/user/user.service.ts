@@ -19,7 +19,7 @@ export class UserService {
 
     return await user.save();
   }
-  async getUsers(): Promise<User | undefined> {
+  async getUsers(): Promise<User[] | undefined> {
     //return User.find({});
     return undefined;
   }

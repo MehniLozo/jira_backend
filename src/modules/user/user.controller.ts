@@ -1,4 +1,4 @@
-import { Body, Controller, Post,Get } from '@nestjs/common';
+import { Body, Controller, Post,Get,Delete } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -32,7 +32,7 @@ export class UserController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findUsers(
     userRegister: User,
-  ): Promise<User> {
+  ): Promise<User[]> {
     return await this.userService.getUsers();
   }
 }
