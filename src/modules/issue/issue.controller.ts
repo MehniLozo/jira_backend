@@ -12,7 +12,7 @@ import { IssueService } from './issue.service';
 export class IssueController {
   constructor(private issueService: IssueService) {}
 
-  @Post('/issue/register')
+  @Post('/register')
   @ApiCreatedResponse({
     description: 'Created issue object as response',
     type: Issue,
@@ -24,7 +24,7 @@ export class IssueController {
     return await this.issueService.createIssue(issueRegister);
   }
 
-  @Get('/project/issues')
+  @Get('')
   @ApiCreatedResponse({
     description: 'List all registered issues',
     type: Issue,
@@ -36,7 +36,7 @@ export class IssueController {
     return await this.issueService.getIssuesByProject(id);
   }
 
-  @Get('/issue/:id')
+  @Get('/:id')
   @ApiCreatedResponse({
     description: 'List specified registered issue',
     type: Issue,
@@ -49,7 +49,7 @@ export class IssueController {
   }
 
 
-  @Delete('/issue/:id') //with id param
+  @Delete('/:id') //with id param
   @ApiCreatedResponse({
     description: 'Delete a specified issue by id',
     type: Boolean,

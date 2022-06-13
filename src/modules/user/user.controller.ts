@@ -8,7 +8,7 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('User')
-@Controller('user')
+@Controller('')
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -24,7 +24,7 @@ export class UserController {
     return await this.userService.createUser(userRegister);
   }
 
-  @Get('/users')
+  @Get('')
   @ApiCreatedResponse({
     description: 'List all registered users',
     type: User,

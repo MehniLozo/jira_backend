@@ -12,7 +12,7 @@ import { ProjectService } from './project.service';
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
-  @Post('/project/register')
+  @Post('/register')
   @ApiCreatedResponse({
     description: 'Created project object as response',
     type: Project,
@@ -24,7 +24,7 @@ export class ProjectController {
     return await this.projectService.createProject(projectRegister);
   }
 
-  @Get('/projects')
+  @Get('')
   @ApiCreatedResponse({
     description: 'List all registered projects',
     type: Project,
@@ -36,7 +36,7 @@ export class ProjectController {
     return await this.projectService.getProjects();
   }
 
-  @Delete('/project/:id') //with id param
+  @Delete('/:id') //with id param
   @ApiCreatedResponse({
     description: 'Delete a specified project',
     type: Boolean,
