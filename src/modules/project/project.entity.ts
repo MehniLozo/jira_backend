@@ -13,9 +13,8 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {User} from '../user/user.entity';
+import {Issue} from '../issue/issue.entity';
 /*
-import {Project} from '';
-import {Issue} from '';
 import {Comment} from '';
 */
 @Entity({ name: 'projects' })
@@ -41,7 +40,7 @@ export class Project extends BaseEntity {
   @Column()
   description: string;
 
-  /*@OneToMany(
+  @OneToMany(
     () => Issue,
     issue => issue.project,
   )
@@ -52,7 +51,7 @@ export class Project extends BaseEntity {
     user => user.project,
   )
   users: User[];
-*/
+
   @ApiProperty({ description: 'When project was created' })
   @CreateDateColumn()
   createdAt: Date;

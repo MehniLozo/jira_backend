@@ -10,6 +10,7 @@ import {
   ManyToMany,
   ManyToOne,
   RelationId,
+JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {User} from '../user/user.entity';
@@ -69,13 +70,13 @@ export class Issue extends BaseEntity {
   @Column('integer')
   reporterId: number;
 
-  /*
+
   @ManyToOne(
     () => Project,
     project => project.issues,
   )
   project: Project;
-  */
+
   @ApiProperty({ description: 'ProjectID' })
   @Column('integer')
   projectId: number;
@@ -86,7 +87,7 @@ export class Issue extends BaseEntity {
   )
   comments: Comment[];
   */
-  /*
+
   @ManyToMany(
     () => User,
     user => user.issues,
@@ -96,7 +97,7 @@ export class Issue extends BaseEntity {
 
   @RelationId((issue: Issue) => issue.users)
   userIds: number[];
-  */
+
   /*
   @BeforeInsert()
   @BeforeUpdate()

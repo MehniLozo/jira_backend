@@ -13,9 +13,9 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
+import {Issue} from '../issue/issue.entity';
+import {Project} from '../project/project.entity';
 /*
-import {Project} from '';
-import {Issue} from '';
 import {Comment} from '';
 */
 @Entity({ name: 'users' })
@@ -47,7 +47,7 @@ export class User extends BaseEntity {
     () => Comment,
     comment => comment.user,
   )
-
+  */
   @ApiProperty({ description: 'User\'s Issues' })
   @ManyToMany(
     () => Issue,
@@ -63,7 +63,7 @@ export class User extends BaseEntity {
   project: Project;
 
   @RelationId((user: User) => user.project)
-  projectId: number;*/
+  projectId: number;
 
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()
