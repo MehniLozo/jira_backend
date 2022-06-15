@@ -57,8 +57,12 @@
 
 <br>
 
+```diff
+
 + Response 201 (application/json)
-    + Attribute (Issue)
+     Attribute (Issue)
+
+```
 
 <br>
 
@@ -74,8 +78,11 @@
 
 <img src="./screenDocs/IssueSearch.png" width="200">
 
+```diff
+
 + Response 200 (application/json)
-    + Attributes (array[Issues])
+     Attributes (array[Issues])
+```
 
 
 ### Comment
@@ -89,8 +96,11 @@
 
 <br>
 
-   + Response 200 (application/json)
-    + Attributes (Comment)
+```diff
+
++ Response 200 (application/json)
+     Attributes (Comment)
+```
 
 <br>
 
@@ -103,9 +113,12 @@
 
 <br>
 
-   + Response 200 (application/json)
+```diff
 
-        + Attributes (Comment)
++ Response 200 (application/json)
+     Attributes (Comment)
+
+```
 
 
 <br>
@@ -120,6 +133,9 @@
 
 <br>
 
-   + Response 200 OK
+```diff
++ Response 200 OK
+
+```
 
 
