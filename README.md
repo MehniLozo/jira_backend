@@ -18,8 +18,10 @@
 
 <br>
 
+```diff
 + Response 200 (application/json)
-    + Attribute (Board)
+    Attribute (Board)
+```
 
 ### Project 
 
@@ -30,8 +32,10 @@
  <br>
  <br>
 
+```diff
 + Response 201 (application/json)
-    + Attribute (Project)
+     Attribute (Project)
+```
 
 <br>
 
@@ -44,9 +48,10 @@
 
 <br>
 
+```diff
 + Response 200 (application/json)
-    + Attribute (Issue)
-
+     Attribute (Issue)
+```
 <br>
 
 * **Issue Modification** 
@@ -58,7 +63,6 @@
 <br>
 
 ```diff
-
 + Response 201 (application/json)
      Attribute (Issue)
 
@@ -72,14 +76,19 @@
 
 <br>
 
+```diff
++ Response 200 (application/json)
+     Attributes (array[Issues])
+```
 * **Issue Search** 
 
 #### ` GET /api/projects/{projectId}/issues/search`
 
 <img src="./screenDocs/IssueSearch.png" width="200">
 
-```diff
+<br>
 
+```diff
 + Response 200 (application/json)
      Attributes (array[Issues])
 ```
@@ -97,7 +106,6 @@
 <br>
 
 ```diff
-
 + Response 200 (application/json)
      Attributes (Comment)
 ```
@@ -114,7 +122,6 @@
 <br>
 
 ```diff
-
 + Response 200 (application/json)
      Attributes (Comment)
 
