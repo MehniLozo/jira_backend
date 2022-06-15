@@ -12,10 +12,14 @@
 ### Project's board (aka Home page for the project) 
 
 #### `GET /api/{projectId}/board`
+
 <img src="./screenDocs/board.png" width="200">
+
 <br>
+
 + Response 200 (application/json)
     + Attribute (Board)
+
 ### Project 
 
 * **Making changes** 
@@ -24,8 +28,10 @@
  <img src="./screenDocs/ProjectUpdate.png" width="200">
  <br>
  <br>
+
 + Response 201 (application/json)
     + Attribute (Project)
+
 <br>
 
 ### Issue
@@ -34,25 +40,32 @@
 #### `POST /api/projects/{projectId}/issues/`
 
 <img src="./screenDocs/IssueCreation.png" width="200">
+
 <br>
+
 + Response 200 (application/json)
     + Attribute (Issue)
 
+<br>
+
 * **Issue Modification** 
+
 #### `PATCH /api/projects/issues/{issueId}/`
 
 <img src="./screenDocs/IssueModification.png" width="200">
 
 <br>
+
 + Response 201 (application/json)
     + Attribute (Issue)
+
+<br>
 
 * **Issue Removal**
 #### `DELETE /api/projects/issues/{issueId}/ `
 <img src="./screenDocs/IssueDelete.png" width="200">
 
-
-    
+<br>
 
 * **Issue Search** 
 #### ` GET /api/projects/{projectId}/issues/search`
