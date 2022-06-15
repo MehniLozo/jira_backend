@@ -5,7 +5,7 @@
 `GET /api/{projectId}/board`
 ##### Project 
 Making changes : 
-![Modifying project](./screenDocs/ProjectUpdate.jpeg)
+![Modifying project](./screenDocs/ProjectUpdate.png)
 ##### Issue
 
 
