@@ -12,6 +12,8 @@
 ### Project's board (aka Home page for the project) 
 
 #### `GET /api/{projectId}/board`
+<img src="./screenDocs/board.png" width="200">
+<br>
 + Response 200 (application/json)
     + Attribute (Board)
 ### Project 
