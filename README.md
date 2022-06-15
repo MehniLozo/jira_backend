@@ -3,7 +3,7 @@
 
 ### Login 
 ### About 
- `GET /api/about`
+ `GET /api/about` \s\s
 ![Api info](./screenDocs/about.png)
 
 ### Project's board (aka Home page for the project) \
@@ -11,19 +11,19 @@
 `GET /api/{projectId}/board`
 
 ### Project 
-* **Making changes** \ 
+* **Making changes** \s\s
 `PUT /api/projects/{projectId}`
 ![Modifying project](./screenDocs/ProjectUpdate.png)
 ### Issue
-* **Issue Creation** \
+* **Issue Creation** \s\s
  `POST /api/projects/{projectId}/issues/`
 ![Create new Issue](./screenDocs/IssueCreation.png)
 
-* **Issue Modification** \
+* **Issue Modification** \s\s
  `PUT /api/projects/{projectId}/issues/`
 ![Modify Issue](./screenDocs/IssueModification.png)
 
-* **Issue Search** \
+* **Issue Search** \s\s
 ` GET /api/projects/{projectId}/issues/search`
 ![Search an Issue](./screenDocs/IssueSearch.png)
 
