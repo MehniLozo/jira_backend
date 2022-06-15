@@ -6,6 +6,7 @@
 ### `GET /api/about` 
 
 <img src="./screenDocs/about.png" width="200">
+
 <br>
 <br>
 
@@ -68,11 +69,57 @@
 <br>
 
 * **Issue Search** 
+
 #### ` GET /api/projects/{projectId}/issues/search`
 
 <img src="./screenDocs/IssueSearch.png" width="200">
 
 + Response 200 (application/json)
     + Attributes (array[Issues])
+
+
+### Comment
+<br>
+
+* **Commment Addition**
+
+#### `POST /api/issues/{issueId}/comment `
+
+<img src="./screenDocs/IssueSearch.png" width="200">
+
+<br>
+
+   + Response 200 (application/json)
+    + Attributes (Comment)
+
+<br>
+
+* **Commment Modification**
+
+
+#### `PUT /api/issues/{issueId}/comments/{commentId} `
+
+<img src="./screenDocs/IssueModification.png" width="200">
+
+<br>
+
+   + Response 200 (application/json)
+
+        + Attributes (Comment)
+
+
+<br>
+
+* **Comment Removal**
+
+
+
+#### ` DELETE /api/issue/comment{commentId}`
+
+<img src="./screenDocs/CommentDeletion.png" width="200">
+
+<br>
+
+   + Response 200 OK
 
 

@@ -574,7 +574,7 @@ paths:
         "405":
           description: "Invalid input"
       #security: #soon
-  /issues/comment:
+  /issues/comments:
     get:
       tags:
       - "comment"
@@ -594,6 +594,8 @@ paths:
           description: "Invalid ID supplied"
         "404":
           description: "Order not found"
+          
+  /issues/comments/{commentId}:
     put:
       tags:
       - "comment"
@@ -605,6 +607,10 @@ paths:
       produces:
       - "application/json"
       parameters:
+        - in : "path"
+          name : commentId
+          type: integer
+          required: true
         - in: "body"
           name: "body"
           description: "Pet object that needs to be added to the store"
