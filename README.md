@@ -4,8 +4,10 @@
 ## Login 
 ## About 
 ### `GET /api/about` 
-![Api info](./screenDocs/about.png)
 
+<img src="./screenDocs/about.png" width="200">
+<br>
+<br>
 ### Project's board (aka Home page for the project) 
 
 ### `GET /api/{projectId}/board`
@@ -16,38 +18,43 @@
 * **Making changes** 
 ### `PUT /api/projects/{projectId}`
 
-![Modifying project](./screenDocs/ProjectUpdate.png)
-
+ <img src="./screenDocs/ProjectUpdate.png" width="200">
+ <br>
+ <br>
 + Response 201 (application/json)
     + Attribute (Project)
+<br>
+
 ### Issue
 
 * **Issue Creation**
 ### `POST /api/projects/{projectId}/issues/`
 
-![Create new Issue](./screenDocs/IssueCreation.png)
-
+<img src="./screenDocs/IssueCreation.png" width="200">
+<br>
 + Response 200 (application/json)
     + Attribute (Issue)
 
 * **Issue Modification** 
 ### `PATCH /api/projects/issues/{issueId}/`
 
-![Modify Issue](./screenDocs/IssueModification.png)
+<img src="./screenDocs/IssueModification.png" width="200">
 
+<br>
 + Response 201 (application/json)
     + Attribute (Issue)
 
 * **Issue Removal**
 ### `DELETE /api/projects/issues/{issueId}/ `
-![Modify Issue](./screenDocs/IssueDelete.png)
+<img src="./screenDocs/IssueDelete.png" width="200">
+
 
     
 
 * **Issue Search** 
 ### ` GET /api/projects/{projectId}/issues/search`
 
-![Search an Issue](./screenDocs/IssueSearch.png)
+<img src="./screenDocs/IssueSearch.png" width="200">
 
 + Response 200 (application/json)
     + Attributes (array[Issues])
