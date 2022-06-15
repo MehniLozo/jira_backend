@@ -41,6 +41,19 @@
 
 ### Issue
 
+* **Issue Consulting**
+#### `GET /api/projects/issues/{issueId}/`
+
+<img src="./screenDocs/IssueConsulting.png" width="200">
+
+<br>
+
+```diff
++ Response 200 (application/json)
+     Attribute (Issue)
+```
+<br>
+
 * **Issue Creation**
 #### `POST /api/projects/{projectId}/issues/`
 
@@ -101,7 +114,7 @@
 
 #### `POST /api/issues/{issueId}/comment `
 
-<img src="./screenDocs/IssueSearch.png" width="200">
+<img src="./screenDocs/CommentAddition.png" width="200">
 
 <br>
 
