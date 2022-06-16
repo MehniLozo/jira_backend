@@ -4,7 +4,7 @@ import {
   ApiCreatedResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Comment } from './comment.entity';
+import  Comment  from './comment.entity';
 import { CommentService } from './comment.service';
 
 @ApiTags('Comment')
@@ -33,7 +33,7 @@ export class CommentController {
   async findCommentsByProject(
     id:number,
   ): Promise<Comment[]> {
-    return await this.commentService.getCommentsByProject(id);
+    return await this.commentService.getCommentsByIssue(id);
   }
 
   @Get('/:id')

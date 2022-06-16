@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Comment } from './comment.entity';
+import  Comment  from './comment.entity';
 
 @Injectable()
 export class CommentService {
@@ -14,7 +14,7 @@ export class CommentService {
 
     return await comment.save();
   }
-  async getCommentsByProject(id:number): Promise<Comment[] | undefined> {
+  async getCommentsByIssue(id:number): Promise<Comment[] | undefined> {
     //ops here for returning all the comments
     return undefined;
   }

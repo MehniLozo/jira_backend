@@ -15,9 +15,9 @@ import * as bcrypt from 'bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
 import {Issue} from '../issue/issue.entity';
 import {Project} from '../project/project.entity';
-/*
-import {Comment} from '';
-*/
+
+import Comment from '../comment/comment.entity';
+
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
   @ApiProperty({ description: 'Primary key as User ID', example: 1 })
@@ -41,13 +41,13 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  /*
+
   @ApiProperty({ description: 'User\'s comments' })
   @OneToMany(
     () => Comment,
     comment => comment.user,
   )
-  */
+  comments:Comment[];
   @ApiProperty({ description: 'User\'s Issues' })
   @ManyToMany(
     () => Issue,
