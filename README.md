@@ -66,7 +66,7 @@ Responses:
 <br>
 
 ```diff
-Parameters:
+Parameter:
     Path : issueId
 Responses:
 + 200 (application/json)
@@ -88,6 +88,22 @@ Responses:
 Parameters:
     Path: projectId
     Body: Issue
+        title	         string
+        type	         Type    
+        status	         Status  
+        priority         Priority
+        listPosition	 integer
+        description	     string
+        descriptionText	 string
+        estimate	     integer
+        timeSepnt	     integer
+        timeRemaining	 integer
+        reporterId	     integer
+        project	         Project
+        projectId	     integer
+        comments	     Comment[]
+        users	         User[]
+        userIds	         integer[]
 Responses:
 + 200 (application/json)
     Attribute (Issue)
@@ -125,7 +141,11 @@ Responses:
 <br>
 
 ```diff
-+ Response 200 (application/json)
+Parameter:
+    Path: issueId
+Responses:
++ 200 Issue has been deleted
+- 404 Issue doesn't exist
 ```
 * **Issue Search** 
 
@@ -136,8 +156,12 @@ Responses:
 <br>
 
 ```diff
-+ Response 200 (application/json)
+Parameter:
+    Path: projectId
+Responses
++ 200 (application/json)
      Attributes (array[Issues])
+- 404 Project doesn't exist
 ```
 
 
@@ -153,8 +177,18 @@ Responses:
 <br>
 
 ```diff
-+ Response 200 (application/json)
-     Attributes (Comment)
+Parameter:
+    Path: issueId
+    Body: Comment
+        body	    string
+        user	    User
+        userId	    integer
+        issue	    Issue
+        issueId	    integer
+Responses:
++ 200 (application/json)
+     Attribute (Comment)
+- 404 Issue doesn't exist
 ```
 
 <br>
@@ -162,15 +196,21 @@ Responses:
 * **Commment Modification**
 
 
-#### `PUT /api/issues/{issueId}/comments/{commentId} `
+#### `PUT /api/issues/comments/{commentId} `
 
 <img src="./screenDocs/IssueModification.png" width="200">
 
 <br>
 
 ```diff
-+ Response 200 (application/json)
+Parameters:
+    Path: commentId
+    Body: Comment
+Responses:
++ 200 (application/json)
      Attributes (Comment)
+- 404 Comment doesn't exist
+- 405 Something went wrong
 
 ```
 
@@ -188,7 +228,11 @@ Responses:
 <br>
 
 ```diff
-+ Response 200 OK
+Parameter:
+    Path: commentId
+Responses
++ 200 OK
+- 404 Comment doesn't exist
 
 ```
 
