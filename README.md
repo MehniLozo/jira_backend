@@ -91,7 +91,6 @@
 
 ```diff
 + Response 200 (application/json)
-     Attributes (array[Issues])
 ```
 * **Issue Search** 
 
