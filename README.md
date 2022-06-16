@@ -19,8 +19,14 @@
 <br>
 
 ```diff
-+ Response 200 (application/json)
+Parameters: 
+    Path : projectId
+    Body : None
+
+Responses:
++ 200 (application/json)
     Attribute (Board)
+- 404 Project not found
 ```
 
 ### Project 
@@ -33,8 +39,19 @@
  <br>
 
 ```diff
-+ Response 201 (application/json)
+Parameters:
+    Path: projectId
+    Body: 
+        Project
+            name	string
+            description	string
+            category	string
+            url	string
+Responses:
++  201 (application/json)
      Attribute (Project)
+- 404 Project not found
+- 405	Invalid input
 ```
 
 <br>
@@ -49,8 +66,14 @@
 <br>
 
 ```diff
-+ Response 200 (application/json)
-     Attribute (Issue)
+Parameters:
+    Path : issueId
+Responses:
++ 200 (application/json)
+    Attribute (Issue)
+- 404 Issue doesn't exist
+
+
 ```
 <br>
 
@@ -62,8 +85,14 @@
 <br>
 
 ```diff
-+ Response 200 (application/json)
-     Attribute (Issue)
+Parameters:
+    Path: projectId
+    Body: Issue
+Responses:
++ 200 (application/json)
+    Attribute (Issue)
+- 400 Something's wrong
+- 405 Project's couldn't be saved
 ```
 <br>
 
@@ -76,8 +105,14 @@
 <br>
 
 ```diff
-+ Response 201 (application/json)
+Parameters:
+    Path: issueId
+    Body: Issue
+Responses:
++ 201 (application/json)
      Attribute (Issue)
+- 404: Issue doesn't exist
+- 405: Something's wrong with the input
 
 ```
 
