@@ -13,13 +13,9 @@ export class ProjectService {
 
     return await project.save();
   }
-  async getProjects(): Promise<Project[] | undefined> {
-    //ops here for returning all the projects
-    return undefined;
-  }
-
   async getProjectById(id: number): Promise<Project | undefined> {
-    return Project.findOne({ where: { id } });
+    //can be used for board retrieval aswell aswell
+    return await Project.findOne({ where: { id } });
   }
     /*
   async modifyProject(user: Project): Promise<Project | undefined> {
@@ -27,7 +23,7 @@ export class ProjectService {
   }*/
   async deleteProject(id: number): Promise<any> {
       try{
-        const targetProject = Project.findOne({where:{id}});
+        const targetProject = await Project.findOne({where:{id}});
         //ops here for deleting
     }catch(e){
       console.log("Project doesn't exist");

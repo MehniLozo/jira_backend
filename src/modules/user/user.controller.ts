@@ -8,7 +8,7 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('User')
-@Controller('')
+@Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 

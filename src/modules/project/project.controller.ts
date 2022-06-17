@@ -8,7 +8,7 @@ import { Project } from './project.entity';
 import { ProjectService } from './project.service';
 
 @ApiTags('Project')
-@Controller('project')
+@Controller('projects')
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
@@ -24,19 +24,19 @@ export class ProjectController {
     return await this.projectService.createProject(projectRegister);
   }
 
-  @Get('')
+  @Get('/:projectId')
   @ApiCreatedResponse({
-    description: 'List all registered projects',
+    description: 'Get a specific project by ID',
     type: Project,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findProjects(
+  async findProjectById(
     id:number,
-  ): Promise<Project[]> {
-    return await this.projectService.getProjects();
+  ): Promise<Project> {
+    return await this.projectService.getProjectById(id);
   }
 
-  @Delete('/:id') //with id param
+  @Delete('/:projectId') //with id param
   @ApiCreatedResponse({
     description: 'Delete a specified project',
     type: Boolean,
