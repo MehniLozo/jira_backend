@@ -1,21 +1,22 @@
 import {ProjectController} from './project.controller';
 import {ProjectService} from './project.service';
+import { Test, TestingModule } from '@nestjs/testing';
 
 describe('ProjectController',() => {
   let projectController: ProjectController;
-  let projectService: ProjectService;
 
-  beforeEach(() => {
-    projectService = new ProjectService();
-    projectController =  new ProjectController(projectService);
-  });
+  beforeEach(async () => {
+    let module:TestingModule ;
+     module = await Test.createTestingModule({
+       controllers: [ProjectController],
+       providers:[ProjectService],
+    }).compile()
 
-  describe('findOne',(id) => {
-    it("should return the specified project by ID ", async (id) => {
-      const result = ['test'];
-      jest.spyOn(projectService,'findOne').mockImplementation(() => result);
+    projectController= module.get<ProjectController>(ProjectController);
 
-      expect(await projectController.findOne(id)).toBe(result);
-    })
+  })
+
+  it('should be defined', () => {
+    expect(projectController).toBeDefined();
   })
 })
