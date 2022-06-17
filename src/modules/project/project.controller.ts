@@ -6,20 +6,22 @@ import {
 } from '@nestjs/swagger';
 import { Project } from './project.entity';
 import { ProjectService } from './project.service';
+import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
+
 
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
-  @Post('/register')
+  @Post('/project')
   @ApiCreatedResponse({
     description: 'Created project object as response',
     type: Project,
   })
   @ApiBadRequestResponse({ description: 'Project cannot register. Try again!' })
   async doCreateProject(
-    projectRegister: Project,
+    projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
     return await this.projectService.createProject(projectRegister);
   }
@@ -32,7 +34,7 @@ export class ProjectController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findProjectById(
     id:number,
-  ): Promise<Project> {
+  ): Promise<Project | undefined> {
     return await this.projectService.getProjectById(id);
   }
 

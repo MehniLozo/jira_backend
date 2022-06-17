@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Project } from './project.entity';
-
+import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
 @Injectable()
 export class ProjectService {
   async createProject(
-    projectRegister: Project,
+    projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
     const project = new Project();
     project.name = projectRegister.name;
     project.url = projectRegister.url;
     project.description = projectRegister.description;
+    project.category = projectRegister.category;
 
     return await project.save();
   }

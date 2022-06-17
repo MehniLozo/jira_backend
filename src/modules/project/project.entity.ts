@@ -17,6 +17,8 @@ import {Issue} from '../issue/issue.entity';
 /*
 import {Comment} from '';
 */
+import {ProjectCategory} from './project.constants';
+
 @Entity({ name: 'projects' })
 export class Project extends BaseEntity {
   @ApiProperty({ description: 'Primary key as Project ID', example: 1 })
@@ -40,6 +42,9 @@ export class Project extends BaseEntity {
   @Column()
   description: string;
 
+
+  @Column()
+  category: ProjectCategory;
   @OneToMany(
     () => Issue,
     issue => issue.project,
