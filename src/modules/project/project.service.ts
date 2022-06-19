@@ -14,25 +14,12 @@ export class ProjectService {
   async createProject(
     projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
-    /*const project = new Project();
-    project.name = projectRegister.name;
-    project.url = projectRegister.url;
-    project.description = projectRegister.description;
-    project.category = projectRegister.category;
-
-    return await project.save();*/
     return await this.projectRepo.create(projectRegister).save();
-    //return await AppDataSource.manager.save(project);
   }
   async getProjectById(id: number): Promise<Project | undefined> {
-    //can be used for board retrieval aswell aswell
-    //return await Project.findOne({ where: { id } });
+
     return await this.projectRepo.findOne({where: {id}});
   }
-    /*
-  async modifyProject(user: Project): Promise<Project | undefined> {
-
-  }*/
   async deleteProject(id: number): Promise<any> {
       try{
         await this.projectRepo.delete(id);

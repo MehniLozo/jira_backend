@@ -5,9 +5,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ProjectRegisterRequestDto} from './modules/project/dto/project-register.req.dto';
 import { ProjectService} from './modules/project/project.service';
 import { ProjectCategory} from './modules/project/project.constants';
-import { Project} from './modules/project/project.entity';
 
-import appDataSource from './config/app-data-source';
+//import { Project} from './modules/project/project.entity';
+//import appDataSource from './config/app-data-source';
 
 
 
