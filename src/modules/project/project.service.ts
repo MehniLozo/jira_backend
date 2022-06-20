@@ -14,7 +14,7 @@ export class ProjectService {
   async createProject(
     projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
-    return await this.projectRepo.create(projectRegister).save();
+    return await this.projectRepo.create(projectRegister);
   }
   async getProjectById(id: number): Promise<Project | undefined> {
 

@@ -4,11 +4,11 @@ import {Project} from './project.entity';
 import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
 import {ProjectCategory} from './project.constants';
 import {ProjectService} from './project.service';
-//import { plainToClass } from 'class-transformer';
 import {TypeOrmModule,getRepositoryToken} from '@nestjs/typeorm';
 //import appDataSource from '../../config/app-data-source';
-  //const project: Project = plainToClass(ProjectRegisterRequestDto,{id: 1, })
 import {repositoryMockFactory} from './repositoryMockFactory';
+import {MockType} from './repositoryMockFactory';
+
 describe('ProjectService', () => {
 
 
@@ -25,7 +25,7 @@ describe('ProjectService', () => {
  }); */
 
 let projectService: ProjectService;
-let repositoryMock: Repository<Project>;
+let repositoryMock: MockType<Repository<Project>>;
   beforeEach(async() => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [ProjectService,
