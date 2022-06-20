@@ -51,7 +51,6 @@ class Comment extends BaseEntity {
     { onDelete: 'CASCADE' },
   )
   issue: Issue;
-
   @ApiProperty({ description: 'Belonging to an issue id' })
   @Column('integer')
   issueId: number;

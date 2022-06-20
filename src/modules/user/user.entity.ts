@@ -56,14 +56,22 @@ export class User extends BaseEntity {
   issues: Issue[];
 
   @ApiProperty({ description: 'User\'s Project' })
-  @ManyToOne(
+  @ManyToMany(
     () => Project,
     project => project.users,
   )
-  project: Project;
-
-  @RelationId((user: User) => user.project)
-  projectId: number;
+  projects: Project[];
+/*
+  //needs a fix here pls
+  @ApiProperty({ description: 'User\'s owned projects' })
+  @OneToMany(
+    () => Project,
+    project => project.ownerId,
+  )
+  ownProjects: Project[];
+*/
+  /*@RelationId((user: User) => user.project)
+  projectId: number;*/
 
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()

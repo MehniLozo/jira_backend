@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
   ManyToMany,
   ManyToOne,
   RelationId,
@@ -65,8 +66,12 @@ export class Issue extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ApiProperty({ description: 'ReporterID' })
-  @Column('integer')
+
+  @OneToOne(() => User)
+  reporter: User;
+  @ApiProperty({ description: 'Reporter' })
+  @Column('')
+  //@RelationId((user: User) => user.)
   reporterId: number;
 
 
@@ -98,6 +103,7 @@ export class Issue extends BaseEntity {
   userIds: number[];
 
   /*
+  //some process decoration still need to be done soon enough
   @BeforeInsert()
   @BeforeUpdate()
 

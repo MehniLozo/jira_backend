@@ -1,6 +1,8 @@
 # Jira clone Backend 
 ## Backend service for Jira Clone
-### TODO
+### URGENT TODOS
+- Project owner attribute fix
+### FEATURES TODOS
 - REST API : using Nest
     - Entities
         - Project

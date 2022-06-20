@@ -41,8 +41,15 @@ export class Project extends BaseEntity {
   @ApiProperty({ description: 'Project\'s description' })
   @Column()
   description: string;
+/*
+  @ApiProperty({ description: 'Project\'s Owner' })
+  @Column()
+  @ManyToOne(() => User ,user => user.ownProjects)
+  owner: User;
 
-
+  @RelationId((project:Project) => project.owner)
+  ownerId : number;
+*/
   @Column()
   category: ProjectCategory;
   @OneToMany(
@@ -53,7 +60,7 @@ export class Project extends BaseEntity {
 
   @OneToMany(
     () => User,
-    user => user.project,
+    user => user.projects,
   )
   users: User[];
 

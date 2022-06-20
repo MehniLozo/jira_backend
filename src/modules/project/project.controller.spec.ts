@@ -10,7 +10,12 @@ describe('ProjectController',() => {
     let module:TestingModule ;
      module = await Test.createTestingModule({
        controllers: [ProjectController],
-       providers:[ProjectService],
+       providers:[ProjectService,
+        {
+          provide: getRepositoryToken(Project),
+          useFactory: repositoryMockFactory
+        }
+       ],
     }).compile()
 
     projectController= module.get<ProjectController>(ProjectController);
