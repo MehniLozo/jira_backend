@@ -31,8 +31,7 @@ async function bootstrap() {
   await app.listen(3000);
 
 
-  //this works but not in test dunno why
-  //just for testing purposes
+  //the following is just for DB testing purposes
   /*try{
       const registerProject: ProjectRegisterRequestDto = {
         name:'third',
