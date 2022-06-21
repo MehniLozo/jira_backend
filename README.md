@@ -6,28 +6,28 @@
 ### Architecture TODOS
 
 REST API :
-- &check; Project
-  - [&check;] controllers
-    - [&check;] Unit Test
-  - [&check;] services
+- [ ] Project
+  - [x] controllers
+    - [ ] Unit Test
+  - [x] services
     - [x] Unit Test
-- [x] User
-  - [&check;] controllers
-    - [x] unit test
-  - [&check;] services
-    - [x] unit test
+- [ ] User
+  - [x] controllers
+    - [ ] unit test
+  - [x] services
+    - [ ] unit test
 - [x] Issue
-  - [&check;] controllers
-    - [x] unit test
-  - [&check;] services
-    - [x] unit test
+  - [x] controllers
+    - [ ] unit test
+  - [x] services
+    - [ ] unit test
 - [x] Comment
-  - [&check;] controllers
-    - [x] unit test
-  - [&check;] services
-    - [x] unit test
+  - [x] controllers
+    - [ ] unit test
+  - [x] services
+    - [ ] unit test
 
-- [&check;] Database creation and linking
-- [x] Data Seeding (fake data generator)
-- [x] Application Containerization
+- [ ] Database creation and linking
+- [ ] Data Seeding (fake data generator)
+- [ ] Application Containerization
     - Separation of Concern : Each major component such as API engine and Database should be hosted in its separate container
