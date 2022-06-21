@@ -12,7 +12,7 @@ describe('ProjectService', () => {
 
 //Mocking the repository (persistence layer) in order to simplify testing and keep it only in service scope
 let projectService: ProjectService;
-let repositoryMock: MockType<Repository<Project>>;
+let projectRepositoryMock: MockType<Repository<Project>>;
   beforeEach(async() => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [ProjectService,
@@ -24,7 +24,7 @@ let repositoryMock: MockType<Repository<Project>>;
     }).compile();
 
     projectService = module.get<ProjectService>(ProjectService);
-    repositoryMock = module.get(getRepositoryToken(Project));
+    projectRepositoryMock = module.get(getRepositoryToken(Project));
   })
 
   it('Should be defined', () => {
@@ -49,14 +49,34 @@ let repositoryMock: MockType<Repository<Project>>;
     })
   })
   //Get some registered project
-  describe('access a registered project', () => {
-    it('should send back the desired project alongside with its detailed information',async() => {
+  /*describe('access a registered project', () => {
+it('should send back the desired project alongside with its detailed information',async() => {
 
     })
-  })
-  //Delete project
+  })*/
+  //Mock Update project
+  describe('updateProjectById', () => {
+    it('should call the update method', async ()=> {
+      const updatedProject = await projectService.updateProjectById(1,{
+        name: 'Jira Mock',
+        url: 'jiraMocking.com',
+        description: 'This is some random description',
+        category: ProjectCategory.MARKETING
+      });
+      //expect(updatedProject).toEqual()
+      expect(projectRepositoryMock.update).toBeCalledTimes(1);
+      expect(projectRepositoryMock.update).toBeCalledWith(1,
+        {
+        name:'Jira Mock',
+        url: 'jiraMocking.com',
+        description: 'This is some random description',
+        category: ProjectCategory.MARKETING
+    });
 
-  //Update project
+    });
+  })
+  // Mock Delete project
+
 
 
 })

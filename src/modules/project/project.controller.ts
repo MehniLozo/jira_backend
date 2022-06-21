@@ -46,6 +46,6 @@ export class ProjectController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async deleteProject(
     id:number,
-  ): Promise<Boolean> {
+  ): Promise<{deleted: boolean; message?:string}> {
     return await this.projectService.deleteProject(id);
   }}

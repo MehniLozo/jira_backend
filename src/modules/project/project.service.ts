@@ -20,18 +20,19 @@ export class ProjectService {
 
     return await this.projectRepo.findOne({where: {id}});
   }
-  async patchProjectById(id:number,body: ProjectRegisterRequestDto): Promise<any> {
+  async updateProjectById(id:number,body: ProjectRegisterRequestDto): Promise<any> {
     try{
       return await this.projectRepo.update(id,body);
     }catch(e){
       console.log('Something occured or the project doesn\'t exist')
     }
   }
-  async deleteProject(id: number): Promise<any> {
+  async deleteProject(id: number): Promise<{deleted: boolean; message?:string}> {
       try{
-        await this.projectRepo.delete(id);
+        await this.projectRepo.delete({id});
+        return {deleted: true};
     }catch(e){
-      console.log("Project doesn't exist");
+      return {deleted:false,message: e.message};
     }
 
   }
