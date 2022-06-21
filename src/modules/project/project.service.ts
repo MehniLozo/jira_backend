@@ -20,6 +20,13 @@ export class ProjectService {
 
     return await this.projectRepo.findOne({where: {id}});
   }
+  async patchProjectById(id:number,body: ProjectRegisterRequestDto): Promise<any> {
+    try{
+      return await this.projectRepo.update(id,body);
+    }catch(e){
+      console.log('Something occured or the project doesn\'t exist')
+    }
+  }
   async deleteProject(id: number): Promise<any> {
       try{
         await this.projectRepo.delete(id);

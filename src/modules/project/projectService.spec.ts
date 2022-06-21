@@ -6,8 +6,7 @@ import {ProjectCategory} from './project.constants';
 import {ProjectService} from './project.service';
 import {TypeOrmModule,getRepositoryToken} from '@nestjs/typeorm';
 //import appDataSource from '../../config/app-data-source';
-import {repositoryMockFactory} from './repositoryMockFactory';
-import {MockType} from './repositoryMockFactory';
+import {MockType,repositoryMockFactory} from '../../repository/repositoryMockFactory';
 
 describe('ProjectService', () => {
 
@@ -43,8 +42,21 @@ let repositoryMock: MockType<Repository<Project>>;
       }
       const project = await projectService.createProject(registerProject);
        expect(project.name).toBe('Jira');
+       expect(project.url).toBe("jira.com")
+       expect(project.description).toBe("MyJiraProject")
+       expect(project.category).toBe("software")
 
     })
   })
+  //Get some registered project
+  describe('access a registered project', () => {
+    it('should send back the desired project alongside with its detailed information',async() => {
+
+    })
+  })
+  //Delete project
+
+  //Update project
+
 
 })
