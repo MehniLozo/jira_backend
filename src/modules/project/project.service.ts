@@ -27,12 +27,12 @@ export class ProjectService {
       console.log('Something occured or the project doesn\'t exist')
     }
   }
-  async deleteProject(id: number): Promise<{deleted: boolean; message?:string}> {
+  async deleteProject(id: number):Promise<{ deleted: boolean; message?: string }> {
       try{
         await this.projectRepo.delete({id});
         return {deleted: true};
-    }catch(e){
-      return {deleted:false,message: e.message};
+    }catch(err){
+      return {deleted:false,message: err.message};
     }
 
   }

@@ -63,7 +63,7 @@ it('should send back the desired project alongside with its detailed information
         description: 'This is some random description',
         category: ProjectCategory.MARKETING
       });
-      //expect(updatedProject).toEqual()
+      //expect(updatedProject).toEqual(SomeNewProject)
       expect(projectRepositoryMock.update).toBeCalledTimes(1);
       expect(projectRepositoryMock.update).toBeCalledWith(1,
         {
@@ -76,6 +76,23 @@ it('should send back the desired project alongside with its detailed information
     });
   })
   // Mock Delete project
+  describe('deleteProject', () => {
+    it('should return {deleted: true}', () => {
+      expect(projectService.deleteProject(5)).resolves.toEqual({deleted:true});
+    })
+    it("should return {deleted: false, message: err.message}", () => {
+      const repoSpy = jest.spyOn(projectRepositoryMock,'delete')
+      .mockRejectedValueOnce(new Error('Garbage delete'));
+      //supposedly with a project that doesn't exist
+      expect(projectService.deleteProject(5)).resolves.toEqual({
+        deleted: false,
+        message: 'Garbage delete',
+      });
+      expect(repoSpy).toHaveBeenCalled();
+      expect(repoSpy).toBeCalledTimes(1);
+      expect(repoSpy).toBeCalledWith({id:5}) //making sure that the previous simulation went through
+    })
+  })
 
 
 
