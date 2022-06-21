@@ -11,19 +11,7 @@ import {MockType} from './repositoryMockFactory';
 
 describe('ProjectService', () => {
 
-
- /*
- //causing test error
- beforeAll(async () => {
-  const module = await Test.createTestingModule({
-     imports: [
-       TypeOrmModule.forRoot(),
-       TypeOrmModule.forFeature([Project])
-     ],
-     providers: [ProjectService]
-   }).compile();
- }); */
-
+//Mocking the repository (persistence layer) in order to simplify testing and keep it only in service scope
 let projectService: ProjectService;
 let repositoryMock: MockType<Repository<Project>>;
   beforeEach(async() => {
@@ -48,13 +36,13 @@ let repositoryMock: MockType<Repository<Project>>;
   describe('createProject()', () => {
     it('should create project', async () => {
       const registerProject: ProjectRegisterRequestDto = {
-        name:'fourth',
-        url:'fourth.com',
-        description:'myFourthProject',
+        name:'Jira',
+        url:'jira.com',
+        description:'MyJiraProject',
         category:ProjectCategory.SOFTWARE
       }
       const project = await projectService.createProject(registerProject);
-       expect(project.name).toBe('fourth');
+       expect(project.name).toBe('Jira');
 
     })
   })

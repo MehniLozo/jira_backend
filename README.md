@@ -11,6 +11,8 @@
         - Comment
     - Services
     - Controllers
+### TESTING TODOS
+    - Unit test for all entities for each of controllers and services and even entities
 - Database creation and linking
 - Swagger Documentation creation from API decorators.
   After launching the server via `nest start` you can consult `http://localhost:3000/api/` to get a better idea about the API and its available functionalities
