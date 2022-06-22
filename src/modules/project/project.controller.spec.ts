@@ -12,6 +12,13 @@ describe('ProjectController',() => {
   let projectService: ProjectService;
   let project: Project;
 
+  const updateBody = {
+    name: 'Jira Mock',
+    url: 'jiraMocking.com',
+    description: 'This is some random description',
+    category: ProjectCategory.MARKETING
+  }
+
   beforeEach(async () => {
     let module:TestingModule ;
      module = await Test.createTestingModule({
@@ -37,6 +44,12 @@ describe('ProjectController',() => {
            })
 
         }),
+        /*updateProjectById: jest.fn().mockImplementation((id:number,updateBody:ProjectRegisterRequestDto) => {
+
+          Promise.resolve(updateBody)
+        }),*/
+        updateProjectById: jest.fn().mockResolvedValueOnce(updateBody),
+
         deleteProject:jest.fn().mockResolvedValue({deleted:true})
       }
     }
@@ -84,16 +97,17 @@ describe('ProjectController',() => {
 
   })
 
-    /*describe('findProjectById', () => {
-
+    describe('updateProjectById', () => {
       describe('when createProject is called', () => {
-        beforeEach(async() =>{
+        it('it should return the updated project',async() => {
 
+          await expect(projectController.updateProjectById(1,updateBody)).resolves.toEqual(updateBody);
+          //expect(projectController.updateProjectById).toBeCalledTimes(1);
         })
       })
 
     })
-    */
+
     describe('deleteProject', () => {
 
           it('should return that the desired project has been deleted', async () => {

@@ -1,4 +1,4 @@
-import { Body, Controller, Post,Get,Delete } from '@nestjs/common';
+import { Body, Controller, Post,Get,Delete,Put } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -36,6 +36,19 @@ export class ProjectController {
     id:number,
   ): Promise<Project | undefined> {
     return await this.projectService.getProjectById(id);
+  }
+
+  @Put('/:projectId')
+  @ApiCreatedResponse({
+    description: 'Update a specific project by ID',
+    type: Project,
+  })
+  @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
+  async updateProjectById(
+    id:number,
+    body:ProjectRegisterRequestDto
+  ): Promise<Project | undefined> {
+    return await this.projectService.updateProjectById(id,body);
   }
 
   @Delete('/:projectId') //with id param
