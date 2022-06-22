@@ -103,9 +103,9 @@ describe('ProjectController',() => {
 
       it('should return an error for the non existant project', async() => {
         const spyGetProject = jest.spyOn(projectService,"getProjectById")
-          .mockResolvedValueOnce("Something went wrong");
+          .mockResolvedValueOnce("Project doesnt exist");
         await expect(projectController.findProjectById(1)).resolves
-          .toEqual("Something went wrong");
+          .toEqual("Project doesnt exist");
         expect(projectService.getProjectById).toBeCalled();
       })
     })

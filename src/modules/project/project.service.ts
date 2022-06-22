@@ -21,7 +21,7 @@ export class ProjectService {
       return await this.projectRepo.findOne({where: {id}});
     }catch(err){
       console.log(err);
-      return "Something went wrong"
+      return "Project doesnt exist"
     }
   }
   async updateProjectById(id:number,body: ProjectRegisterRequestDto): Promise<any> {
@@ -29,6 +29,7 @@ export class ProjectService {
       return await this.projectRepo.update(id,body);
     }catch(e){
       console.log('Something occured or the project doesn\'t exist')
+      return "Project doesnt exist";
     }
   }
   async deleteProject(id: number):Promise<{ deleted: boolean; message?: string }> {
