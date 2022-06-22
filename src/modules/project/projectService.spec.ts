@@ -31,7 +31,6 @@ let projectRepositoryMock: MockType<Repository<Project>>;
     expect(projectService).toBeDefined();
   })
 
-
   describe('createProject()', () => {
     it('should create project', async () => {
       const registerProject: ProjectRegisterRequestDto = {
@@ -49,11 +48,12 @@ let projectRepositoryMock: MockType<Repository<Project>>;
     })
   })
   //Get some registered project
-  /*describe('access a registered project', () => {
-it('should send back the desired project alongside with its detailed information',async() => {
-
+  describe('getProjectById', () => {
+    it('should send back the desired project alongside with its detailed information',async() => {
+          await projectService.getProjectById(1);
+          expect(projectRepositoryMock.findOne).toBeCalled();
+        })
     })
-  })*/
   //Mock Update project
   describe('updateProjectById', () => {
     it('should call the update method', async ()=> {

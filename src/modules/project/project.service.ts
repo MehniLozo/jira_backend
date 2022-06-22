@@ -16,9 +16,13 @@ export class ProjectService {
   ): Promise<Project> {
     return await this.projectRepo.create(projectRegister);
   }
-  async getProjectById(id: number): Promise<Project | undefined> {
-
-    return await this.projectRepo.findOne({where: {id}});
+  async getProjectById(id: number): Promise<Project|string> {
+    try{
+      return await this.projectRepo.findOne({where: {id}});
+    }catch(err){
+      console.log(err);
+      return "Something went wrong"
+    }
   }
   async updateProjectById(id:number,body: ProjectRegisterRequestDto): Promise<any> {
     try{

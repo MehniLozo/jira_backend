@@ -38,18 +38,16 @@ describe('ProjectController',() => {
             category:dto.category
           })
         }),
-        findProjectById:jest.fn().mockImplementation((id:number) => {
+        getProjectById:jest.fn().mockImplementation((id:number) => {
           Promise.resolve({
             id:id,
            })
-
         }),
         /*updateProjectById: jest.fn().mockImplementation((id:number,updateBody:ProjectRegisterRequestDto) => {
 
           Promise.resolve(updateBody)
         }),*/
         updateProjectById: jest.fn().mockResolvedValueOnce(updateBody),
-
         deleteProject:jest.fn().mockResolvedValue({deleted:true})
       }
     }
@@ -96,6 +94,21 @@ describe('ProjectController',() => {
     })
 
   })
+
+    describe('getProjectById', () => {
+      it('return projects infos', async() => {
+        await projectController.findProjectById(1);
+        expect(projectService.getProjectById).toBeCalled()
+      })
+
+      it('should return an error for the non existant project', async() => {
+        const spyGetProject = jest.spyOn(projectService,"getProjectById")
+          .mockResolvedValueOnce("Something went wrong");
+        await expect(projectController.findProjectById(1)).resolves
+          .toEqual("Something went wrong");
+        expect(projectService.getProjectById).toBeCalled();
+      })
+    })
 
     describe('updateProjectById', () => {
       describe('when createProject is called', () => {

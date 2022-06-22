@@ -34,7 +34,7 @@ export class ProjectController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findProjectById(
     id:number,
-  ): Promise<Project | undefined> {
+  ): Promise<Project | string> {
     return await this.projectService.getProjectById(id);
   }
 
