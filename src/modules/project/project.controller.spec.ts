@@ -10,6 +10,7 @@ import {repositoryMockFactory} from '../../repository/repositoryMockFactory';
 describe('ProjectController',() => {
   let projectController: ProjectController;
   let projectService: ProjectService;
+  let project: Project;
 
   beforeEach(async () => {
     let module:TestingModule ;
@@ -30,13 +31,16 @@ describe('ProjectController',() => {
             category:dto.category
           })
         }),
-        findProjectById:jest.fn().mockImplementation(),
+        findProjectById:jest.fn().mockImplementation((id:number) => {
+          Promise.resolve({
+            id:id,
+           })
+
+        }),
         deleteProject:jest.fn().mockResolvedValue({deleted:true})
       }
     }
       ],
-
-
     }).compile()
 
     projectController= module.get<ProjectController>(ProjectController);
@@ -49,9 +53,7 @@ describe('ProjectController',() => {
   })
   describe('createProject', () => {
     describe('when createProject is called', () => {
-      let project: Project;
       let createProjectDTO: ProjectRegisterRequestDto;
-      let spyService:any;
 
       const mockProject  = {
 
@@ -62,10 +64,10 @@ describe('ProjectController',() => {
       }
       beforeEach(async() =>{
         createProjectDTO = {
-        name:mockProject.name,
-        url:mockProject.url,
-        description:mockProject.description,
-        category:mockProject.category
+          name:mockProject.name,
+          url:mockProject.url,
+          description:mockProject.description,
+          category:mockProject.category
        }
        project = await projectController.createProject(createProjectDTO)
       })
@@ -73,8 +75,6 @@ describe('ProjectController',() => {
       it('expecting the projectService to be called', () => {
         expect(projectService.createProject).toBeCalledTimes(1);
         expect(projectService.createProject).toHaveBeenCalledWith(createProjectDTO)
-
-
       })
       it('when the creation is done it should return the project',async() => {
         //URGENT
@@ -84,16 +84,33 @@ describe('ProjectController',() => {
 
   })
 
+    /*describe('findProjectById', () => {
 
+      describe('when createProject is called', () => {
+        beforeEach(async() =>{
 
+        })
+      })
 
-  /*describe('findProjectById',() => {
-    it('should return a specific project by id',async() => {
-      const result = ['test'];
-      jest.spyOn(projectService,'findProjectById').mockImplementation(() => result);
-
-    expect(await projectController.findProjectById(0)).toBe(result);
     })
-  })*/
+    */
+    describe('deleteProject', () => {
+
+          it('should return that the desired project has been deleted', async () => {
+              await expect(projectController.deleteProject(1)).resolves.toEqual({
+                deleted:true,
+              })
+          })
+
+          it('falsy deletion of the project',async() => {
+            const falsyDeleteProjectSpy = jest.spyOn(projectService,'deleteProject')
+              .mockResolvedValueOnce({deleted:false, message:"Something went wrong"});
+            await expect(projectController.deleteProject(7)).resolves.toEqual(
+                {deleted: false, message:"Something went wrong"}
+              )
+            expect(falsyDeleteProjectSpy).toBeCalled();
+          })
+
+        })
 
 })
