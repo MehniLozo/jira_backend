@@ -20,7 +20,7 @@ export class ProjectController {
     type: Project,
   })
   @ApiBadRequestResponse({ description: 'Project cannot register. Try again!' })
-  async doCreateProject(
+  async createProject(
     projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
     return await this.projectService.createProject(projectRegister);

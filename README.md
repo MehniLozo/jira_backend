@@ -3,6 +3,7 @@
 ### URGENT TODOS
 - Project owner attribute fix
 - Controllers unit testing
+- Equality of mocked project
 ### Architecture TODOS
 
 REST API :
@@ -27,6 +28,7 @@ REST API :
   - [x] services
     - [ ] unit test
 
+- [ ] End-2-End Testing (Integration test)
 - [ ] Database creation and linking
 - [ ] Data Seeding (fake data generator)
 - [ ] Application Containerization
