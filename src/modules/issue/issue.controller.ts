@@ -1,4 +1,4 @@
-import { Body, Controller, Post,Get,Delete } from '@nestjs/common';
+import { Body, Controller, Post,Get,Delete,Res,Req } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -7,6 +7,7 @@ import {
 import { Issue } from './issue.entity';
 import { IssueService } from './issue.service';
 import {IssueRegisterRequestDto} from './dto/issue-register.req.dto';
+import { Request, Response } from 'express';
 
 @ApiTags('Issue')
 @Controller('projects/:projectId')
@@ -19,10 +20,11 @@ export class IssueController {
     type: Issue,
   })
   @ApiBadRequestResponse({ description: 'Issue cannot register. Try again!' })
-  async doCreateIssue(
-    issueRegister: IssueRegisterRequestDto,
-  ): Promise<Issue> {
-    return await this.issueService.createIssue(issueRegister);
+  async doCreateIssue(@Req() req:Request, @Res() res: Response ){
+
+      const resultIssue = await this.issueService.createIssue(req.body);
+
+      res.status(typeof resultIssue === "string"? 404 : 200).json(resultIssue);
   }
 
   @Get('/issues')
@@ -32,10 +34,12 @@ export class IssueController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findIssuesByProject(
-    id:number,
-  ): Promise<Issue[] | string> {
-    return await this.issueService.getIssuesByProject(id);
-  }
+    @Req() req:Request, @Res() res: Response
+  ){
+    const resultIssue =  await this.issueService.getIssuesByProject(Number(req.params.projectId));
+
+      res.status(typeof resultIssue === "string"? 404 : 200).json(resultIssue);
+    }
 
   @Get('/issues/:issueId')
   @ApiCreatedResponse({
@@ -44,9 +48,11 @@ export class IssueController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findIssueById(
-    id:number,
-  ): Promise<Issue|string> {
-    return await this.issueService.getIssueById(id);
+    @Req() req:Request, @Res() res: Response
+  ){
+
+      const resultIssue = await this.issueService.getIssueById(Number(req.params.id));
+      res.status(typeof resultIssue === "string"? 404 : 200).json(resultIssue)
   }
 
   @Delete('/issues/:issueId') //with id param
@@ -56,7 +62,8 @@ export class IssueController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async deleteIssue(
-    id:number,
-  ): Promise<{deleted: Boolean; message?:string}> {
-    return await this.issueService.deleteIssue(id);
+      @Req() req:Request, @Res() res: Response
+  ){
+    const resultIssue =  await this.issueService.deleteIssue(Number(req.params.id));
+      res.status(resultIssue.deleted? 200: 405).json(resultIssue)
   }}
