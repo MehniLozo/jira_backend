@@ -6,6 +6,7 @@ import {
 } from '@nestjs/swagger';
 import { Issue } from './issue.entity';
 import { IssueService } from './issue.service';
+import {IssueRegisterRequestDto} from './dto/issue-register.req.dto';
 
 @ApiTags('Issue')
 @Controller('projects/:projectId')
@@ -19,7 +20,7 @@ export class IssueController {
   })
   @ApiBadRequestResponse({ description: 'Issue cannot register. Try again!' })
   async doCreateIssue(
-    issueRegister: Issue,
+    issueRegister: IssueRegisterRequestDto,
   ): Promise<Issue> {
     return await this.issueService.createIssue(issueRegister);
   }
@@ -32,7 +33,7 @@ export class IssueController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findIssuesByProject(
     id:number,
-  ): Promise<Issue[]> {
+  ): Promise<Issue[] | string> {
     return await this.issueService.getIssuesByProject(id);
   }
 
@@ -44,7 +45,7 @@ export class IssueController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findIssueById(
     id:number,
-  ): Promise<Issue> {
+  ): Promise<Issue|string> {
     return await this.issueService.getIssueById(id);
   }
 
@@ -56,6 +57,6 @@ export class IssueController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async deleteIssue(
     id:number,
-  ): Promise<Boolean> {
+  ): Promise<{deleted: Boolean; message?:string}> {
     return await this.issueService.deleteIssue(id);
   }}

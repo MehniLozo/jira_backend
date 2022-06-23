@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Project } from './project.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
-//import {AppDataSource} from '../../config/app-data-source';
 import { Repository } from 'typeorm';
 
 @Injectable()

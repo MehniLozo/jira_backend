@@ -15,7 +15,7 @@ JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {User} from '../user/user.entity';
-import {IssueStatus,IssuePriority} from './issues.constants';
+import {IssueStatus,IssuePriority,IssueType} from './issues.constants';
 import {Project} from '../project/project.entity';
 import Comment from '../comment/comment.entity';
 
@@ -26,14 +26,14 @@ export class Issue extends BaseEntity {
   id: number;
 
   @ApiProperty({ description: 'Issue title', example: 'Compilation' })
-  @Column()
+  @Column({nullable:false, unique:true})
   title: string;
 
-  @ApiProperty({ description: 'Issue\'s type', example: 'Ops' })
-  @Column()
-  type: string;
+  @ApiProperty({ description: 'Issue\'s type', example: IssueType.STORY })
+  @Column({nullable:false})
+  type: IssueType;
 
-  @ApiProperty({ description: 'Issue\'s status', example: 'Done' })
+  @ApiProperty({ description: 'Issue\'s status', example: IssueStatus.DONE })
   @Column()
   status: IssueStatus;
 
@@ -66,14 +66,12 @@ export class Issue extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-
   @OneToOne(() => User)
   reporter: User;
   @ApiProperty({ description: 'Reporter' })
   @Column('')
   //@RelationId((user: User) => user.)
   reporterId: number;
-
 
   @ManyToOne(
     () => Project,
@@ -100,7 +98,7 @@ export class Issue extends BaseEntity {
   users: User[];
 
   @RelationId((issue: Issue) => issue.users)
-  userIds: number[];
+  usersIds: number[];
 
   /*
   //some process decoration still need to be done soon enough
