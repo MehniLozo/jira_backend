@@ -1,15 +1,17 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
+- Jira clone UI fixing & trouble shooting
 - Project owner attribute fix
 - Controllers unit testing
-- Equality of mocked project
+- Equality of mocked project in the controller testing
+
 ### Architecture TODOS
 
 REST API :
-- [ ] Project
+- [x] Project
   - [x] controllers
-    - [ ] Unit Test
+    - [x] Unit Test
   - [x] services
     - [x] Unit Test
 - [ ] User
@@ -29,7 +31,7 @@ REST API :
     - [ ] unit test
 
 - [ ] End-2-End Testing (Integration test)
-- [ ] Database creation and linking
+- [x] Database creation and linking
 - [ ] Data Seeding (fake data generator)
 - [ ] Application Containerization
     - Separation of Concern : Each major component such as API engine and Database should be hosted in its separate container
