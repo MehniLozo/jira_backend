@@ -1,4 +1,4 @@
-import { Body, Controller, Post,Get,Delete,Put } from '@nestjs/common';
+import { Body, Controller, Post,Get,Delete,Put,Res,Req } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -7,7 +7,7 @@ import {
 import { Project } from './project.entity';
 import { ProjectService } from './project.service';
 import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
-
+import { Request, Response } from 'express';
 
 @ApiTags('Project')
 @Controller('projects')
@@ -21,9 +21,10 @@ export class ProjectController {
   })
   @ApiBadRequestResponse({ description: 'Project cannot register. Try again!' })
   async createProject(
-    projectRegister: ProjectRegisterRequestDto,
-  ): Promise<Project> {
-    return await this.projectService.createProject(projectRegister);
+    @Req() req:Request, @Res() res: Response
+  ){
+    const resultProject =  await this.projectService.createProject(req.body);
+    res.status(resultProject instanceof Project? 201 : 405).json(resultProject);
   }
 
   @Get('/:projectId')
@@ -33,9 +34,10 @@ export class ProjectController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findProjectById(
-    id:number,
-  ): Promise<Project | string> {
-    return await this.projectService.getProjectById(id);
+    @Req() req:Request, @Res() res: Response
+  ){
+    const resultProject =  await this.projectService.getProjectById(Number(req.params.id));
+    res.status(resultProject instanceof Project? 200 : 404).json(resultProject);
   }
 
   @Put('/:projectId')
@@ -45,10 +47,10 @@ export class ProjectController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async updateProjectById(
-    id:number,
-    body:ProjectRegisterRequestDto
-  ): Promise<Project | undefined> {
-    return await this.projectService.updateProjectById(id,body);
+    @Req() req:Request, @Res() res: Response
+  ){
+    const resultProject =  await this.projectService.updateProjectById(Number(req.params.id),req.body);
+    res.status(resultProject instanceof Project? 200 : 405).json(resultProject);
   }
 
   @Delete('/:projectId') //with id param
@@ -58,7 +60,9 @@ export class ProjectController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async deleteProject(
-    id:number,
-  ): Promise<{deleted: boolean; message?:string}> {
-    return await this.projectService.deleteProject(id);
+    @Req() req:Request, @Res() res: Response
+  ) {
+    const resultProject =  await this.projectService.deleteProject(Number(req.params.id));
+    res.status(resultProject.deleted == true ? 200 : 400).json(resultProject);
+
   }}
