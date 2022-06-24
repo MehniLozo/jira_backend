@@ -13,7 +13,7 @@ export class ProjectService {
   async createProject(
     projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
-    return await this.projectRepo.create(projectRegister);
+    return await this.projectRepo.save(projectRegister);
   }
   async getProjectById(id: number): Promise<Project|string> {
     try{

@@ -6,8 +6,8 @@ import { ProjectRegisterRequestDto} from './modules/project/dto/project-register
 import { ProjectService} from './modules/project/project.service';
 import { ProjectCategory} from './modules/project/project.constants';
 
-//import { Project} from './modules/project/project.entity';
-//import appDataSource from './config/app-data-source';
+import { Project} from './modules/project/project.entity';
+import appDataSource from './config/app-data-source';
 
 
 
@@ -33,10 +33,11 @@ async function bootstrap() {
 
   //the following is just for DB testing purposes
   /*try{
+
       const registerProject: ProjectRegisterRequestDto = {
-        name:'third',
-        url:'third.com',
-        description:'thirdProject',
+        name:'fourth',
+        url:'fourth.com',
+        description:'fourth',
         category:ProjectCategory.SOFTWARE
       }
 
@@ -50,5 +51,6 @@ async function bootstrap() {
         console.log('------------------')
       }
       */
+
 }
 bootstrap();

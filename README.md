@@ -6,6 +6,7 @@
 - Controllers unit testing
 - Equality of mocked project in the controller testing
 - Better universal way to catch errors during requests
+- Better Relations and CASCADING between entities please
 
 ### Architecture TODOS
 

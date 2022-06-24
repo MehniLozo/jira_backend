@@ -40,7 +40,7 @@ export class Issue extends BaseEntity {
   @Column('varchar')
   priority: IssuePriority;
 
-  @Column('double precision')
+  @Column({nullable:true})
   listPosition: number;
 
   @Column('text', { nullable: true })
@@ -69,7 +69,7 @@ export class Issue extends BaseEntity {
   @OneToOne(() => User)
   reporter: User;
   @ApiProperty({ description: 'Reporter' })
-  @Column('')
+  @Column({nullable:true})
   //@RelationId((user: User) => user.)
   reporterId: number;
 
@@ -80,7 +80,7 @@ export class Issue extends BaseEntity {
   project: Project;
 
   @ApiProperty({ description: 'ProjectID' })
-  @Column('integer')
+  @Column({nullable:false})
   projectId: number;
 
   @OneToMany(

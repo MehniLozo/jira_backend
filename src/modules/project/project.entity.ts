@@ -14,9 +14,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import {User} from '../user/user.entity';
 import {Issue} from '../issue/issue.entity';
-/*
-import {Comment} from '';
-*/
 import {ProjectCategory} from './project.constants';
 
 @Entity({ name: 'projects' })
@@ -55,6 +52,8 @@ export class Project extends BaseEntity {
   @OneToMany(
     () => Issue,
     issue => issue.project,
+    //{cascade:["remove","insert"]}
+    {onDelete: "CASCADE"}
   )
   issues: Issue[];
 

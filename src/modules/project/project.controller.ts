@@ -12,7 +12,7 @@ import { Request, Response } from 'express';
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {
-  constructor(private projectService: ProjectService) {}
+  constructor(private readonly projectService: ProjectService) {}
 
   @Post('/project')
   @ApiCreatedResponse({
@@ -22,9 +22,9 @@ export class ProjectController {
   @ApiBadRequestResponse({ description: 'Project cannot register. Try again!' })
   async createProject(
     @Req() req:Request, @Res() res: Response
-  ){
+  ):Promise<any>{
     const resultProject =  await this.projectService.createProject(req.body);
-    res.status(resultProject instanceof Project? 201 : 405).json(resultProject);
+    return res.status(resultProject instanceof Project? 201 : 405).json(resultProject);
   }
 
   @Get('/:projectId')
@@ -36,7 +36,7 @@ export class ProjectController {
   async findProjectById(
     @Req() req:Request, @Res() res: Response
   ){
-    const resultProject =  await this.projectService.getProjectById(Number(req.params.id));
+    const resultProject =  await this.projectService.getProjectById(parseInt(req.params.projectId));
     res.status(resultProject instanceof Project? 200 : 404).json(resultProject);
   }
 
@@ -49,7 +49,7 @@ export class ProjectController {
   async updateProjectById(
     @Req() req:Request, @Res() res: Response
   ){
-    const resultProject =  await this.projectService.updateProjectById(Number(req.params.id),req.body);
+    const resultProject =  await this.projectService.updateProjectById(parseInt(req.params.projectId),req.body);
     res.status(resultProject instanceof Project? 200 : 405).json(resultProject);
   }
 
@@ -62,7 +62,7 @@ export class ProjectController {
   async deleteProject(
     @Req() req:Request, @Res() res: Response
   ) {
-    const resultProject =  await this.projectService.deleteProject(Number(req.params.id));
+    const resultProject =  await this.projectService.deleteProject(parseInt(req.params.projectId));
     res.status(resultProject.deleted == true ? 200 : 400).json(resultProject);
 
   }}

@@ -7,10 +7,40 @@ import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
 import {ProjectCategory} from './project.constants';
 import {repositoryMockFactory} from '../../repository/repositoryMockFactory';
 
-describe('ProjectController',() => {
+//Way of testing with mocking is gonna be utterly changed
+//gonna use request mocking
+
+describe('ProjectController Unit Tests',() => {
+
+  function setup() {
+    const req = {
+      params: {},
+      body: {},
+    }
+    const res = {}
+    Object.assign(res, {
+      status: jest.fn(
+        function status() {
+          return this
+        }.bind(res),
+      ),
+      json: jest.fn(
+        function json() {
+          return this
+        }.bind(res),
+      ),
+      send: jest.fn(
+        function send() {
+          return this
+        }.bind(res),
+      ),
+    })
+    return {req, res}
+  }
+
   let projectController: ProjectController;
   let projectService: ProjectService;
-  let project: Project;
+  //let project: Project;
 
   const updateBody = {
     name: 'Jira Mock',
@@ -62,6 +92,40 @@ describe('ProjectController',() => {
   it('should be defined', () => {
     expect(projectController).toBeDefined();
   })
+
+
+  describe('createProject', () => {
+    describe('when createProject is called', () => {
+      const {req,res}:any = setup();
+
+      let createProjectDTO: ProjectRegisterRequestDto;
+
+      req.body  = {
+        name:'Jira',
+        url:'jira.com',
+        description:'MyJiraProject',
+        category:ProjectCategory.SOFTWARE
+      }
+      beforeEach(async() =>{
+
+        const resultProject = await projectController.createProject(req,res)
+      })
+
+      it('expecting the projectService to be called', () => {
+        expect(projectService.createProject).toBeCalledTimes(1);
+        expect(projectService.createProject).toHaveBeenCalledWith(req.body)
+      })
+      it('when the creation is done it should return the project',async() => {
+        //URGENT
+        //await expect(project).toEqual(mockProject);
+      })
+    })
+
+  })
+
+
+
+  /*
   describe('createProject', () => {
     describe('when createProject is called', () => {
       let createProjectDTO: ProjectRegisterRequestDto;
@@ -94,7 +158,9 @@ describe('ProjectController',() => {
     })
 
   })
+  */
 
+/*
     describe('getProjectById', () => {
       it('return projects infos', async() => {
         await projectController.findProjectById(1);
@@ -139,5 +205,5 @@ describe('ProjectController',() => {
           })
 
         })
-
+*/
 })
