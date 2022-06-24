@@ -1,45 +1,50 @@
-/*
-createUser
-deleteUser
-getUserByName
-updateUser
-*/
 import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import {UserRegisterRequestDto} from './dto/user-register.req.dto';
+
 
 @Injectable()
 export class UserService {
+
+  constructor(
+    @InjectRepository(User) private userRepo: Repository<User>,
+  ) {}
+
   async createUser(
-    userRegister: User,
+    userRegister: UserRegisterRequestDto,
   ): Promise<User> {
-    const user = new User();
-    user.name = userRegister.name;
-    user.email = userRegister.email;
-    user.password = userRegister.password;
-
-    return await user.save();
+    return await this.userRepo.save(userRegister)
   }
-  async getUsers(): Promise<User[] | undefined> {
-    //return User.find({});
-    return undefined;
-  }
-  async getUserByName(name: string): Promise<User | undefined> {
-    return User.findOne({ where: { name } });
+  async getUsers(): Promise<User[]> {
+    return this.userRepo.find();
   }
 
-  async getUserById(id: number): Promise<User | undefined> {
-    return User.findOne({ where: { id } });
+  async getUserById(id: number): Promise<User| string> {
+    try{
+      return await this.userRepo.findOne({ where: { id } });
+    }catch(err){
+      console.log(err.message);
+      return "User doesn't exist"
+    }
   }
-    /*
-  async modifyUser(user: User): Promise<User | undefined> {
 
-  }*/
-  async deleteUser(id: number){
+  async modifyUser(id:number,body: UserRegisterRequestDto): Promise<any> {
+    try{
+      return await this.userRepo.update(id,body);
+    }catch(err){
+      console.log(err.message);
+      return "Something wrong, couldn't update the user";
+    }
+  }
+  async deleteUser(id: number): Promise<{deleted: Boolean; message?:string}>{
       try{
-        const targetUser = User.findOne({where:{id}});
-        //await User.delete(targetUser.id);
+        await this.userRepo.delete({id});
+        return {deleted:true};
     }catch(e){
       console.log("User doesn't exist");
+      return {deleted: false, message:"couldn't delete the user"}
     }
 
   }
