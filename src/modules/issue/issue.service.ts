@@ -12,7 +12,6 @@ export class IssueService {
   async createIssue(
     issueRegister: IssueRegisterRequestDto,
   ): Promise<Issue> {
-    console.log("creating an issue buddy")
     return await this.issueRepo.save(issueRegister)
     };
 
@@ -45,8 +44,6 @@ export class IssueService {
   }
   async deleteIssue(issueId: number): Promise<{deleted: Boolean; message?:string}> {
       try{
-        console.log("entered service delete issue")
-        console.log(typeof issueId)
         await this.issueRepo.delete({id:issueId});
         return {deleted: true};
     }catch(err){

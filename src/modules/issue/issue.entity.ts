@@ -17,7 +17,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {User} from '../user/user.entity';
 import {IssueStatus,IssuePriority,IssueType} from './issues.constants';
 import {Project} from '../project/project.entity';
-import Comment from '../comment/comment.entity';
+import {Comment} from '../comment/comment.entity';
 
 @Entity({ name: 'issues' })
 export class Issue extends BaseEntity {
@@ -76,6 +76,7 @@ export class Issue extends BaseEntity {
   @ManyToOne(
     () => Project,
     project => project.issues,
+    { onDelete: 'CASCADE' }
   )
   project: Project;
 

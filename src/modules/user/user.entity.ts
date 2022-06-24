@@ -16,7 +16,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {Issue} from '../issue/issue.entity';
 import {Project} from '../project/project.entity';
 
-import Comment from '../comment/comment.entity';
+import {Comment} from '../comment/comment.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {

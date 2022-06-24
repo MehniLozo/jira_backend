@@ -8,6 +8,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import {UserModule} from './modules/user/user.module';
 import {ProjectModule} from './modules/project/project.module';
 import {IssueModule} from './modules/issue/issue.module';
+import {CommentModule} from './modules/comment/comment.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -15,7 +17,8 @@ import {IssueModule} from './modules/issue/issue.module';
     EventEmitterModule.forRoot(),
     UserModule,
     ProjectModule,
-    IssueModule
+    IssueModule,
+    CommentModule
   ],
   controllers: [AppController],
   providers: [AppService],

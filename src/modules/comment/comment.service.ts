@@ -1,38 +1,59 @@
 import { Injectable } from '@nestjs/common';
-import  Comment  from './comment.entity';
+import  {Comment}  from './comment.entity';
+import {CommentRegisterRequestDto} from './dto/comment-register.req.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CommentService {
+
+  constructor(
+    @InjectRepository(Comment) private commentRepo: Repository<Comment>,
+  ){}
+
   async createComment(
-    commentRegister: Comment,
+    commentRegister: CommentRegisterRequestDto,
   ): Promise<Comment> {
-    const comment = new Comment();
-    Object.keys(commentRegister).forEach(key=>{
-      if(commentRegister !== undefined)
-      comment[key]=commentRegister[key]
-    });
-
-    return await comment.save();
+    console.log("Ellloooo COmment")
+    return await this.commentRepo.save(commentRegister);
   }
-  async getCommentsByIssue(id:number): Promise<Comment[] | undefined> {
-    //ops here for returning all the comments
-    return undefined;
+  async getCommentsByIssue(issueId:number): Promise<Comment[] | string> {
+    try{
+      return await this.commentRepo.find({
+        where: {issueId}
+      });
+    }catch(err){
+      console.log(err.message);
+      return "No comments"
+    }
+
   }
 
-  async getCommentById(id: number): Promise<Comment | undefined> {
-    return Comment.findOne({ where: { id } });
-  }
-    /*
-  async modifyComment(user: Comment): Promise<Comment | undefined> {
-
-  }*/
-  async deleteComment(id: number): Promise<any> {
-      try{
-        const targetComment = Comment.findOne({where:{id}});
-        //ops here for deleting
-    }catch(e){
-      console.log("Comment doesn't exist");
+  async getCommentById(id: number): Promise<Comment | string> {
+    try{
+      return this.commentRepo.findOne({ where: { id } });
+    }catch(err){
+      console.log(err.message);
+      return "Comment doesn't exist";
     }
   }
-  //Comments operations are gonna be below
+
+  async modifyComment(id:number , newMessage: any): Promise<any> {
+    try{
+      return await this.commentRepo.update(id,newMessage);
+    }catch(err)
+    {
+      console.log(err.message);
+      return 'Something wrong';
+    }
+  }
+  async deleteComment(id: number): Promise<{deleted:Boolean; message?:string}> {
+      try{
+          await this.commentRepo.delete({id});
+          return {deleted: true};
+    }catch(e){
+        console.log(e.message);
+        return {deleted: false,message:"Comment doesnt exist"};
+    }
+  }
 }

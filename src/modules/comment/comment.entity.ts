@@ -14,7 +14,7 @@ import { Issue} from '../issue/issue.entity';
 import { User } from '../user/user.entity';
 
 @Entity()
-class Comment extends BaseEntity {
+export class Comment extends BaseEntity {
   /*static validations = {
     body: [is.required(), is.maxLength(50000)],
   };*/
@@ -42,7 +42,7 @@ class Comment extends BaseEntity {
   user: User;
 
   @ApiProperty({ description: 'Authors\'s id' })
-  @Column('integer')
+  @Column('integer',{nullable:true})
   userId: number;
 
   @ManyToOne(
@@ -55,5 +55,3 @@ class Comment extends BaseEntity {
   @Column('integer')
   issueId: number;
 }
-
-export default Comment;
