@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm"
+require('dotenv').config();
 
  const appDataSource:DataSource = new DataSource({
     type: "mysql",
@@ -11,9 +12,14 @@ import { DataSource } from "typeorm"
 })
  appDataSource.initialize()
     .then(() => {
-        console.log("Data Source has been initialized!")
+        //console.log("Data Source has been initialized!")
     })
     .catch((err) => {
-        console.error("Error during Data Source initialization", err)
+        console.log("---ERRONED DURING DATA SOURCE--")
+        //console.error("Error during Data Source initialization", err)
+        console.log(err.message);
     })
+  console.log("Entered data source")
+  console.log(process.env.DB_USERNAME)
+  console.log("-------------------Entered data source")
 export default appDataSource;
