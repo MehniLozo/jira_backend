@@ -19,7 +19,4 @@ require('dotenv').config();
         //console.error("Error during Data Source initialization", err)
         console.log(err.message);
     })
-  console.log("Entered data source")
-  console.log(process.env.DB_USERNAME)
-  console.log("-------------------Entered data source")
 export default appDataSource;

@@ -7,6 +7,7 @@ import { INestApplication } from '@nestjs/common';
 import {typeOrmConfig} from '../src/config/typeorm.config';
 import { Repository } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import {ProjectCategory} from '../src/modules/project/project.constants';
 
 
 describe('Projects', () => {
@@ -19,7 +20,6 @@ describe('Projects', () => {
     updateProjectById: () => {},
     deleteProject: (id:number) => {}
   }
-//,TypeOrmModule.forRoot(typeOrmConfig)
   beforeEach(async() => {
     const moduleRef = await Test.createTestingModule({
       imports:[ProjectModule,TypeOrmModule.forRoot(typeOrmConfig)],
@@ -35,13 +35,19 @@ describe('Projects', () => {
     projectRepository = moduleRef.get('ProjectRepository');
   })
 
-  describe('/GET project', () => {
+  describe('/GET /projects', () => {
     it('should return the specified project by its id', () => {
+     /* await projectRepository.save({
+        name: "TestProj",
+        url:"testing.com",
+        description:"save me here pls",
+        category: ProjectCategory.BUSINESS
+      });*/
        return request(app.getHttpServer())
-      .get('/projects/1')
+      .get('/')
       .set('Accept','application/json')
-      .expect('Content-Type', /json/)
-      .expect(404)
+      //.expect('Content-Type', /json/)
+      .expect(404) //just at the moment
       /*.then((res) => {
         expect(res.body).toEqual([
           projectService.getProjectById(1)
