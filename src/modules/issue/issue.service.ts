@@ -41,6 +41,7 @@ export class IssueService {
       return await this.issueRepo.update(id,body);
     }catch(err){
       return "Couldnt update the given issue"
+      console.log(err.message)
     }
   }
   async deleteIssue(issueId: number): Promise<{deleted: Boolean; message?:string}> {

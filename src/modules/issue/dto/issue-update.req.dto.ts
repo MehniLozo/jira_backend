@@ -2,6 +2,7 @@ import {IsNotEmpty,isObject,IsOptional} from 'class-validator';
 import {IssueType,IssueStatus,IssuePriority} from '../issues.constants';
 import {User} from '../../user/user.entity';
 
+
 export class IssueUpdateRequestDto{
   @IsOptional()
   description?: string;
@@ -39,4 +40,3 @@ export class IssueUpdateRequestDto{
   @IsOptional()
   timeRemaining?: number | null;
 }
-

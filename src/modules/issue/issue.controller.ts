@@ -1,4 +1,4 @@
-import { Body, Controller, Post,Get,Delete,Res,Req } from '@nestjs/common';
+import { Body, Controller, Post,Get,Delete,Res,Req,Put } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -12,7 +12,7 @@ import { Request, Response } from 'express';
 @ApiTags('Issue')
 @Controller('projects/:projectId')
 export class IssueController {
-  constructor(private issueService: IssueService) {}
+  constructor(private readonly issueService: IssueService) {}
 
   @Post('/issues')
   @ApiCreatedResponse({
@@ -36,7 +36,7 @@ export class IssueController {
   async findIssuesByProject(
     @Req() req:Request, @Res() res: Response
   ){
-    const resultIssue =  await this.issueService.getIssuesByProject(Number(req.params.projectId));
+    const resultIssue =  await this.issueService.getIssuesByProject(parseInt(req.params.projectId));
 
       res.status(typeof resultIssue === "string"? 404 : 200).json(resultIssue);
     }
@@ -51,8 +51,20 @@ export class IssueController {
     @Req() req:Request, @Res() res: Response
   ){
 
-      const resultIssue = await this.issueService.getIssueById(Number(req.params.id));
+      const resultIssue = await this.issueService.getIssueById(parseInt(req.params.issueId));
       res.status(typeof resultIssue === "string"? 404 : 200).json(resultIssue)
+  }
+
+  @Put('/issues/:issueId')
+  @ApiCreatedResponse({
+    description: 'Modify a specific target issue',
+    type: Issue,
+  })
+  async modifyIssue(
+    @Req() req:Request, @Res() res: Response
+  ){
+      const resultIssue = await this.issueService.modifyIssue(parseInt(req.params.issueId),req.body);
+      res.status(typeof resultIssue === "string"? 400 : 201).json(resultIssue)
   }
 
   @Delete('/issues/:issueId') //with id param
