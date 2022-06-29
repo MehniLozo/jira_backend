@@ -89,4 +89,19 @@ describe('IssueController Unit Tests',() => {
       expect(issueController).toBeDefined();
     })
 
+    describe('createIssue', () => {
+      describe('when createIssue is called', () => {
+        const {req,res}:any = setup();
+        req.body = testingIssue;
+
+        beforeEach(async () => {
+          const result = await issueController.doCreateIssue(req,res);
+        })
+        it('checking up on issueService to be called', () => {
+          expect(issueService.createIssue).toBeCalledTimes(1);
+          expect(issueService.createIssue).toHaveBeenCalledWith(testingIssue);
+        })
+      })
+    })
+
 })
