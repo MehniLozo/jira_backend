@@ -6,6 +6,7 @@ export interface IssueRegisterRequestDto{
   description: string,
   priority: IssuePriority,
   projectId: number,
+  reporterId: number,
   status: IssueStatus,
   //@IsNotEmpty()
   title:string,
