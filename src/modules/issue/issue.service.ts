@@ -3,6 +3,7 @@ import { Issue } from './issue.entity';
 import { Repository } from 'typeorm';
 import {IssueRegisterRequestDto} from './dto/issue-register.req.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IssueUpdateRequestDto } from './dto/issue-update.req.dto';
 
 @Injectable()
 export class IssueService {
@@ -35,7 +36,7 @@ export class IssueService {
     }
   }
 
-  async modifyIssue(id:number,body: Issue): Promise<any> {
+  async modifyIssue(id:number,body: IssueUpdateRequestDto): Promise<any> {
     try{
       return await this.issueRepo.update(id,body);
     }catch(err){

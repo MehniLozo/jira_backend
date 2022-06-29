@@ -46,9 +46,6 @@ export class Issue extends BaseEntity {
   @Column('text', { nullable: true })
   description: string | null;
 
-  @Column('text', { nullable: true })
-  descriptionText: string | null;
-
   @Column('integer', { nullable: true })
   estimate: number | null;
 

@@ -64,4 +64,31 @@ describe('IssueService', () => {
             expect(issueRepositoryMock.findOne).toBeCalled();
         })
     })
+
+    describe('modifyIssue', () => {
+        it('should update an issue', async () => {
+            const updateContent = {description: "Not a description XD"};
+            const updatedIssue = await issueService.modifyIssue(1,updateContent); 
+
+            expect(issueRepositoryMock.update).toBeCalledTimes(1);
+            expect(issueRepositoryMock.update).toBeCalledWith(1,{description: "Not a description XD"});
+        })
+    })
+
+    describe('deleteIssue', () => {
+        it('should return {deleted:true}', async() => {
+            expect(issueService.deleteIssue(1)).resolves.toEqual({deleted:true});
+        })
+        it('should return {deleted:false, message:err.message',async() => {
+            const repoSpy = jest.spyOn(issueRepositoryMock,'delete')
+                .mockRejectedValueOnce(new Error('Unsuccessful deletion'));
+            expect(issueService.deleteIssue(1)).resolves.toEqual({
+                deleted: false,
+                message: "Unsuccessful deletion"
+            })
+
+            expect(repoSpy).toHaveBeenCalled();
+            expect(repoSpy).toHaveBeenCalledWith({id:1});
+        })
+    })
 })

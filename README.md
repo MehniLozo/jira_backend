@@ -16,23 +16,30 @@ REST API :
     - [x] Unit Test
   - [x] services
     - [x] Unit Test
+  - [ ] E2E Testing
+
 - [ ] User
   - [x] controllers
     - [ ] unit test
   - [x] services
     - [ ] unit test
+  - [ ] E2E Testing
+
 - [x] Issue
   - [x] controllers
     - [ ] unit test
   - [x] services
     - [ ] unit test
+  - [ ] E2E Testing
+
 - [x] Comment
   - [x] controllers
     - [ ] unit test
   - [x] services
     - [ ] unit test
+  - [ ] E2E Testing
 
-- [ ] End-2-End Testing (Integration test)
+- [ ] App End-2-End Testing (Integration test)
 - [x] Database creation and linking
 - [ ] Data Seeding (fake data generator)
 - [ ] Application Containerization
