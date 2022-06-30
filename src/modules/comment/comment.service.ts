@@ -14,7 +14,6 @@ export class CommentService {
   async createComment(
     commentRegister: CommentRegisterRequestDto,
   ): Promise<Comment> {
-    console.log("Ellloooo COmment")
     return await this.commentRepo.save(commentRegister);
   }
   async getCommentsByIssue(issueId:number): Promise<Comment[] | string> {
