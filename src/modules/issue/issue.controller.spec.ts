@@ -72,7 +72,7 @@ describe('IssueController Unit Tests',() => {
                             Promise.resolve(testingIssue)
                         }),
                         modifyIssue: jest.fn().mockResolvedValue(testingIssue),
-                        deleteIssue: jest.fn().mockRejectedValue({deleted:true})
+                        deleteIssue: jest.fn().mockRejectedValue({deleted:true, message:"Issue has just been deleted"})
                     }
                 }
             ]
@@ -103,5 +103,69 @@ describe('IssueController Unit Tests',() => {
         })
       })
     })
+    describe('findIssueById', () => {
+      describe('findIssueById will return 200 when issue found', () => {
+        const {req,res}:any = setup();
+        req.params = {issueId:1};
+
+        beforeEach(async () => {
+          const result = await issueController.findIssueById(req,res);
+        })
+
+        it('Issue should be found and returning valid request', () => {
+          expect(issueService.getIssueById).toBeCalled();
+          expect(issueService.getIssueById).toHaveBeenCalledWith(parseInt(req.params.issueId));
+          expect(res.status).toHaveBeenCalledWith(200);
+        })
+      })
+
+      describe('findIssueById will 404 when trying to reach unexisting issue', () => {
+        const {req,res}:any = setup();
+        req.params = {issueId:1};
+        beforeEach(async() => {
+          jest.spyOn(issueService,"getIssueById").mockResolvedValue("Issue doesn't exist");
+          await issueController.findIssueById(req,res)
+        })
+        it('should return unfound issue', () => {
+          //making a mock that returns falsy
+          expect(issueService.getIssueById).toBeCalled();
+          expect(issueService.getIssueById).toHaveBeenCalledWith(parseInt(req.params.issueId));
+          expect(res.status).toHaveBeenCalledWith(404);
+        })
+      })
+    })
+      /*describe('deleteIssue', () => {
+          const {req,res}:any = setup();
+          req.params = {id:1};
+
+          beforeEach(async () => {
+            const result = await issueController.deleteIssue(req,res);
+
+          })
+
+          it('should be truthy', () => {
+              expect(res.json).toHaveBeenCalled();
+          })
+      })*/
+  /*  describe('deleteIssue', () => {
+        describe('Truthy deletion', () => {
+          const {req,res}:any = setup();
+          req.params = {id:1};
+
+          beforeAll(async () => {
+              const result = await issueController.deleteIssue(req,res);
+          })
+          it('should be truthy',() => {
+              expect(res.json).toHaveBeenCalledTimes(1);
+          })
+        })*/
+        //describe('Falsy deletion', () => {
+          /*jest.spyOn(issueService,"deleteIssue").mockResolvedValue({deleted:false,message:"Unsuccessful deletion"});
+            it('should be falsy', async () => {
+             await issueController.deleteIssue(req.id);
+             expect(res.json).toHaveBeenCalled();
+          })*/
+        //})
+    //})
 
 })

@@ -77,5 +77,5 @@ export class IssueController {
       @Req() req:Request, @Res() res: Response
   ){
     const resultIssue =  await this.issueService.deleteIssue(Number(req.params.issueId));
-      res.status(resultIssue.deleted? 200: 405).json(resultIssue)
+      res.status(resultIssue.deleted == true? 200: 405).json(resultIssue)
   }}
