@@ -79,7 +79,7 @@ describe('IssueController Unit Tests',() => {
                           }
                           Promise.resolve(testingIssue)
                         }),
-                        deleteIssue: jest.fn().mockRejectedValue({deleted:true, message:"Issue has just been deleted"})
+                        deleteIssue: jest.fn().mockResolvedValue({deleted:true, message:"Issue has just been deleted"})
                     }
                 }
             ]
@@ -143,7 +143,6 @@ describe('IssueController Unit Tests',() => {
       })
     })
 
-    //---------------
     describe('findIssuesByProject', () => {
       describe('findIssueByProject will return 200 when project found', () => {
         const {req,res}:any = setup();
@@ -182,8 +181,6 @@ describe('IssueController Unit Tests',() => {
       })
     })
 
-    //---------------
-
 
     describe("modifyIssue", () => {
       const {req,res}:any = setup();
@@ -216,38 +213,35 @@ describe('IssueController Unit Tests',() => {
       })
     })
 
-      /*describe('deleteIssue', () => {
+      describe('deleteIssue', () => {
           const {req,res}:any = setup();
-          req.params = {id:1};
+          req.params = {issueId:1};
 
-          beforeEach(async () => {
-            const result = await issueController.deleteIssue(req,res);
+          describe("deleteIssue should return 200 successfully", () => {
 
-          })
+            beforeEach(async () => {
+               await issueController.deleteIssue(req,res);
+            })
 
-          it('should be truthy', () => {
-              expect(res.json).toHaveBeenCalled();
-          })
-      })*/
-  /*  describe('deleteIssue', () => {
-        describe('Truthy deletion', () => {
-          const {req,res}:any = setup();
-          req.params = {id:1};
+            it('should be truthy', () => {
+                expect(issueService.deleteIssue).toHaveBeenCalled();
+                expect(res.status).toHaveBeenCalledWith(200);
+                //expect(res.json).toHaveBeenCalled();
+            })
+        })
+         describe("deleteIssue should return 405 ", () => {
 
-          beforeAll(async () => {
-              const result = await issueController.deleteIssue(req,res);
-          })
-          it('should be truthy',() => {
-              expect(res.json).toHaveBeenCalledTimes(1);
-          })
-        })*/
-        //describe('Falsy deletion', () => {
-          /*jest.spyOn(issueService,"deleteIssue").mockResolvedValue({deleted:false,message:"Unsuccessful deletion"});
-            it('should be falsy', async () => {
-             await issueController.deleteIssue(req.id);
-             expect(res.json).toHaveBeenCalled();
-          })*/
-        //})
-    //})
+            beforeEach(async () => {
+              jest.spyOn(issueService,"deleteIssue").mockResolvedValue({deleted:false,message:"Issue not found or couldn't be deleted"});
+               await issueController.deleteIssue(req,res);
+            })
 
+            it('should be falsy', () => {
+                expect(issueService.deleteIssue).toHaveBeenCalled();
+                expect(issueService.deleteIssue).toHaveBeenCalledWith(parseInt(req.params.issueId))
+                expect(res.status).toHaveBeenCalledWith(405);
+            })
+        })
+
+      })
 })
