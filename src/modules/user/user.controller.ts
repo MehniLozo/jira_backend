@@ -7,7 +7,6 @@ import {
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { Request, Response } from 'express';
-import {UserRegisterRequestDto} from './dto/user-register.req.dto';
 
 @ApiTags('User')
 @Controller('users')

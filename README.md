@@ -1,12 +1,11 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
-- Jira clone UI fixing & trouble shooting
+- Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
 - Project owner attribute fix
-- Controllers unit testing
-- Equality of mocked project in the controller testing
 - Better universal way to catch errors during requests
 - Better Relations and CASCADING between entities please
+
 
 ### Architecture TODOS
 
@@ -27,9 +26,9 @@ REST API :
 
 - [x] Issue
   - [x] controllers
-    - [ ] unit test
+    - [x] unit test
   - [x] services
-    - [ ] unit test
+    - [x] unit test
   - [ ] E2E Testing
 
 - [x] Comment
