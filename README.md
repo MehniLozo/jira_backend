@@ -11,8 +11,8 @@
 <br>
 
 ### Project's board (aka Home page for the project) 
-
-#### `GET /api/{projectId}/board`
+Retrieve all issues that are related to the specific project
+#### `GET /api/{projectId}/issues`
 
 <img src="./screenDocs/board.png" width="200">
 
@@ -21,11 +21,10 @@
 ```diff
 Parameters: 
     Path : projectId
-    Body : None
 
 Responses:
 + 200 (application/json)
-    Attribute (Board)
+    Attribute (Issue)
 - 404 Project not found
 ```
 
@@ -59,7 +58,7 @@ Responses:
 ### Issue
 
 * **Issue Consulting**
-#### `GET /api/projects/issues/{issueId}/`
+#### `GET /api/projects/{projectId}/issues/{issueId}/`
 
 <img src="./screenDocs/IssueConsulting.png" width="200">
 
@@ -67,7 +66,9 @@ Responses:
 
 ```diff
 Parameter:
-    Path : issueId
+    Path : 
+      issueId
+      projectId
 Responses:
 + 200 (application/json)
     Attribute (Issue)
@@ -114,7 +115,7 @@ Responses:
 
 * **Issue Modification** 
 
-#### `PATCH /api/projects/issues/{issueId}/`
+#### `PUT /api/projects/{projectId}/issues/{issueId}/`
 
 <img src="./screenDocs/IssueModification.png" width="200">
 
@@ -122,7 +123,9 @@ Responses:
 
 ```diff
 Parameters:
-    Path: issueId
+    Path: 
+      projectId
+      issueId
     Body: Issue
 Responses:
 + 201 (application/json)
@@ -135,21 +138,23 @@ Responses:
 <br>
 
 * **Issue Removal**
-#### `DELETE /api/projects/issues/{issueId}/ `
+#### `DELETE /api/projects/{projectId}/issues/{issueId}/ `
 <img src="./screenDocs/IssueDelete.png" width="200">
 
 <br>
 
 ```diff
 Parameter:
-    Path: issueId
+    Path: 
+      projectId
+      issueId
 Responses:
 + 200 Issue has been deleted
 - 404 Issue doesn't exist
 ```
 * **Issue Search** 
 
-#### ` GET /api/projects/{projectId}/issues/search`
+#### ` GET /api/projects/{projectId}/issues?searchTerm={searchTerm}`
 
 <img src="./screenDocs/IssueSearch.png" width="200">
 
@@ -158,6 +163,7 @@ Responses:
 ```diff
 Parameter:
     Path: projectId
+    query: searchTerm : string
 Responses
 + 200 (application/json)
      Attributes (array[Issues])
@@ -170,7 +176,7 @@ Responses
 
 * **Commment Addition**
 
-#### `POST /api/issues/{issueId}/comment `
+#### `POST /api/issues/{issueId}/comments `
 
 <img src="./screenDocs/CommentAddition.png" width="200">
 
@@ -221,7 +227,7 @@ Responses:
 
 
 
-#### ` DELETE /api/issue/comment{commentId}`
+#### ` DELETE /api/issue/comments/{commentId}`
 
 <img src="./screenDocs/CommentDeletion.png" width="200">
 
