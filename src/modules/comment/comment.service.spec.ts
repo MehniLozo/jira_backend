@@ -11,7 +11,6 @@ describe('CommentService', () => {
   let commentRepositoryMock: MockType<Repository<Comment>>;
 
   beforeEach(async() => {
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [CommentService,
         {
@@ -29,6 +28,7 @@ describe('CommentService', () => {
     it('Should be defined', () => {
       expect(commentService).toBeDefined();
     })
+
     describe('createComment', () => {
         let newComment : Comment;
         const registerComment: CommentRegisterRequestDto = {
@@ -47,4 +47,23 @@ describe('CommentService', () => {
         })
       })
     })
+
+   describe('getCommentsByIssue', () => {
+     describe('Existing Issue', () => {
+       it('Issue does exist', async () => {
+         const comments = await commentService.getCommentsByIssue(6)
+         expect(commentRepositoryMock.find).toHaveBeenCalled();
+       })
+     })
+
+     describe('Invalid issue', () => {
+       it("Issue doesn't exist", async() => {
+         //mocking the function
+         jest.spyOn(commentRepositoryMock,"find").mockResolvedValue("Issue doesn't exist")
+         const comments = await commentService.getCommentsByIssue(6)
+         expect(commentRepositoryMock.find).toHaveBeenCalled();
+
+       })
+     })
+   })
 })

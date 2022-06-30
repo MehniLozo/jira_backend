@@ -23,7 +23,7 @@ export class CommentService {
       });
     }catch(err){
       console.log(err.message);
-      return "No comments"
+      return "Issue doesn't exist"
     }
 
   }
