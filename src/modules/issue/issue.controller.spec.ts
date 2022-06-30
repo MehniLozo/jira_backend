@@ -71,7 +71,14 @@ describe('IssueController Unit Tests',() => {
                         getIssueById: jest.fn().mockImplementation((issueId:number) => {
                             Promise.resolve(testingIssue)
                         }),
-                        modifyIssue: jest.fn().mockResolvedValue(testingIssue),
+                        //modifyIssue: jest.fn().mockResolvedValue(testingIssue),
+                        modifyIssue: jest.fn().mockImplementation((body:object) => {
+                          let k:any;
+                          for(let k in body){
+                            testingIssue[k] = body[k]
+                          }
+                          Promise.resolve(testingIssue)
+                        }),
                         deleteIssue: jest.fn().mockRejectedValue({deleted:true, message:"Issue has just been deleted"})
                     }
                 }
@@ -134,6 +141,26 @@ describe('IssueController Unit Tests',() => {
         })
       })
     })
+
+    describe("modifyIssue", () => {
+      const {req,res}:any = setup();
+      req.params = {issueId:1};
+      req.body = {description:"New description for the guy"};
+
+      describe("modifyIssue will return an updated issue 201 ", () => {
+
+        beforeEach(async() => {
+            await issueController.modifyIssue(req,res);
+        })
+
+        it('should be valid update',() => {
+          expect(issueService.modifyIssue).toBeCalled();
+          expect(res.status).toHaveBeenCalledWith(201);
+        })
+
+      })
+    })
+
       /*describe('deleteIssue', () => {
           const {req,res}:any = setup();
           req.params = {id:1};
