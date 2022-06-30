@@ -129,6 +129,7 @@ describe('IssueController Unit Tests',() => {
       describe('findIssueById will 404 when trying to reach unexisting issue', () => {
         const {req,res}:any = setup();
         req.params = {issueId:1};
+
         beforeEach(async() => {
           jest.spyOn(issueService,"getIssueById").mockResolvedValue("Issue doesn't exist");
           await issueController.findIssueById(req,res)
@@ -157,7 +158,19 @@ describe('IssueController Unit Tests',() => {
           expect(issueService.modifyIssue).toBeCalled();
           expect(res.status).toHaveBeenCalledWith(201);
         })
+      })
 
+      describe("modifyIssue will return 400", () => {
+
+        beforeEach(async() => {
+          jest.spyOn(issueService,"modifyIssue").mockResolvedValue("Couldn't update");
+          await issueController.modifyIssue(req,res);
+        })
+
+        it("should be unvalid update", () => {
+          expect(issueService.modifyIssue).toBeCalled();
+          expect(res.status).toHaveBeenCalledWith(400);
+        })
       })
     })
 
