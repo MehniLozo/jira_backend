@@ -7,9 +7,6 @@ import {ProjectRegisterRequestDto} from './dto/project-register.req.dto';
 import {ProjectCategory} from './project.constants';
 import {repositoryMockFactory} from '../../repository/repositoryMockFactory';
 
-//Way of testing with mocking is gonna be utterly changed
-//gonna use request mocking
-
 describe('ProjectController Unit Tests',() => {
 
   function setup() {
@@ -111,12 +108,7 @@ describe('ProjectController Unit Tests',() => {
         expect(res.json).toHaveBeenCalled();
         //expect(res.status).toHaveBeenCalledWith(201);
       })
-      it('when the creation is done it should return the project',async() => {
-        //URGENT
-        //await expect(project).toEqual(mockProject);
-      })
     })
-
   })
 
     describe('getProjectById', () => {
