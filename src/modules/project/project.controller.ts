@@ -50,7 +50,7 @@ export class ProjectController {
     @Req() req:Request, @Res() res: Response
   ){
     const resultProject =  await this.projectService.updateProjectById(parseInt(req.params.projectId),req.body);
-    res.status(resultProject instanceof Project? 200 : 405).json(resultProject);
+    res.status(typeof resultProject === "string"? 405 : 200).json(resultProject);
   }
 
   @Delete('/:projectId') //with id param

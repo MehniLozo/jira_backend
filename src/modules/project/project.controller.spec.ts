@@ -41,7 +41,6 @@ describe('ProjectController Unit Tests',() => {
   let projectController: ProjectController;
   let projectService: ProjectService;
   //let project: Project;
-
   const updateBody = {
     name: 'Jira Mock',
     url: 'jiraMocking.com',
@@ -73,10 +72,6 @@ describe('ProjectController Unit Tests',() => {
             id:id,
            })
         }),
-        /*updateProjectById: jest.fn().mockImplementation((id:number,updateBody:ProjectRegisterRequestDto) => {
-
-          Promise.resolve(updateBody)
-        }),*/
         updateProjectById: jest.fn().mockResolvedValueOnce(updateBody),
         deleteProject:jest.fn().mockResolvedValue({deleted:true})
       }
@@ -142,7 +137,19 @@ describe('ProjectController Unit Tests',() => {
       })
     })
 
-
+    describe('updateProjectById', () => {
+      const {req,res}:any = setup();
+      req.body = updateBody;
+      req.params = {projectId:1};
+      describe('when updateProject is called', () => {
+        it('it should return the updated project',async() => {
+          await projectController.updateProjectById(req,res);
+          expect(projectService.updateProjectById).toBeCalledTimes(1);
+          expect(projectService.updateProjectById).toHaveBeenCalledWith(req.params.projectId,req.body);
+          expect(res.status).toHaveBeenCalledWith(200);
+        })
+      })
+    })
 
   /*
   describe('createProject', () => {
@@ -181,16 +188,6 @@ describe('ProjectController Unit Tests',() => {
 
 
 /*
-    describe('updateProjectById', () => {
-      describe('when createProject is called', () => {
-        it('it should return the updated project',async() => {
-
-          await expect(projectController.updateProjectById(1,updateBody)).resolves.toEqual(updateBody);
-          //expect(projectController.updateProjectById).toBeCalledTimes(1);
-        })
-      })
-
-    })
 
     describe('deleteProject', () => {
 

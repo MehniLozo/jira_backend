@@ -23,7 +23,7 @@ export class ProjectService {
       return "Project doesnt exist"
     }
   }
-  async updateProjectById(id:number,body: ProjectRegisterRequestDto): Promise<any> {
+  async updateProjectById(id:number,body: ProjectRegisterRequestDto): Promise<string | any> {
     try{
       return await this.projectRepo.update(id,body);
     }catch(e){
