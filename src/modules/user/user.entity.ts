@@ -61,15 +61,15 @@ export class User extends BaseEntity {
     project => project.users,
   )
   projects: Project[];
-/*
+//--
   //needs a fix here pls
-  @ApiProperty({ description: 'User\'s owned projects' })
+  @ApiProperty({ description: 'User\'s owned projects',type: () => Project})
   @OneToMany(
     () => Project,
-    project => project.ownerId,
+    project => project.owner,
   )
   ownProjects: Project[];
-*/
+///--
   /*@RelationId((user: User) => user.project)
   projectId: number;*/
 

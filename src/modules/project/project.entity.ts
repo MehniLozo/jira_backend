@@ -38,15 +38,14 @@ export class Project extends BaseEntity {
   @ApiProperty({ description: 'Project\'s description' })
   @Column()
   description: string;
-/*
-  @ApiProperty({ description: 'Project\'s Owner' })
-  @Column()
+  //--
+  @ApiProperty({ description: 'Project\'s Owner',type: () => User })
   @ManyToOne(() => User ,user => user.ownProjects)
   owner: User;
 
-  @RelationId((project:Project) => project.owner)
-  ownerId : number;
-*/
+  /*@RelationId((project:Project) => project.owner)
+  ownerId : number;*/
+  //--
   @Column()
   category: ProjectCategory;
   @OneToMany(

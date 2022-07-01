@@ -5,6 +5,7 @@
 - Project owner attribute fix
 - Better universal way to catch errors during requests
 - Better Relations and CASCADING between entities please
+- More useful decorators
 
 
 ### Architecture TODOS
@@ -33,9 +34,9 @@ REST API :
 
 - [x] Comment
   - [x] controllers
-    - [ ] unit test
+    - [x] unit test
   - [x] services
-    - [ ] unit test
+    - [x] unit test
   - [ ] E2E Testing
 
 - [ ] App End-2-End Testing (Integration test)
