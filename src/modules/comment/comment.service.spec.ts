@@ -83,4 +83,22 @@ describe('CommentService', () => {
        })
      })
    })
+   describe('modifyComment', () => {
+     const bodyUpdate = {
+       body: "this is some comment update"
+     }
+     it('comment body should be changed', async () => {
+        const result = await commentService.modifyComment(1,bodyUpdate);
+        expect(commentRepositoryMock.update).toBeCalled();
+        expect(commentRepositoryMock.update).toBeCalledWith(1,bodyUpdate);
+     })
+   })
+
+   describe('deleteComment', () => {
+     it('comment should be deleted', async() => {
+       const result = await commentService.deleteComment(1);
+       expect(commentRepositoryMock.delete).toBeCalled();
+       expect(result).toEqual({deleted:true});
+     })
+   })
 })
