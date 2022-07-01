@@ -66,4 +66,21 @@ describe('CommentService', () => {
        })
      })
    })
+
+   describe('getCommentById', () => {
+     describe('Existing comment',() => {
+       it('comment does exist', async() => {
+         const comment = await commentService.getCommentById(1);
+         expect(commentRepositoryMock.findOne).toBeCalled();
+       })
+     })
+     describe('unexsiting comment', () => {
+       it("comment doesn't exist", async () => {
+         jest.spyOn(commentRepositoryMock,"findOne").mockResolvedValue("Comment doesn't exist")
+        const result = await commentService.getCommentById(1);
+        expect(commentRepositoryMock.findOne).toBeCalled();
+        expect(result).toEqual("Comment doesn't exist");
+       })
+     })
+   })
 })
