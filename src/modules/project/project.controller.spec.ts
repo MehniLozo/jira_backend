@@ -107,13 +107,14 @@ describe('ProjectController Unit Tests',() => {
         category:ProjectCategory.SOFTWARE
       }
       beforeEach(async() =>{
-
         const resultProject = await projectController.createProject(req,res)
       })
 
       it('expecting the projectService to be called', () => {
         expect(projectService.createProject).toBeCalledTimes(1);
         expect(projectService.createProject).toHaveBeenCalledWith(req.body)
+        expect(res.json).toHaveBeenCalled();
+        //expect(res.status).toHaveBeenCalledWith(201);
       })
       it('when the creation is done it should return the project',async() => {
         //URGENT
@@ -122,6 +123,24 @@ describe('ProjectController Unit Tests',() => {
     })
 
   })
+
+    describe('getProjectById', () => {
+      const {req,res}:any = setup();
+      req.params = {projectId:1};
+      it('return projects infos', async() => {
+        await projectController.findProjectById(req,res);
+        expect(projectService.getProjectById).toHaveBeenCalledWith(parseInt(req.params.projectId));
+        expect(res.json).toHaveBeenCalled();
+      })
+
+      it('should return an error for the non existant project', async() => {
+        jest.spyOn(projectService,"getProjectById")
+          .mockResolvedValueOnce("Project doesnt exist")
+        await projectController.findProjectById(req,res)
+        expect(projectService.getProjectById).toBeCalled();
+        expect(res.status).toHaveBeenCalledWith(404);
+      })
+    })
 
 
 
@@ -160,22 +179,8 @@ describe('ProjectController Unit Tests',() => {
   })
   */
 
+
 /*
-    describe('getProjectById', () => {
-      it('return projects infos', async() => {
-        await projectController.findProjectById(1);
-        expect(projectService.getProjectById).toBeCalled()
-      })
-
-      it('should return an error for the non existant project', async() => {
-        const spyGetProject = jest.spyOn(projectService,"getProjectById")
-          .mockResolvedValueOnce("Project doesnt exist");
-        await expect(projectController.findProjectById(1)).resolves
-          .toEqual("Project doesnt exist");
-        expect(projectService.getProjectById).toBeCalled();
-      })
-    })
-
     describe('updateProjectById', () => {
       describe('when createProject is called', () => {
         it('it should return the updated project',async() => {
@@ -205,5 +210,5 @@ describe('ProjectController Unit Tests',() => {
           })
 
         })
-*/
+        */
 })
