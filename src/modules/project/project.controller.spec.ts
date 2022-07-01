@@ -151,61 +151,22 @@ describe('ProjectController Unit Tests',() => {
       })
     })
 
-  /*
-  describe('createProject', () => {
-    describe('when createProject is called', () => {
-      let createProjectDTO: ProjectRegisterRequestDto;
-
-      const mockProject  = {
-
-        name:'Jira',
-        url:'jira.com',
-        description:'MyJiraProject',
-        category:ProjectCategory.SOFTWARE
-      }
-      beforeEach(async() =>{
-        createProjectDTO = {
-          name:mockProject.name,
-          url:mockProject.url,
-          description:mockProject.description,
-          category:mockProject.category
-       }
-       project = await projectController.createProject(createProjectDTO)
-      })
-
-      it('expecting the projectService to be called', () => {
-        expect(projectService.createProject).toBeCalledTimes(1);
-        expect(projectService.createProject).toHaveBeenCalledWith(createProjectDTO)
-      })
-      it('when the creation is done it should return the project',async() => {
-        //URGENT
-        //await expect(project).toEqual(mockProject);
-      })
-    })
-
-  })
-  */
-
-
-/*
-
     describe('deleteProject', () => {
+      const {req,res}:any = setup();
+      req.body = updateBody;
+      req.params = {projectId:1};
+      it('should return that the desired project has been deleted', async () => {
+          await projectController.deleteProject(req,res);
+          expect(projectService.deleteProject).toHaveBeenCalled();
+          expect(res.status).toHaveBeenCalledWith(200);
+      })
 
-          it('should return that the desired project has been deleted', async () => {
-              await expect(projectController.deleteProject(1)).resolves.toEqual({
-                deleted:true,
-              })
-          })
-
-          it('falsy deletion of the project',async() => {
-            const falsyDeleteProjectSpy = jest.spyOn(projectService,'deleteProject')
-              .mockResolvedValueOnce({deleted:false, message:"Something went wrong"});
-            await expect(projectController.deleteProject(7)).resolves.toEqual(
-                {deleted: false, message:"Something went wrong"}
-              )
-            expect(falsyDeleteProjectSpy).toBeCalled();
-          })
-
-        })
-        */
+      it('falsy deletion of the project',async() => {
+        jest.spyOn(projectService,'deleteProject')
+        .mockResolvedValueOnce({deleted:false, message:"Something went wrong"});
+        await projectController.deleteProject(req,res)
+        expect(projectService.deleteProject).toBeCalled();
+        expect(res.status).toHaveBeenCalledWith(400);
+       })
+    })
 })
