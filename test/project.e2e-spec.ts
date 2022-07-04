@@ -14,19 +14,28 @@ describe('Projects', () => {
   let app: INestApplication;
   let projectRepository: Repository<Project>;
 
-  let projectService = {
+  const expectProject = {
+    id: 8,
+    name: "TestProj",
+    url: "testing.com",
+    description: "save me here pls",
+    category: "business",
+    createdAt: "2022-06-28T10:34:54.105Z",
+    updatedAt: "2022-06-28T10:34:54.105Z"
+  }
+
+  /*let projectService = {
     createProject: () => {},
     getProjectById: (id:number) => {},
     updateProjectById: () => {},
     deleteProject: (id:number) => {}
-  }
-  beforeEach(async() => {
+  }*/
+
+  beforeAll(async() => {
     const moduleRef = await Test.createTestingModule({
       imports:[ProjectModule,TypeOrmModule.forRoot(typeOrmConfig)],
       providers:[ProjectService]
     })
-    .overrideProvider(ProjectService)
-    .useValue(projectService)
     .compile();
 
     app = moduleRef.createNestApplication();
@@ -35,7 +44,7 @@ describe('Projects', () => {
     projectRepository = moduleRef.get('ProjectRepository');
   })
 
-  describe('/GET /projects', () => {
+  describe('/GET projects', () => {
     it('should return the specified project by its id', () => {
      /* await projectRepository.save({
         name: "TestProj",
@@ -44,24 +53,18 @@ describe('Projects', () => {
         category: ProjectCategory.BUSINESS
       });*/
        return request(app.getHttpServer())
-      .get('/')
+      .get('/projects/8')
+      //.get('/api/projects/8')
       .set('Accept','application/json')
-      //.expect('Content-Type', /json/)
-      .expect(404) //just at the moment
-      /*.then((res) => {
-        expect(res.body).toEqual([
-          projectService.getProjectById(1)
-        ])
-      })*/
-      /*.expect({
-        data: projectService.getProjectById(1),
-    })*/
+      .expect('Content-Type', /json/)
+      .expect(200) //just at the moment
+      .then((res) => {
+        expect(res.body).toEqual(expectProject)
+      })
 
       afterAll(async() => {
         await app.close();
       })
-    },30000)
+    })
   })
-
-//  it('/GET project', () => {},30000)
 })
