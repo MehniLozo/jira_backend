@@ -10,12 +10,12 @@ import {
   ManyToMany,
   ManyToOne,
   RelationId,
+  JoinTable
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
 import {Issue} from '../issue/issue.entity';
 import {Project} from '../project/project.entity';
-
 import {Comment} from '../comment/comment.entity';
 
 @Entity({ name: 'users' })
@@ -61,17 +61,13 @@ export class User extends BaseEntity {
     project => project.users,
   )
   projects: Project[];
-//--
-  //needs a fix here pls
+
   @ApiProperty({ description: 'User\'s owned projects',type: () => Project})
   @OneToMany(
     () => Project,
     project => project.owner,
   )
   ownProjects: Project[];
-///--
-  /*@RelationId((user: User) => user.project)
-  projectId: number;*/
 
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()

@@ -10,6 +10,7 @@ import {
   ManyToMany,
   ManyToOne,
   RelationId,
+  JoinTable
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {User} from '../user/user.entity';
@@ -28,7 +29,6 @@ export class Project extends BaseEntity {
 
   @ApiProperty({
     description: 'Project\'s url',
-    example: 'https://editor.swagger.io/?_ga=2.109963653.1268973685.1654855880-1697520630.1654855880',
   })
   @Column({
     unique: true,
@@ -38,14 +38,11 @@ export class Project extends BaseEntity {
   @ApiProperty({ description: 'Project\'s description' })
   @Column()
   description: string;
-  //--
+
   @ApiProperty({ description: 'Project\'s Owner',type: () => User })
   @ManyToOne(() => User ,user => user.ownProjects)
   owner: User;
 
-  /*@RelationId((project:Project) => project.owner)
-  ownerId : number;*/
-  //--
   @Column()
   category: ProjectCategory;
   @OneToMany(
@@ -56,10 +53,11 @@ export class Project extends BaseEntity {
   )
   issues: Issue[];
 
-  @OneToMany(
+  @ManyToMany(
     () => User,
     user => user.projects,
   )
+  @JoinTable({name: "projects_users"})
   users: User[];
 
   @ApiProperty({ description: 'When project was created' })

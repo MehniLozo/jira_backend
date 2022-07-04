@@ -67,7 +67,6 @@ export class Issue extends BaseEntity {
   reporter: User;
   @ApiProperty({ description: 'Reporter' })
   @Column({nullable:true})
-  //@RelationId((user: User) => user.)
   reporterId: number;
 
   @ManyToOne(
@@ -87,27 +86,13 @@ export class Issue extends BaseEntity {
   )
   comments: Comment[];
 
-
   @ManyToMany(
     () => User,
     user => user.issues,
   )
-  @JoinTable()
+  @JoinTable({name:"issues_users"})
   users: User[];
 
   @RelationId((issue: Issue) => issue.users)
   usersIds: number[];
-
-  /*
-  //some process decoration still need to be done soon enough
-  @BeforeInsert()
-  @BeforeUpdate()
-
-  setDescriptionText = (): void => {
-    if (this.description) {
-      this.descriptionText = striptags(this.description);
-    }
-  };*/
-
-
 }

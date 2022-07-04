@@ -7,17 +7,12 @@ import {
   UpdateDateColumn,
   ManyToOne,
 } from 'typeorm';
-
-//import is from 'utils/validation';
 import { ApiProperty } from '@nestjs/swagger';
 import { Issue} from '../issue/issue.entity';
 import { User } from '../user/user.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
-  /*static validations = {
-    body: [is.required(), is.maxLength(50000)],
-  };*/
 
   @ApiProperty({ description: 'Primary key as Comment ID', example: 1 })
   @PrimaryGeneratedColumn()
