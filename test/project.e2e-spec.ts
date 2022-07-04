@@ -9,7 +9,8 @@ import { Repository } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {ProjectCategory} from '../src/modules/project/project.constants';
 
-
+//kinda avoided using mocks here
+//will use a seperate DB for testing later
 describe('Projects', () => {
   let app: INestApplication;
   let projectRepository: Repository<Project>;
@@ -59,7 +60,7 @@ describe('Projects', () => {
       .expect('Content-Type', /json/)
       .expect(200) //just at the moment
       .then((res) => {
-        expect(res.body).toEqual(expectProject)
+         expect(res.body).toEqual(expectProject)
       })
 
       afterAll(async() => {
