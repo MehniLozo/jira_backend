@@ -2,9 +2,6 @@
 ## Backend service for Jira Clone
 ### URGENT TODOS
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
-- Project owner attribute fix
-- Better universal way to catch errors during requests
-- Better Relations and CASCADING between entities please
 - More useful decorators
 
 
