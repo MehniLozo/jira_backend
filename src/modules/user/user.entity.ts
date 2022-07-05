@@ -39,7 +39,13 @@ export class User extends BaseEntity {
 
   @ApiProperty({ description: 'Hashed user password' })
   @Column()
-  password: string;
+  password: string; //password gotta be hashed 
+
+  @ApiProperty({ description: "User's avatar" })
+  @Column()
+  avatarUrl: string; 
+
+  
 
 
   @ApiProperty({ description: 'User\'s comments' })
