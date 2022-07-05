@@ -14,6 +14,7 @@ import appDataSource from './config/app-data-source';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
+  app.enableCors();
 
   const options = new DocumentBuilder()
       .setTitle('Jira API')
