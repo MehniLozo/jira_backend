@@ -29,7 +29,7 @@ export class IssueService {
 
   async getIssueById(id: number): Promise<Issue| string> {
     try{
-      return this.issueRepo.findOne({ where: { id } });
+      return this.issueRepo.findOne({ where: { id },relations:["users","comments"] });
     }catch(err){
       console.log(err);
       return "Issue doesn't exist";

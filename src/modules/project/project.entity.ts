@@ -58,7 +58,7 @@ export class Project extends BaseEntity {
     user => user.projects,
   )
   @JoinTable({name: "projects_users"})
-  users: User[];
+  users: Promise<User[]>;
 
   @ApiProperty({ description: 'When project was created' })
   @CreateDateColumn()
