@@ -1,6 +1,7 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
+- Authentication middleware setup
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
 - More useful decorators
 

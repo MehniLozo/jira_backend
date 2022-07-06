@@ -17,7 +17,7 @@ export class ProjectService {
   }
   async getProjectById(id: number): Promise<Project|string> {
     try{
-      return await this.projectRepo.findOne({where: {id}});
+      return await this.projectRepo.findOne({where: {id},relations:["issues","users"]});
     }catch(err){
       console.log(err);
       return "Project doesnt exist"
