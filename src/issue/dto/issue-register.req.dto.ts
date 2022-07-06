@@ -1,8 +1,8 @@
-import {IsNotEmpty,isObject,IsOptional} from 'class-validator';
-import {IssueType,IssueStatus,IssuePriority} from '../issues.constants';
-import {User} from '../../user/user.entity';
+import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IssueType, IssueStatus, IssuePriority } from '../issues.constants';
+import { User } from '../../user/user.entity';
 
-export class IssueRegisterRequestDto{
+export class IssueRegisterRequestDto {
   @IsNotEmpty()
   description: string;
 
@@ -19,7 +19,7 @@ export class IssueRegisterRequestDto{
   status: IssueStatus;
 
   @IsNotEmpty()
-  title:string;
+  title: string;
 
   @IsNotEmpty()
   type: IssueType;
@@ -27,5 +27,5 @@ export class IssueRegisterRequestDto{
   @IsOptional()
   userIds: number[];
 
-  users: User[]
+  users: User[];
 }

@@ -8,17 +8,16 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Issue} from '../issue/issue.entity';
+import { Issue } from '../issue/issue.entity';
 import { User } from '../user/user.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
-
   @ApiProperty({ description: 'Primary key as Comment ID', example: 1 })
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ description: 'Comment\'s body', example: 'Compilation' })
+  @ApiProperty({ description: "Comment's body", example: 'Compilation' })
   @Column('text')
   body: string;
 
@@ -30,21 +29,14 @@ export class Comment extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.comments,
-  )
+  @ManyToOne(() => User, (user) => user.comments)
   user: User;
 
-  @ApiProperty({ description: 'Authors\'s id' })
-  @Column('integer',{nullable:true})
+  @ApiProperty({ description: "Authors's id" })
+  @Column('integer', { nullable: true })
   userId: number;
 
-  @ManyToOne(
-    () => Issue,
-    issue => issue.comments,
-    { onDelete: 'CASCADE' },
-  )
+  @ManyToOne(() => Issue, (issue) => issue.comments, { onDelete: 'CASCADE' })
   issue: Issue;
   @ApiProperty({ description: 'Belonging to an issue id' })
   @Column('integer')

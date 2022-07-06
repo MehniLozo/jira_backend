@@ -8,15 +8,12 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
-  ManyToOne,
-  RelationId,
-  JoinTable
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
-import {Issue} from '../issue/issue.entity';
-import {Project} from '../project/project.entity';
-import {Comment} from '../comment/comment.entity';
+import { Issue } from '../issue/issue.entity';
+import { Project } from '../project/project.entity';
+import { Comment } from '../comment/comment.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -39,40 +36,25 @@ export class User extends BaseEntity {
 
   @ApiProperty({ description: 'Hashed user password' })
   @Column()
-  password: string; //password gotta be hashed 
+  password: string; //password gotta be hashed
 
   @ApiProperty({ description: "User's avatar" })
   @Column()
-  avatarUrl: string; 
+  avatarUrl: string;
 
-  
-
-
-  @ApiProperty({ description: 'User\'s comments' })
-  @OneToMany(
-    () => Comment,
-    comment => comment.user,
-  )
-  comments:Comment[];
-  @ApiProperty({ description: 'User\'s Issues' })
-  @ManyToMany(
-    () => Issue,
-    issue => issue.users,
-  )
+  @ApiProperty({ description: "User's comments" })
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
+  @ApiProperty({ description: "User's Issues" })
+  @ManyToMany(() => Issue, (issue) => issue.users)
   issues: Issue[];
 
-  @ApiProperty({ description: 'User\'s Project' })
-  @ManyToMany(
-    () => Project,
-    project => project.users,
-  )
+  @ApiProperty({ description: "User's Project" })
+  @ManyToMany(() => Project, (project) => project.users)
   projects: Project[];
 
-  @ApiProperty({ description: 'User\'s owned projects',type: () => Project})
-  @OneToMany(
-    () => Project,
-    project => project.owner,
-  )
+  @ApiProperty({ description: "User's owned projects", type: () => Project })
+  @OneToMany(() => Project, (project) => project.owner)
   ownProjects: Project[];
 
   @ApiProperty({ description: 'When user was created' })
