@@ -49,27 +49,6 @@ describe('CommentService', () => {
       });
     });
   });
-
-  describe('getCommentsByIssue', () => {
-    describe('Existing Issue', () => {
-      it('Issue does exist', async () => {
-        await commentService.getCommentsByIssue(6);
-        expect(commentRepositoryMock.find).toHaveBeenCalled();
-      });
-    });
-
-    describe('Invalid issue', () => {
-      it("Issue doesn't exist", async () => {
-        //mocking the function
-        jest
-          .spyOn(commentRepositoryMock, 'find')
-          .mockResolvedValue("Issue doesn't exist");
-        await commentService.getCommentsByIssue(6);
-        expect(commentRepositoryMock.find).toHaveBeenCalled();
-      });
-    });
-  });
-
   describe('getCommentById', () => {
     describe('Existing comment', () => {
       it('comment does exist', async () => {

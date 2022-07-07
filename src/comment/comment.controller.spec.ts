@@ -56,11 +56,6 @@ describe('CommentController', () => {
               .mockImplementation((dto: CommentRegisterRequestDto) => {
                 Promise.resolve(testingComment);
               }),
-            getCommentsByIssue: jest
-              .fn()
-              .mockImplementation((projectId: number) => {
-                Promise.resolve([testingComment]);
-              }),
             getCommentById: jest
               .fn()
               .mockImplementation((commentId: number) => {

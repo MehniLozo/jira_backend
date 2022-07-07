@@ -29,22 +29,6 @@ export class CommentController {
       .json(resultComment);
   }
 
-  @Get('/comments')
-  @ApiCreatedResponse({
-    description: 'List all registered comments',
-    type: Comment,
-  })
-  @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findCommentsByIssue(
-    @Req() req: Request,
-    @Res() res: Response,
-  ): Promise<any> {
-    const resultComment = await this.commentService.getCommentsByIssue(
-      parseInt(req.params.issueId),
-    );
-    return res.status(typeof resultComment ? 404 : 200).json(resultComment);
-  }
-
   @Get('/comments/:commId')
   @ApiCreatedResponse({
     description: 'List specified registered comment',

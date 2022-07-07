@@ -15,16 +15,6 @@ export class CommentService {
   ): Promise<Comment> {
     return await this.commentRepo.save(commentRegister);
   }
-  async getCommentsByIssue(issueId: number): Promise<Comment[] | string> {
-    try {
-      return await this.commentRepo.find({
-        where: { issueId },
-      });
-    } catch (err) {
-      console.log(err.message);
-      return "Issue doesn't exist";
-    }
-  }
 
   async getCommentById(id: number): Promise<Comment | string> {
     try {
