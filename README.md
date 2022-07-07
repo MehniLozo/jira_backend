@@ -1,7 +1,7 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
-- File Structure update to render more like Nesty architecture
+- RENDER PROJECT TO A MORE NESTY NORM
 - Global project database config
 - class validators inside DTO pipes
 - Spacing issues
