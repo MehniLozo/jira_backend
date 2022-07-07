@@ -8,7 +8,6 @@ import appDataSource from '../config/app-data-source';
   imports: [TypeOrmModule.forFeature([Project], appDataSource)],
   providers: [ProjectService],
   controllers: [ProjectController],
-  //exports: [ProjectService],
   exports: [TypeOrmModule],
 })
 export class ProjectModule {}

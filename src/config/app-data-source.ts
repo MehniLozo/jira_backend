@@ -1,5 +1,7 @@
 import { DataSource } from 'typeorm';
-require('dotenv').config();
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const appDataSource: DataSource = new DataSource({
   type: 'mysql',
@@ -13,11 +15,10 @@ const appDataSource: DataSource = new DataSource({
 appDataSource
   .initialize()
   .then(() => {
-    //console.log("Data Source has been initialized!")
+    console.log('Data Source has been initialized!');
   })
   .catch((err) => {
     console.log('---ERRONED DURING DATA SOURCE--');
-    //console.error("Error during Data Source initialization", err)
     console.log(err.message);
   });
 export default appDataSource;

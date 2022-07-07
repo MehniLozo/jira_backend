@@ -1,6 +1,5 @@
 import {
   BaseEntity,
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -11,13 +10,13 @@ import {
   ManyToMany,
   ManyToOne,
   RelationId,
-JoinTable,
+  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import {User} from '../user/user.entity';
-import {IssueStatus,IssuePriority,IssueType} from './issues.constants';
-import {Project} from '../project/project.entity';
-import {Comment} from '../comment/comment.entity';
+import { User } from '../user/user.entity';
+import { IssueStatus, IssuePriority, IssueType } from './issues.constants';
+import { Project } from '../project/project.entity';
+import { Comment } from '../comment/comment.entity';
 
 @Entity({ name: 'issues' })
 export class Issue extends BaseEntity {
@@ -26,21 +25,21 @@ export class Issue extends BaseEntity {
   id: number;
 
   @ApiProperty({ description: 'Issue title', example: 'Compilation' })
-  @Column({nullable:false, unique:true})
+  @Column({ nullable: false, unique: true })
   title: string;
 
-  @ApiProperty({ description: 'Issue\'s type', example: IssueType.STORY })
-  @Column({nullable:false})
+  @ApiProperty({ description: "Issue's type", example: IssueType.STORY })
+  @Column({ nullable: false })
   type: IssueType;
 
-  @ApiProperty({ description: 'Issue\'s status', example: IssueStatus.DONE })
+  @ApiProperty({ description: "Issue's status", example: IssueStatus.DONE })
   @Column()
   status: IssueStatus;
 
   @Column('varchar')
   priority: IssuePriority;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   listPosition: number;
 
   @Column('text', { nullable: true })
@@ -66,31 +65,23 @@ export class Issue extends BaseEntity {
   @OneToOne(() => User)
   reporter: User;
   @ApiProperty({ description: 'Reporter' })
-  @Column({nullable:true})
+  @Column({ nullable: true })
   reporterId: number;
 
-  @ManyToOne(
-    () => Project,
-    project => project.issues,
-    { onDelete: 'CASCADE' }
-  )
+  @ManyToOne(() => Project, (project) => project.issues, {
+    onDelete: 'CASCADE',
+  })
   project: Project;
 
   @ApiProperty({ description: 'ProjectID' })
-  @Column({nullable:false})
+  @Column({ nullable: false })
   projectId: number;
 
-  @OneToMany(
-    () => Comment,
-    comment => comment.issue,
-  )
+  @OneToMany(() => Comment, (comment) => comment.issue)
   comments: Comment[];
 
-  @ManyToMany(
-    () => User,
-    user => user.issues,
-  )
-  @JoinTable({name:"issues_users"})
+  @ManyToMany(() => User, (user) => user.issues)
+  @JoinTable({ name: 'issues_users' })
   users: User[];
 
   @RelationId((issue: Issue) => issue.users)

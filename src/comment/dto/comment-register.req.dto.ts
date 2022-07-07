@@ -1,7 +1,5 @@
-
-
-export interface CommentRegisterRequestDto{
-  body: string,
-  issueId: number,
-  userId: number,
+export interface CommentRegisterRequestDto {
+  body: string;
+  issueId: number;
+  userId: number;
 }

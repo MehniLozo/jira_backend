@@ -41,14 +41,15 @@ export class Project extends BaseEntity {
   @ManyToOne(() => User, (user) => user.ownProjects)
   owner: User;
 
-  @Column()
+  @Column({
+    name: 'category',
+    type: 'enum',
+    enum: ProjectCategory,
+    default: ProjectCategory.SOFTWARE,
+  })
   category: ProjectCategory;
-  @OneToMany(
-    () => Issue,
-    (issue) => issue.project,
-    //{cascade:["remove","insert"]}
-    { onDelete: 'CASCADE' },
-  )
+
+  @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })
   issues: Issue[];
 
   @ManyToMany(() => User, (user) => user.projects)
