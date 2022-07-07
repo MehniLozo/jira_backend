@@ -25,20 +25,6 @@ export class IssueController {
     res.status(typeof resultIssue === 'string' ? 404 : 200).json(resultIssue);
   }
 
-  @Get('/issues')
-  @ApiCreatedResponse({
-    description: 'List all registered issues',
-    type: Issue,
-  })
-  @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findIssuesByProject(@Req() req: Request, @Res() res: Response) {
-    const resultIssue = await this.issueService.getIssuesByProject(
-      parseInt(req.params.projectId),
-    );
-
-    res.status(typeof resultIssue === 'string' ? 404 : 200).json(resultIssue);
-  }
-
   @Get('/issues/:issueId')
   @ApiCreatedResponse({
     description: 'List specified registered issue',

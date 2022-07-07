@@ -53,14 +53,6 @@ describe('IssueService', () => {
       expect(issue.reporterId).toBe(registerIssue.reporterId);
     });
   });
-  //get some registered issues
-  describe('getIssuesByProject', () => {
-    it('should return an array of issues based on the projectId', async () => {
-      await issueService.getIssuesByProject(8);
-      expect(issueRepositoryMock.find).toBeCalled();
-    });
-  });
-
   describe('getIssueById', () => {
     it('should return an issue by id', async () => {
       await issueService.getIssueById(3);

@@ -63,11 +63,6 @@ describe('IssueController Unit Tests', () => {
               .mockImplementation((dto: IssueRegisterRequestDto) => {
                 Promise.resolve(testingIssue);
               }),
-            getIssuesByProject: jest
-              .fn()
-              .mockImplementation((projectId: number) => {
-                Promise.resolve([testingIssue]);
-              }),
             getIssueById: jest.fn().mockImplementation((issueId: number) => {
               Promise.resolve(testingIssue);
             }),
@@ -146,50 +141,6 @@ describe('IssueController Unit Tests', () => {
           parseInt(req.params.issueId),
         );
         expect(res.status).toHaveBeenCalledWith(404);
-      });
-    });
-  });
-
-  describe('findIssuesByProject', () => {
-    describe('findIssueByProject will return 200 when project found', () => {
-      const { req, res }: any = setup();
-      req.params = { projectId: 1 };
-
-      beforeEach(async () => {
-        await issueController.findIssuesByProject(req, res);
-      });
-
-      it('Issues array should be returned 200', () => {
-        expect(issueService.getIssuesByProject).toBeCalled();
-        expect(issueService.getIssuesByProject).toHaveBeenCalledWith(
-          parseInt(req.params.projectId),
-        );
-        expect(res.status).toHaveBeenCalledWith(200);
-        //expect(res.send).toHaveBeenCalledTimes(1)
-        expect(res.json).toHaveBeenCalled();
-      });
-    });
-
-    describe('findIssuesByProject will 404 when trying to reach unexisting project', () => {
-      const { req, res }: any = setup();
-      req.params = { projectId: 1 };
-
-      beforeEach(async () => {
-        jest
-          .spyOn(issueService, 'getIssuesByProject')
-          .mockResolvedValue("Project doesn't exist");
-        await issueController.findIssuesByProject(req, res);
-      });
-      it('should return unfound Project 404', () => {
-        //making a mock that returns falsy
-
-        expect(issueService.getIssuesByProject).toBeCalled();
-        expect(issueService.getIssuesByProject).toHaveBeenCalledWith(
-          parseInt(req.params.projectId),
-        );
-        expect(res.status).toHaveBeenCalledWith(404);
-        //expect(res.send).toHaveBeenCalledTimes(1)
-        expect(res.json).toHaveBeenCalled();
       });
     });
   });

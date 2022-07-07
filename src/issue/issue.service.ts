@@ -12,17 +12,6 @@ export class IssueService {
     return await this.issueRepo.save(issueRegister);
   }
 
-  async getIssuesByProject(projectId: number): Promise<Issue[] | string> {
-    try {
-      return this.issueRepo.find({
-        where: { projectId },
-      });
-    } catch (err) {
-      console.log(err);
-      return 'Project doesnt exist';
-    }
-  }
-
   async getIssueById(id: number): Promise<Issue | string> {
     try {
       return this.issueRepo.findOne({
