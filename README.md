@@ -1,12 +1,9 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
-- File Structure update to render more like Nesty architecture
-- Global project database config
-- class validators inside DTO pipes
-- Spacing issues
 - Render to a like more REST Paths ; Hierarchy changes and necessary deletions
 - Req/Res unecessary for some request while @Body could've been enough (ex: instead of req.params.id )
+- Global project database config
 - Global application "Error Handling error"
 - Authentication middleware setup "JWT"
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
