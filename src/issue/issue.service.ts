@@ -12,34 +12,17 @@ export class IssueService {
     return await this.issueRepo.save(issueRegister);
   }
 
-  async getIssueById(id: number): Promise<Issue | string> {
-    try {
-      return this.issueRepo.findOne({
-        where: { id },
-        relations: ['users', 'comments'],
-      });
-    } catch (err) {
-      console.log(err);
-      return "Issue doesn't exist";
-    }
+  async getIssueById(id: number): Promise<Issue> {
+    return this.issueRepo.findOne({
+      where: { id },
+      relations: ['users', 'comments'],
+    });
   }
 
   async modifyIssue(id: number, body: IssueUpdateRequestDto): Promise<any> {
-    try {
-      return await this.issueRepo.update(id, body);
-    } catch (err) {
-      return 'Couldnt update the given issue';
-      console.log(err.message);
-    }
+    return await this.issueRepo.update(id, body);
   }
-  async deleteIssue(
-    issueId: number,
-  ): Promise<{ deleted: boolean; message?: string }> {
-    try {
-      await this.issueRepo.delete({ id: issueId });
-      return { deleted: true };
-    } catch (err) {
-      return { deleted: false, message: err.message };
-    }
+  async deleteIssue(issueId: number): Promise<any> {
+    return await this.issueRepo.delete({ id: issueId });
   }
 }

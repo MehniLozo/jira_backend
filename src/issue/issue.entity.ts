@@ -85,5 +85,5 @@ export class Issue extends BaseEntity {
   users: User[];
 
   @RelationId((issue: Issue) => issue.users)
-  usersIds: number[];
+  userIds: number[];
 }

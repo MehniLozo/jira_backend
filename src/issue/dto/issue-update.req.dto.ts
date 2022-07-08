@@ -1,11 +1,18 @@
-import { IsEnum, IsInt, IsOptional, IsString, Length } from 'class-validator';
+import {
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsString,
+  Length,
+  Min,
+} from 'class-validator';
 import { IssueType, IssueStatus, IssuePriority } from '../issues.constants';
 import { User } from '../../user/user.entity';
 
 export class IssueUpdateRequestDto {
   @IsOptional()
   @IsString()
-  @Length(10, 20)
+  @Length(10, 100)
   description?: string;
 
   @IsOptional()
@@ -26,7 +33,7 @@ export class IssueUpdateRequestDto {
 
   @IsOptional()
   @IsString()
-  @Length(10, 20)
+  @Length(5, 10)
   title?: string;
 
   @IsOptional()
@@ -37,7 +44,6 @@ export class IssueUpdateRequestDto {
   userIds?: number[];
 
   @IsOptional()
-  @IsInt()
   users?: User[];
 
   @IsOptional()

@@ -1,4 +1,3 @@
-import { Controller, Post, Get, Delete, Res, Req, Put } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -6,8 +5,17 @@ import {
 } from '@nestjs/swagger';
 import { Issue } from './issue.entity';
 import { IssueService } from './issue.service';
-import { Request, Response } from 'express';
-
+import {
+  Controller,
+  Post,
+  Get,
+  Delete,
+  Put,
+  Body,
+  Param,
+} from '@nestjs/common';
+import { IssueRegisterRequestDto } from './dto/issue-register.req.dto';
+import { IssueUpdateRequestDto } from './dto/issue-update.req.dto';
 @ApiTags('Issue')
 @Controller('issues')
 export class IssueController {
@@ -19,10 +27,10 @@ export class IssueController {
     type: Issue,
   })
   @ApiBadRequestResponse({ description: 'Issue cannot register. Try again!' })
-  async doCreateIssue(@Req() req: Request, @Res() res: Response) {
-    const resultIssue = await this.issueService.createIssue(req.body);
-
-    res.status(typeof resultIssue === 'string' ? 404 : 200).json(resultIssue);
+  async doCreateIssue(
+    @Body() issueRegisterRequestDto: IssueRegisterRequestDto,
+  ) {
+    return await this.issueService.createIssue(issueRegisterRequestDto);
   }
 
   @Get('/:issueId')
@@ -31,11 +39,8 @@ export class IssueController {
     type: Issue,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findIssueById(@Req() req: Request, @Res() res: Response) {
-    const resultIssue = await this.issueService.getIssueById(
-      parseInt(req.params.issueId),
-    );
-    res.status(typeof resultIssue === 'string' ? 404 : 200).json(resultIssue);
+  async findIssueById(@Param('issueId') issueId: string) {
+    return await this.issueService.getIssueById(parseInt(issueId));
   }
 
   @Put('/:issueId')
@@ -43,12 +48,14 @@ export class IssueController {
     description: 'Modify a specific target issue',
     type: Issue,
   })
-  async modifyIssue(@Req() req: Request, @Res() res: Response) {
-    const resultIssue = await this.issueService.modifyIssue(
-      parseInt(req.params.issueId),
-      req.body,
+  async modifyIssue(
+    @Param('issueId') issueId: string,
+    @Body() issueUpdateRequestDto: IssueUpdateRequestDto,
+  ) {
+    return await this.issueService.modifyIssue(
+      parseInt(issueId),
+      issueUpdateRequestDto,
     );
-    res.status(typeof resultIssue === 'string' ? 400 : 201).json(resultIssue);
   }
 
   @Delete('/:issueId') //with id param
@@ -57,10 +64,7 @@ export class IssueController {
     type: Boolean,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async deleteIssue(@Req() req: Request, @Res() res: Response) {
-    const resultIssue = await this.issueService.deleteIssue(
-      Number(req.params.issueId),
-    );
-    res.status(resultIssue.deleted == true ? 200 : 405).json(resultIssue);
+  async deleteIssue(@Param('issueId') issueId: string) {
+    return await this.issueService.deleteIssue(parseInt(issueId));
   }
 }
