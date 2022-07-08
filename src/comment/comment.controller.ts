@@ -9,11 +9,11 @@ import { CommentService } from './comment.service';
 import { Request, Response } from 'express';
 
 @ApiTags('Comment')
-@Controller('issues/:issueId')
+@Controller('comments')
 export class CommentController {
   constructor(private commentService: CommentService) {}
 
-  @Post('/comments')
+  @Post('')
   @ApiCreatedResponse({
     description: 'Created comment object as response',
     type: Comment,
@@ -29,7 +29,7 @@ export class CommentController {
       .json(resultComment);
   }
 
-  @Get('/comments/:commId')
+  @Get('/:commId')
   @ApiCreatedResponse({
     description: 'List specified registered comment',
     type: Comment,
@@ -46,7 +46,7 @@ export class CommentController {
       .status(resultComment instanceof Comment ? 200 : 404)
       .json(resultComment);
   }
-  @Put('/comments/:commId')
+  @Put('/:commId')
   @ApiCreatedResponse({
     description: 'List specified registered comment',
     type: Comment,
@@ -60,7 +60,7 @@ export class CommentController {
       .status(resultComment instanceof Comment ? 201 : 400)
       .json(resultComment);
   }
-  @Delete('/comments/:commId') //with id param
+  @Delete('/:commId')
   @ApiCreatedResponse({
     description: 'Delete a specified comment by id',
     type: Boolean,

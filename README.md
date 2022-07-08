@@ -1,7 +1,7 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
-- Render to a like more REST Paths ; Hierarchy changes and necessary deletions
+- Fix the RouterModule problem in order to set an hierarchy
 - Req/Res unecessary for some request while @Body could've been enough (ex: instead of req.params.id )
 - Global project database config
 - Global application "Error Handling error"
