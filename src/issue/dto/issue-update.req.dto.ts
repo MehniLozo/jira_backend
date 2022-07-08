@@ -1,13 +1,5 @@
-import {
-  IsEnum,
-  IsInt,
-  IsOptional,
-  IsString,
-  Length,
-  Min,
-} from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString, Length } from 'class-validator';
 import { IssueType, IssueStatus, IssuePriority } from '../issues.constants';
-import { User } from '../../user/user.entity';
 
 export class IssueUpdateRequestDto {
   @IsOptional()
@@ -39,12 +31,6 @@ export class IssueUpdateRequestDto {
   @IsOptional()
   @IsEnum(IssueType)
   type?: IssueType;
-
-  @IsOptional()
-  userIds?: number[];
-
-  @IsOptional()
-  users?: User[];
 
   @IsOptional()
   @IsInt()
