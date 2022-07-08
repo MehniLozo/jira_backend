@@ -9,11 +9,11 @@ import { IssueService } from './issue.service';
 import { Request, Response } from 'express';
 
 @ApiTags('Issue')
-@Controller('projects/:projectId')
+@Controller('issues')
 export class IssueController {
   constructor(private readonly issueService: IssueService) {}
 
-  @Post('/issues')
+  @Post('')
   @ApiCreatedResponse({
     description: 'Created issue object as response',
     type: Issue,
@@ -25,7 +25,7 @@ export class IssueController {
     res.status(typeof resultIssue === 'string' ? 404 : 200).json(resultIssue);
   }
 
-  @Get('/issues/:issueId')
+  @Get('/:issueId')
   @ApiCreatedResponse({
     description: 'List specified registered issue',
     type: Issue,
@@ -38,7 +38,7 @@ export class IssueController {
     res.status(typeof resultIssue === 'string' ? 404 : 200).json(resultIssue);
   }
 
-  @Put('/issues/:issueId')
+  @Put('/:issueId')
   @ApiCreatedResponse({
     description: 'Modify a specific target issue',
     type: Issue,
@@ -51,7 +51,7 @@ export class IssueController {
     res.status(typeof resultIssue === 'string' ? 400 : 201).json(resultIssue);
   }
 
-  @Delete('/issues/:issueId') //with id param
+  @Delete('/:issueId') //with id param
   @ApiCreatedResponse({
     description: 'Delete a specified issue by id',
     type: Boolean,
