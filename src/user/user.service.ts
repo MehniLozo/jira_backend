@@ -15,32 +15,14 @@ export class UserService {
     return this.userRepo.find();
   }
 
-  async getUserById(id: number): Promise<User | string> {
-    try {
-      return await this.userRepo.findOne({ where: { id } });
-    } catch (err) {
-      console.log(err.message);
-      return "User doesn't exist";
-    }
+  async getUserById(id: number): Promise<User> {
+    return await this.userRepo.findOne({ where: { id } });
   }
 
   async modifyUser(id: number, body: UserRegisterRequestDto): Promise<any> {
-    try {
-      return await this.userRepo.update(id, body);
-    } catch (err) {
-      console.log(err.message);
-      return "Something wrong, couldn't update the user";
-    }
+    return await this.userRepo.update(id, body);
   }
-  async deleteUser(
-    id: number,
-  ): Promise<{ deleted: Boolean; message?: string }> {
-    try {
-      await this.userRepo.delete({ id });
-      return { deleted: true };
-    } catch (e) {
-      console.log("User doesn't exist");
-      return { deleted: false, message: "couldn't delete the user" };
-    }
+  async deleteUser(id: number): Promise<any> {
+    return await this.userRepo.delete({ id });
   }
 }

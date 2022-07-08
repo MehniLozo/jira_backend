@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Delete, Put, Req, Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Delete,
+  Put,
+  Param,
+  Body,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -6,7 +14,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from './user.entity';
 import { UserService } from './user.service';
-import { Request, Response } from 'express';
+import { UserRegisterRequestDto } from './dto/user-register.req.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -19,9 +27,10 @@ export class UserController {
     type: User,
   })
   @ApiBadRequestResponse({ description: 'User cannot register. Try again!' })
-  async doCreateUser(@Req() req: Request, @Res() res: Response): Promise<any> {
-    const resultUser = await this.userService.createUser(req.body);
-    return res.status(resultUser instanceof User ? 201 : 405).json(resultUser);
+  async doCreateUser(
+    @Body() userRegisterRequestDto: UserRegisterRequestDto,
+  ): Promise<User> {
+    return await this.userService.createUser(userRegisterRequestDto);
   }
 
   @Get('')
@@ -30,8 +39,8 @@ export class UserController {
     type: User,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findUsers(@Req() req: Request, @Res() res: Response): Promise<any> {
-    return res.status(200).json(await this.userService.getUsers());
+  async findUsers(): Promise<User[]> {
+    return await this.userService.getUsers();
   }
 
   @Get('/:userId')
@@ -40,11 +49,8 @@ export class UserController {
     type: User,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findUserById(@Req() req: Request, @Res() res: Response): Promise<any> {
-    const resultUser = await this.userService.getUserById(
-      parseInt(req.params.userId),
-    );
-    return res.status(resultUser instanceof User ? 201 : 405).json(resultUser);
+  async findUserById(@Param('userId') userId: string): Promise<User> {
+    return await this.userService.getUserById(parseInt(userId));
   }
 
   @Put('/:userId')
@@ -53,15 +59,11 @@ export class UserController {
     type: User,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async updateUser(@Req() req: Request, @Res() res: Response): Promise<any> {
-    return res
-      .status(201)
-      .json(
-        await this.userService.modifyUser(
-          parseInt(req.params.userId),
-          req.body,
-        ),
-      );
+  async updateUser(
+    @Param('userId') userId: string,
+    @Body() updateUser: UserRegisterRequestDto,
+  ): Promise<any> {
+    return await this.userService.modifyUser(parseInt(userId), updateUser);
   }
 
   @Delete('/:userId')
@@ -70,10 +72,7 @@ export class UserController {
     type: User,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async deleteUser(@Req() req: Request, @Res() res: Response): Promise<any> {
-    const resultUser = await this.userService.deleteUser(
-      parseInt(req.params.userId),
-    );
-    return res.status(resultUser.deleted == true ? 201 : 405).json(resultUser);
+  async deleteUser(@Param('userId') userId: string): Promise<any> {
+    return await this.userService.deleteUser(parseInt(userId));
   }
 }

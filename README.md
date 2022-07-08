@@ -8,7 +8,7 @@
 - Authentication middleware setup "JWT"
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
 - Password Hashing
-
+- issues_users updating
 
 ### API TODOS
 
