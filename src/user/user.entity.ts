@@ -23,7 +23,7 @@ export class User extends BaseEntity {
 
   @ApiProperty({ description: 'User name', example: 'Jhon Doe' })
   @Column()
-  name: string;
+  username: string;
 
   @ApiProperty({
     description: 'User email address',

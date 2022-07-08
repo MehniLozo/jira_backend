@@ -10,6 +10,7 @@ import { ProjectModule } from './project/project.module';
 import { IssueModule } from './issue/issue.module';
 import { CommentModule } from './comment/comment.module';
 import { RouterMod } from './router.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RouterMod } from './router.module';
     IssueModule,
     CommentModule,
     RouterMod,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
