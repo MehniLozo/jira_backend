@@ -16,32 +16,14 @@ export class CommentService {
     return await this.commentRepo.save(commentRegister);
   }
 
-  async getCommentById(id: number): Promise<Comment | string> {
-    try {
-      return this.commentRepo.findOne({ where: { id } });
-    } catch (err) {
-      console.log(err.message);
-      return "Comment doesn't exist";
-    }
+  async getCommentById(id: number): Promise<Comment> {
+    return this.commentRepo.findOne({ where: { id } });
   }
 
-  async modifyComment(id: number, newMessage: any): Promise<any> {
-    try {
-      return await this.commentRepo.update(id, newMessage);
-    } catch (err) {
-      console.log(err.message);
-      return 'Something wrong';
-    }
+  async modifyComment(id: number, newMessage: object): Promise<any> {
+    return await this.commentRepo.update(id, newMessage);
   }
-  async deleteComment(
-    id: number,
-  ): Promise<{ deleted: boolean; message?: string }> {
-    try {
-      await this.commentRepo.delete({ id });
-      return { deleted: true };
-    } catch (e) {
-      console.log(e.message);
-      return { deleted: false, message: 'Comment doesnt exist' };
-    }
+  async deleteComment(id: number): Promise<any> {
+    return await this.commentRepo.delete({ id });
   }
 }

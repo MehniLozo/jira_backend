@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Delete, Res, Req, Put } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Delete,
+  Put,
+  Param,
+  Body,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -6,7 +14,7 @@ import {
 } from '@nestjs/swagger';
 import { Comment } from './comment.entity';
 import { CommentService } from './comment.service';
-import { Request, Response } from 'express';
+import { CommentRegisterRequestDto } from './dto/comment-register.req.dto';
 
 @ApiTags('Comment')
 @Controller('comments')
@@ -20,13 +28,9 @@ export class CommentController {
   })
   @ApiBadRequestResponse({ description: 'Comment cannot register. Try again!' })
   async doCreateComment(
-    @Req() req: Request,
-    @Res() res: Response,
-  ): Promise<any> {
-    const resultComment = await this.commentService.createComment(req.body);
-    return res
-      .status(resultComment instanceof Comment ? 201 : 405)
-      .json(resultComment);
+    @Body() commentRegisterRequestDto: CommentRegisterRequestDto,
+  ): Promise<Comment> {
+    return await this.commentService.createComment(commentRegisterRequestDto);
   }
 
   @Get('/:commId')
@@ -35,30 +39,19 @@ export class CommentController {
     type: Comment,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async findCommentById(
-    @Req() req: Request,
-    @Res() res: Response,
-  ): Promise<any> {
-    const resultComment = await this.commentService.getCommentById(
-      parseInt(req.params.commId),
-    );
-    return res
-      .status(resultComment instanceof Comment ? 200 : 404)
-      .json(resultComment);
+  async findCommentById(@Param('commId') commId: string): Promise<any> {
+    return await this.commentService.getCommentById(parseInt(commId));
   }
   @Put('/:commId')
   @ApiCreatedResponse({
     description: 'List specified registered comment',
     type: Comment,
   })
-  async modifyComment(@Req() req: Request, @Res() res: Response): Promise<any> {
-    const resultComment = await this.commentService.modifyComment(
-      parseInt(req.params.commId),
-      req.body,
-    );
-    return res
-      .status(resultComment instanceof Comment ? 201 : 400)
-      .json(resultComment);
+  async modifyComment(
+    @Param('commId') commId: string,
+    @Body('') body,
+  ): Promise<any> {
+    return await this.commentService.modifyComment(parseInt(commId), body);
   }
   @Delete('/:commId')
   @ApiCreatedResponse({
@@ -66,12 +59,7 @@ export class CommentController {
     type: Boolean,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
-  async deleteComment(@Req() req: Request, @Res() res: Response): Promise<any> {
-    const resultComment = await this.commentService.deleteComment(
-      parseInt(req.params.commId),
-    );
-    return res
-      .status(resultComment.deleted == true ? 200 : 400)
-      .json(resultComment);
+  async deleteComment(@Param('commId') commId: string): Promise<any> {
+    return await this.commentService.deleteComment(parseInt(commId));
   }
 }
