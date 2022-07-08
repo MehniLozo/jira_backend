@@ -16,35 +16,18 @@ export class ProjectService {
     return await this.projectRepo.save(projectRegister);
   }
   async getProjectById(id: number): Promise<Project | string> {
-    try {
-      return await this.projectRepo.findOne({
-        where: { id },
-        relations: ['issues', 'users'],
-      });
-    } catch (err) {
-      console.log(err);
-      return 'Project doesnt exist';
-    }
+    return await this.projectRepo.findOne({
+      where: { id },
+      relations: ['issues', 'users'],
+    });
   }
   async updateProjectById(
     id: number,
     body: ProjectRegisterRequestDto,
-  ): Promise<string | any> {
-    try {
-      return await this.projectRepo.update(id, body);
-    } catch (e) {
-      console.log("Something occured or the project doesn't exist");
-      return 'Project doesnt exist';
-    }
+  ): Promise<any> {
+    return await this.projectRepo.update(id, body);
   }
-  async deleteProject(
-    id: number,
-  ): Promise<{ deleted: boolean; message?: string }> {
-    try {
-      await this.projectRepo.delete({ id });
-      return { deleted: true };
-    } catch (err) {
-      return { deleted: false, message: err.message };
-    }
+  async deleteProject(id: number): Promise<any> {
+    return await this.projectRepo.delete({ id });
   }
 }
