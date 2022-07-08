@@ -1,14 +1,16 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### URGENT TODOS
+- Authentication middleware setup "JWT"
+- Password Hashing
+- Exception filters
 - Fix the RouterModule problem in order to set an hierarchy
 - Global project database config
-- Global application "Error Handling error"
-- Authentication middleware setup "JWT"
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
-- Password Hashing
 - issues_users updating
 
+### Functionalities TODOS
+- Error handling logger
 ### API TODOS
 
 REST API :
