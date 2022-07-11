@@ -12,7 +12,8 @@ export class AuthService {
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.userService.getByUsername(username);
     if (user && user.password === pass) {
-      const { ...result } = user;
+      //pass needs to be hashed
+      const { password, ...result } = user;
       return result;
     }
     return null;
