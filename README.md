@@ -4,8 +4,6 @@
 - Meeting a problem with hashing https://github.com/typeorm/typeorm/issues/8706
   The password is not fully supported with the @BeforeInsert decorator
 ### URGENT TODOS
-- Authentication middleware setup "JWT"
-- Password Hashing
 - Exception filters
 - Fix the RouterModule problem in order to set an hierarchy
 - Global project database config

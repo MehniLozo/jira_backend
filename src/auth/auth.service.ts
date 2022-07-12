@@ -16,7 +16,6 @@ export class AuthService {
     const hashedPass = await bcrypt.hash(pass, salt);
 
     if (user && user.password === hashedPass) {
-      //pass needs to be hashed
       const { password, ...result } = user;
       return result;
     }
