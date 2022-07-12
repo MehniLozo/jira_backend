@@ -58,7 +58,7 @@ Responses:
 ### Issue
 
 * **Issue Consulting**
-#### `GET /api/projects/{projectId}/issues/{issueId}/`
+#### `GET /api/issues/{issueId}/`
 
 <img src="./screenDocs/IssueConsulting.png" width="200">
 
@@ -68,7 +68,6 @@ Responses:
 Parameter:
     Path : 
       issueId
-      projectId
 Responses:
 + 200 (application/json)
     Attribute (Issue)
@@ -79,7 +78,7 @@ Responses:
 <br>
 
 * **Issue Creation**
-#### `POST /api/projects/{projectId}/issues/`
+#### `POST /api/issues/`
 
 <img src="./screenDocs/IssueCreation.png" width="200">
 
@@ -93,18 +92,9 @@ Parameters:
         type	         Type    
         status	         Status  
         priority         Priority
-        listPosition	 integer
         description	     string
-        descriptionText	 string
-        estimate	     integer
-        timeSepnt	     integer
-        timeRemaining	 integer
         reporterId	     integer
-        project	         Project
         projectId	     integer
-        comments	     Comment[]
-        users	         User[]
-        userIds	         integer[]
 Responses:
 + 200 (application/json)
     Attribute (Issue)
@@ -115,7 +105,7 @@ Responses:
 
 * **Issue Modification** 
 
-#### `PUT /api/projects/{projectId}/issues/{issueId}/`
+#### `PUT /api/issues/{issueId}/`
 
 <img src="./screenDocs/IssueModification.png" width="200">
 
@@ -124,7 +114,6 @@ Responses:
 ```diff
 Parameters:
     Path: 
-      projectId
       issueId
     Body: Issue
 Responses:
@@ -138,7 +127,7 @@ Responses:
 <br>
 
 * **Issue Removal**
-#### `DELETE /api/projects/{projectId}/issues/{issueId}/ `
+#### `DELETE /api/issues/{issueId}/ `
 <img src="./screenDocs/IssueDelete.png" width="200">
 
 <br>
@@ -146,7 +135,6 @@ Responses:
 ```diff
 Parameter:
     Path: 
-      projectId
       issueId
 Responses:
 + 200 Issue has been deleted
@@ -176,7 +164,7 @@ Responses
 
 * **Commment Addition**
 
-#### `POST /api/issues/{issueId}/comments `
+#### `POST /api/comments `
 
 <img src="./screenDocs/CommentAddition.png" width="200">
 
@@ -187,9 +175,7 @@ Parameter:
     Path: issueId
     Body: Comment
         body	    string
-        user	    User
         userId	    integer
-        issue	    Issue
         issueId	    integer
 Responses:
 + 200 (application/json)
@@ -202,7 +188,7 @@ Responses:
 * **Commment Modification**
 
 
-#### `PUT /api/issues/comments/{commentId} `
+#### `PUT /api/comments/{commentId} `
 
 <img src="./screenDocs/IssueModification.png" width="200">
 
@@ -211,7 +197,8 @@ Responses:
 ```diff
 Parameters:
     Path: commentId
-    Body: Comment
+    Body: 
+      body string
 Responses:
 + 200 (application/json)
      Attributes (Comment)
@@ -227,7 +214,7 @@ Responses:
 
 
 
-#### ` DELETE /api/issue/comments/{commentId}`
+#### ` DELETE /api/comments/{commentId}`
 
 <img src="./screenDocs/CommentDeletion.png" width="200">
 
