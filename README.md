@@ -47,3 +47,5 @@ REST API :
 - [ ] Data Seeding (fake data generator)
 - [ ] Application Containerization
     - Separation of Concern : Each major component such as API engine and Database should be hosted in its separate container
+# More Documentations 
+[Click here for swagger and Schema documentation](https://drive.google.com/file/d/11UuR15HyuspsOANuSJ-Iro39MVKdhEAe/view?usp=sharing).
