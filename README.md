@@ -1,13 +1,8 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### Issues
-- Meeting a problem with hashing https://github.com/typeorm/typeorm/issues/8706
-  The password is not fully supported with the @BeforeInsert decorator
-- Global Authorization screws login's own authentication
-- Router module problem
+- Local guard doesn't function as it should (validate function isn't event invoked)
 ### Functionalities TODOS
-- Exception filters
-- Global project database config
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
 - issues_users updating
 - Error handling logger
