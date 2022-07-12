@@ -8,6 +8,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
+
   const options = new DocumentBuilder()
     .setTitle('Jira API')
     .setDescription('Backend API')

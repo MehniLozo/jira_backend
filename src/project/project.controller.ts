@@ -15,7 +15,10 @@ import {
 import { Project } from './project.entity';
 import { ProjectService } from './project.service';
 import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {

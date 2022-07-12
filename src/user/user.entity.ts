@@ -1,6 +1,5 @@
 import {
   BaseEntity,
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -9,7 +8,6 @@ import {
   OneToMany,
   ManyToMany,
 } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
 import { Issue } from '../issue/issue.entity';
 import { Project } from '../project/project.entity';
@@ -39,7 +37,7 @@ export class User extends BaseEntity {
   password: string; //password gotta be hashed
 
   @ApiProperty({ description: "User's avatar" })
-  @Column({ nullable: true })
+  @Column()
   avatarUrl: string;
 
   @ApiProperty({ description: "User's comments" })
@@ -65,9 +63,11 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @BeforeInsert()
-  async setPassword(password: string) {
+  /*@BeforeInsert()
+  @BeforeUpdate()
+  async setPassword() {
+    console.log('entered the hashing phase');
     const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(password || this.password, salt);
-  }
+    this.password = await bcrypt.hash(this.password, salt);
+  }*/
 }
