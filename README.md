@@ -4,14 +4,12 @@
 - Meeting a problem with hashing https://github.com/typeorm/typeorm/issues/8706
   The password is not fully supported with the @BeforeInsert decorator
 - Global Authorization screws login's own authentication
-### URGENT TODOS
+- Router module problem
+### Functionalities TODOS
 - Exception filters
-- Fix the RouterModule problem in order to set an hierarchy
 - Global project database config
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
 - issues_users updating
-
-### Functionalities TODOS
 - Error handling logger
 ### API TODOS
 
