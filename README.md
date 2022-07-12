@@ -1,5 +1,8 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
+### Issues
+- Meeting a problem with hashing https://github.com/typeorm/typeorm/issues/8706
+  The password is not fully supported with the @BeforeInsert decorator
 ### URGENT TODOS
 - Authentication middleware setup "JWT"
 - Password Hashing
