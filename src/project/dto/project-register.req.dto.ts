@@ -3,7 +3,7 @@ import { IsNotEmpty, Length, IsUrl, IsEnum, IsString } from 'class-validator';
 
 export class ProjectRegisterRequestDto {
   @IsNotEmpty()
-  @Length(10, 20)
+  @Length(5, 20)
   name: string;
 
   @IsNotEmpty()
