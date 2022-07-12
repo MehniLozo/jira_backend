@@ -3,6 +3,7 @@
 ### Issues
 - Meeting a problem with hashing https://github.com/typeorm/typeorm/issues/8706
   The password is not fully supported with the @BeforeInsert decorator
+- Global Authorization screws login's own authentication
 ### URGENT TODOS
 - Exception filters
 - Fix the RouterModule problem in order to set an hierarchy
