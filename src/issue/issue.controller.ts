@@ -13,9 +13,13 @@ import {
   Put,
   Body,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { IssueRegisterRequestDto } from './dto/issue-register.req.dto';
 import { IssueUpdateRequestDto } from './dto/issue-update.req.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+
+@UseGuards(JwtAuthGuard)
 @ApiTags('Issue')
 @Controller('issues')
 export class IssueController {
