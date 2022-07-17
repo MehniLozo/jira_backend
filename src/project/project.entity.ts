@@ -6,9 +6,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
-  ManyToMany,
-  ManyToOne,
-  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../user/user.entity';
@@ -37,10 +34,6 @@ export class Project extends BaseEntity {
   @Column()
   description: string;
 
-  @ApiProperty({ description: "Project's Owner", type: () => User })
-  @ManyToOne(() => User, (user) => user.ownProjects)
-  owner: User;
-
   @Column({
     name: 'category',
     type: 'enum',
@@ -52,8 +45,7 @@ export class Project extends BaseEntity {
   @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })
   issues: Issue[];
 
-  @ManyToMany(() => User, (user) => user.projects)
-  @JoinTable({ name: 'projects_users' })
+  @OneToMany(() => User, (user) => user.project)
   users: Promise<User[]>;
 
   @ApiProperty({ description: 'When project was created' })

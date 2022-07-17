@@ -18,7 +18,7 @@ import { UserService } from './user.service';
 import { UserRegisterRequestDto } from './dto/user-register.req.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @ApiTags('User')
 @Controller('users')
 export class UserController {

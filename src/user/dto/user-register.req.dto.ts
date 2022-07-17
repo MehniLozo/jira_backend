@@ -3,4 +3,5 @@ export interface UserRegisterRequestDto {
   email: string;
   password: string;
   avatarUrl: string;
+  projectId: number;
 }

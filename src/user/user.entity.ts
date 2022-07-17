@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Issue } from '../issue/issue.entity';
@@ -50,12 +51,9 @@ export class User extends BaseEntity {
   issues: Issue[];
 
   @ApiProperty({ description: "User's Project" })
-  @ManyToMany(() => Project, (project) => project.users)
-  projects: Project[];
-
-  @ApiProperty({ description: "User's owned projects", type: () => Project })
-  @OneToMany(() => Project, (project) => project.owner)
-  ownProjects: Project[];
+  projectId: number;
+  @ManyToOne(() => Project, (project) => project.users)
+  project: Project;
 
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()
@@ -64,12 +62,4 @@ export class User extends BaseEntity {
   @ApiProperty({ description: 'When user was updated' })
   @UpdateDateColumn()
   updatedAt: Date;
-
-  /*@BeforeInsert()
-  @BeforeUpdate()
-  async setPassword() {
-    console.log('entered the hashing phase');
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-  }*/
 }
