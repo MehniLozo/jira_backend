@@ -4,7 +4,7 @@ import { IssueType, IssueStatus, IssuePriority } from '../issues.constants';
 export class IssueUpdateRequestDto {
   @IsOptional()
   @IsString()
-  @Length(10, 100)
+  @Length(10, 1000)
   description?: string;
 
   @IsOptional()
@@ -25,12 +25,15 @@ export class IssueUpdateRequestDto {
 
   @IsOptional()
   @IsString()
-  @Length(5, 10)
+  @Length(5, 30)
   title?: string;
 
   @IsOptional()
   @IsEnum(IssueType)
   type?: IssueType;
+
+  @IsOptional()
+  userIds: number[];
 
   @IsOptional()
   @IsInt()

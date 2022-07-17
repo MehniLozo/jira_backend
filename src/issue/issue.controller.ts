@@ -13,7 +13,7 @@ import {
   Put,
   Body,
   Param,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { IssueRegisterRequestDto } from './dto/issue-register.req.dto';
 import { IssueUpdateRequestDto } from './dto/issue-update.req.dto';
@@ -34,6 +34,7 @@ export class IssueController {
   async doCreateIssue(
     @Body() issueRegisterRequestDto: IssueRegisterRequestDto,
   ) {
+    console.log("---CREATE ISSUE--")
     return await this.issueService.createIssue(issueRegisterRequestDto);
   }
 

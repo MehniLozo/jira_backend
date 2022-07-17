@@ -15,7 +15,7 @@ export class IssueService {
   async getIssueById(id: number): Promise<Issue> {
     return this.issueRepo.findOne({
       where: { id },
-      relations: ['users', 'comments'],
+      relations: ['users', 'comments','comments.user'],
     });
   }
 

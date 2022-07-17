@@ -80,7 +80,9 @@ export class Issue extends BaseEntity {
   @OneToMany(() => Comment, (comment) => comment.issue)
   comments: Comment[];
 
-  @ManyToMany(() => User, (user) => user.issues)
+  @ManyToMany(() => User, (user) => user.issues, {
+    cascade : true
+  })
   @JoinTable({ name: 'issues_users' })
   users: User[];
 

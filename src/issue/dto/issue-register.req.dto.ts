@@ -31,7 +31,7 @@ export class IssueRegisterRequestDto {
 
   @IsNotEmpty()
   @IsString()
-  @Length(5, 10)
+  @Length(5, 30)
   title: string;
 
   @IsNotEmpty()

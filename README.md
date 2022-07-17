@@ -1,7 +1,6 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### Issues
-- Local guard doesn't function as it should (validate function isn't event invoked)
 - Unit tests fix
 ### Functionalities TODOS
 - Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can

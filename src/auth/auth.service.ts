@@ -14,8 +14,9 @@ export class AuthService {
     const user = await this.userService.getByUsername(username);
     const salt = await bcrypt.genSalt();
     const hashedPass = await bcrypt.hash(pass, salt);
+    const auth = await bcrypt.compare(pass,user.password)
+    if (user && auth) {
 
-    if (user && user.password === hashedPass) {
       const { password, ...result } = user;
       return result;
     }
