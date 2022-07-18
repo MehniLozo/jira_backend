@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { typeOrmConfig } from './config/typeorm.config';
@@ -11,7 +11,7 @@ import { CommentModule } from './comment/comment.module';
 import { AuthModule } from './auth/auth.module';
 //import { APP_GUARD } from '@nestjs/core';
 //import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-
+import { AuthMiddleware } from './auth/auth.middleware';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -25,4 +25,8 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('*');
+  }
+}
