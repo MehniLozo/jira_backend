@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -18,7 +19,7 @@ import { UserService } from './user.service';
 import { UserRegisterRequestDto } from './dto/user-register.req.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-//@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @ApiTags('User')
 @Controller('users')
 export class UserController {
@@ -35,7 +36,14 @@ export class UserController {
   ): Promise<User> {
     return await this.userService.createUser(userRegisterRequestDto);
   }
-
+  @Get('/currentUser')
+  @ApiCreatedResponse({
+    description: 'Get current user',
+    type: User,
+  })
+  getCurrentUser(@Req() req): any {
+    return { currentUser: req.currentUser };
+  }
   @Get('')
   @ApiCreatedResponse({
     description: 'List all registered users',
