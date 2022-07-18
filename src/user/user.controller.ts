@@ -42,9 +42,7 @@ export class UserController {
     type: User,
   })
   getCurrentUser(@Req() req): any {
-    console.log("from the controller")
-    console.log(req.currentUser);
-    return req.currentUser;
+    return { currentUser: req.currentUser };
   }
   @Get('')
   @ApiCreatedResponse({

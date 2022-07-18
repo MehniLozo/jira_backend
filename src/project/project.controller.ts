@@ -62,7 +62,7 @@ export class ProjectController {
     );
   }
 
-  @Delete('/:projectId') //with id param
+  @Delete('/:projectId')
   @ApiCreatedResponse({
     description: 'Delete a specified project',
     type: Boolean,
