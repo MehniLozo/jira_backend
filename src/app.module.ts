@@ -12,6 +12,10 @@ import { AuthModule } from './auth/auth.module';
 //import { APP_GUARD } from '@nestjs/core';
 //import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { ProjectController } from './project/project.controller';
+import { UserController } from './user/user.controller';
+import { IssueController } from './issue/issue.controller';
+import { CommentController } from './comment/comment.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -27,6 +31,13 @@ import { AuthMiddleware } from './auth/auth.middleware';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('*');
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes(
+        ProjectController,
+        UserController,
+        IssueController,
+        CommentController,
+      );
   }
 }
