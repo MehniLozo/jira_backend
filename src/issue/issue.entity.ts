@@ -11,6 +11,7 @@ import {
   ManyToOne,
   RelationId,
   JoinTable,
+  Index,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../user/user.entity';
@@ -25,6 +26,7 @@ export class Issue extends BaseEntity {
   id: number;
 
   @ApiProperty({ description: 'Issue title', example: 'Compilation' })
+  @Index()
   @Column({ nullable: false, unique: true })
   title: string;
 
@@ -43,6 +45,7 @@ export class Issue extends BaseEntity {
   listPosition: number;
 
   @Column('text', { nullable: true })
+  @Index()
   description: string | null;
 
   @Column('integer', { nullable: true })
