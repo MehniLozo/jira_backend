@@ -13,7 +13,8 @@ import {
   Put,
   Body,
   Param,
-  UseGuards
+  UseGuards,
+  Query,
 } from '@nestjs/common';
 import { IssueRegisterRequestDto } from './dto/issue-register.req.dto';
 import { IssueUpdateRequestDto } from './dto/issue-update.req.dto';
@@ -34,7 +35,6 @@ export class IssueController {
   async doCreateIssue(
     @Body() issueRegisterRequestDto: IssueRegisterRequestDto,
   ) {
-    console.log("---CREATE ISSUE--")
     return await this.issueService.createIssue(issueRegisterRequestDto);
   }
 
@@ -46,6 +46,18 @@ export class IssueController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findIssueById(@Param('issueId') issueId: string) {
     return await this.issueService.getIssueById(parseInt(issueId));
+  }
+
+  @Get('')
+  @ApiCreatedResponse({
+    description:
+      'List registered issue by some requested search terms.These terms could exist anywhere within the issue dataframe : title,body,type .. ',
+    type: Issue,
+  })
+  async findIssuesBySearchTerm(@Query() query?: any) {
+    console.log('executing searching');
+    console.log(query.searchTerm);
+    return await this.issueService.getIssuesBySearchTerm(query.searchTerm);
   }
 
   @Put('/:issueId')
@@ -63,7 +75,7 @@ export class IssueController {
     );
   }
 
-  @Delete('/:issueId') //with id param
+  @Delete('/:issueId')
   @ApiCreatedResponse({
     description: 'Delete a specified issue by id',
     type: Boolean,

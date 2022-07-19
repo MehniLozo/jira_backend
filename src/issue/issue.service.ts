@@ -19,6 +19,14 @@ export class IssueService {
     });
   }
 
+  async getIssuesBySearchTerm(searchTerm: string): Promise<Issue[]> {
+    return await this.issueRepo
+      .createQueryBuilder()
+      .select()
+      .where(`MATCH(title) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
+      .getMany();
+  }
+
   async modifyIssue(id: number, body: IssueUpdateRequestDto): Promise<any> {
     return await this.issueRepo.update(id, body);
   }
