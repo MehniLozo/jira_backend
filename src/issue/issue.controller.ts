@@ -55,8 +55,6 @@ export class IssueController {
     type: Issue,
   })
   async findIssuesBySearchTerm(@Query() query?: any) {
-    console.log('executing searching');
-    console.log(query.searchTerm);
     return await this.issueService.getIssuesBySearchTerm(query.searchTerm);
   }
 

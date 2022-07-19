@@ -20,13 +20,13 @@ export class IssueService {
   }
 
   async getIssuesBySearchTerm(searchTerm: string): Promise<any> {
-    const issues =  await this.issueRepo
+    const issues = await this.issueRepo
       .createQueryBuilder()
       .select()
       .where(`MATCH(title) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
       .orWhere(`MATCH(description) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
       .getMany();
-    return {issues};
+    return { issues };
   }
 
   async modifyIssue(id: number, body: IssueUpdateRequestDto): Promise<any> {
