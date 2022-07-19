@@ -24,6 +24,7 @@ export class IssueService {
       .createQueryBuilder()
       .select()
       .where(`MATCH(title) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
+      .orWhere(`MATCH(description) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
       .getMany();
   }
 
