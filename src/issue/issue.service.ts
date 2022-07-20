@@ -30,6 +30,12 @@ export class IssueService {
   }
 
   async modifyIssue(id: number, body: IssueUpdateRequestDto): Promise<any> {
+    if (body.userIds) {
+      // still facing a misfunctioning when i update the assignees
+      const issue: IssueRegisterRequestDto = await this.getIssueById(id);
+      issue.userIds = body.userIds;
+      return await this.issueRepo.save(issue);
+    }
     return await this.issueRepo.update(id, body);
   }
   async deleteIssue(issueId: number): Promise<any> {

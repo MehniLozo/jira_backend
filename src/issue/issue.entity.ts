@@ -84,7 +84,9 @@ export class Issue extends BaseEntity {
   comments: Comment[];
 
   @ManyToMany(() => User, (user) => user.issues, {
-    cascade : true
+    cascade: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinTable({ name: 'issues_users' })
   users: User[];
