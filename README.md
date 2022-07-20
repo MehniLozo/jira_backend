@@ -2,10 +2,12 @@
 ## Backend service for Jira Clone
 ### Issues
 - Unit tests fix
-### Functionalities TODOS
-- Issue-Search backend operation by a search term kinda like : issues?searchTerm=you can
 - issues_users updating
-- Error handling logger
+### Functionalities TODOS
+- Email sender to specific people who are concerned with a specific issue
+  Basically,if these members are included in assignee or as reporter role they would get noticed about any changes happened to their issue , whether that is a change of state, description , comments etc...
+- More in depth issue's search engine technique which implements scoring system for later sorting purposes. 
+- Better Logger
 ### API TODOS
 
 REST API :
