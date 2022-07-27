@@ -23,8 +23,8 @@ export class IssueService {
     const issues = await this.issueRepo
       .createQueryBuilder()
       .select()
-      .where(`MATCH(title) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
-      .orWhere(`MATCH(description) AGAINST ('${searchTerm}' IN BOOLEAN MODE)`)
+      .where(`MATCH(title) AGAINST ('${searchTerm}*' IN BOOLEAN MODE)`)
+      .orWhere(`MATCH(description) AGAINST ('${searchTerm}*' IN BOOLEAN MODE)`)
       .getMany();
     return { issues };
   }
