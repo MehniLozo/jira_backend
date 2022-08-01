@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToMany,
   ManyToOne,
+  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Issue } from '../issue/issue.entity';
@@ -37,7 +38,7 @@ export class User extends BaseEntity {
 
   @ApiProperty({ description: 'Hashed user password' })
   @Column()
-  password: string; //password gotta be hashed
+  password: string;
 
   @ApiProperty({ description: "User's avatar" })
   @Column()
@@ -54,7 +55,16 @@ export class User extends BaseEntity {
   projectId: number;
   @ManyToOne(() => Project, (project) => project.users)
   project: Project;
+  /*
+  @ApiProperty({ description: "User's belong to Projects" })
+  @ManyToMany(() => Project, (project) => project.hasUsers)
+  @JoinTable()
+  BelongToprojects: Project[];
 
+  @ApiProperty({ description: "User's own Projects" })
+  @OneToMany(() => Project, (project) => project.lead)
+  ownProjects: Project[];
+  */
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()
   createdAt: Date;

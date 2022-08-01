@@ -8,10 +8,11 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT, 10),
   username: process.env.DB_USERNAME,
-  database: process.env.DB_NAME,
+  //database: process.env.DB_NAME,
+  database: "jira_development_2",
   password: process.env.DB_PASSWORD,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   charset: 'utf8mb4_unicode_ci',
-  synchronize: false,
+  synchronize: true,
   logging: true,
 };

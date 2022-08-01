@@ -6,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
+  ManyToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../user/user.entity';
@@ -26,7 +28,7 @@ export class Project extends BaseEntity {
     description: "Project's url",
   })
   @Column({
-    unique: true,
+    //unique: true,
   })
   url: string;
 
@@ -34,6 +36,7 @@ export class Project extends BaseEntity {
   @Column()
   description: string;
 
+  @ApiProperty({ description: "Project\'s Category" })
   @Column({
     name: 'category',
     type: 'enum',
@@ -42,12 +45,23 @@ export class Project extends BaseEntity {
   })
   category: ProjectCategory;
 
+  @ApiProperty({ description: "Project\'s Issues" })
   @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })
   issues: Issue[];
 
+  @ApiProperty({ description: "Project\'s Users" })
   @OneToMany(() => User, (user) => user.project)
   users: Promise<User[]>;
 
+/*
+  @ApiProperty({ description: "Project\'s Users2" })
+  @ManyToMany(() => User, (user) => user.BelongToprojects)
+  hasUsers: User[];
+
+  @ApiProperty({ description: "Project\'s Owner" })
+  @ManyToOne(() => User, (user) => user.ownProjects)
+  lead: User;
+  */
   @ApiProperty({ description: 'When project was created' })
   @CreateDateColumn()
   createdAt: Date;
