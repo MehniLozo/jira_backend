@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToOne,
   ManyToMany,
+  Index,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../user/user.entity';
@@ -28,14 +29,18 @@ export class Project extends BaseEntity {
     description: "Project's url",
   })
   @Column({
-    //unique: true,
+    unique: true,
+    length: 200
   })
   url: string;
-
+  /*
   @ApiProperty({ description: "Project's description" })
-  @Column()
+  @Index({unique: true})
+  @Column({
+    length: 200
+  })
   description: string;
-
+  */
   @ApiProperty({ description: "Project\'s Category" })
   @Column({
     name: 'category',

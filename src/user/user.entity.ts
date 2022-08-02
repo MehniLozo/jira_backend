@@ -33,6 +33,7 @@ export class User extends BaseEntity {
   })
   @Column({
     unique: true,
+    length: 768
   })
   email: string;
 
