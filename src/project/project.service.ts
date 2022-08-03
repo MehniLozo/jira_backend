@@ -18,7 +18,7 @@ export class ProjectService {
   async getProjectById(id: number): Promise<Project | string> {
     return await this.projectRepo.findOne({
       where: { id },
-      relations: ['issues', 'users'],
+      relations: ['issues', 'users',"lead"],
     });
   }
   async updateProjectById(

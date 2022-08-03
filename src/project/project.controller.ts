@@ -18,7 +18,7 @@ import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {
@@ -33,7 +33,10 @@ export class ProjectController {
   async createProject(
     @Body() projectRegisterRequestDto: ProjectRegisterRequestDto,
   ): Promise<any> {
-    return await this.projectService.createProject(projectRegisterRequestDto);
+    console.log(projectRegisterRequestDto)
+    const res =  await this.projectService.createProject(projectRegisterRequestDto);
+    console.log(res);
+    return res;
   }
 
   @Get('/:projectId')

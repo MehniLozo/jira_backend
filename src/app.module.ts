@@ -34,10 +34,10 @@ export class AppModule {
     consumer
       .apply(AuthMiddleware)
       .forRoutes(
-        ProjectController,
-        UserController,
-        IssueController,
-        CommentController,
+        //ProjectController,
+        //UserController,
+        //IssueController,
+        //CommentController,
       );
   }
 }

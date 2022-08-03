@@ -8,7 +8,6 @@ import {
   OneToMany,
   ManyToMany,
   ManyToOne,
-  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Issue } from '../issue/issue.entity';
@@ -33,7 +32,7 @@ export class User extends BaseEntity {
   })
   @Column({
     unique: true,
-    length: 768
+    length: 768,
   })
   email: string;
 
@@ -52,20 +51,21 @@ export class User extends BaseEntity {
   @ManyToMany(() => Issue, (issue) => issue.users)
   issues: Issue[];
 
+  /*
   @ApiProperty({ description: "User's Project" })
   projectId: number;
   @ManyToOne(() => Project, (project) => project.users)
   project: Project;
-  /*
+  */
+  //-------
   @ApiProperty({ description: "User's belong to Projects" })
-  @ManyToMany(() => Project, (project) => project.hasUsers)
-  @JoinTable()
-  BelongToprojects: Project[];
+  @ManyToMany(() => Project, (project) => project.users)
+  projects: Project[];
 
   @ApiProperty({ description: "User's own Projects" })
   @OneToMany(() => Project, (project) => project.lead)
   ownProjects: Project[];
-  */
+
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()
   createdAt: Date;

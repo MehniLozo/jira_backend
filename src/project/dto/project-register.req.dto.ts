@@ -1,5 +1,12 @@
 import { ProjectCategory } from '../project.constants';
-import { IsNotEmpty, Length, IsUrl, IsEnum, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  Length,
+  IsUrl,
+  IsEnum,
+  IsString,
+  IsInt,
+} from 'class-validator';
 
 export class ProjectRegisterRequestDto {
   @IsNotEmpty()
@@ -18,4 +25,8 @@ export class ProjectRegisterRequestDto {
   @IsNotEmpty()
   @IsEnum(ProjectCategory)
   category: ProjectCategory;
+
+  userIds: number[];
+
+  leadId: number;
 }
