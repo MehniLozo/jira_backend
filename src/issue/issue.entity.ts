@@ -68,8 +68,15 @@ export class Issue extends BaseEntity {
   @OneToOne(() => User)
   reporter: User;
   @ApiProperty({ description: 'Reporter' })
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   reporterId: number;
+
+  @OneToOne(() => User)
+  creator: User;
+  @ApiProperty({ description: 'Creator' })
+  @Column({ nullable: false })
+  creatorId: number;
+
 
   @ManyToOne(() => Project, (project) => project.issues, {
     onDelete: 'CASCADE',
