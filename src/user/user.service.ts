@@ -14,7 +14,13 @@ export class UserService {
     return await this.userRepo.save(userRegister);
   }
   async getUsers(): Promise<User[]> {
-    return this.userRepo.find();
+    return this.userRepo.find({
+      select: {
+        id: true,
+        username:true,
+        avatarUrl:true
+      }
+    });
   }
 
   async getByUsername(username: string): Promise<User> {

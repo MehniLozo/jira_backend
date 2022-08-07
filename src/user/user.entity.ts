@@ -51,19 +51,14 @@ export class User extends BaseEntity {
   @ManyToMany(() => Issue, (issue) => issue.users)
   issues: Issue[];
 
-  /*
-  @ApiProperty({ description: "User's Project" })
-  projectId: number;
-  @ManyToOne(() => Project, (project) => project.users)
-  project: Project;
-  */
-  //-------
   @ApiProperty({ description: "User's belong to Projects" })
   @ManyToMany(() => Project, (project) => project.users)
   projects: Project[];
 
   @ApiProperty({ description: "User's own Projects" })
-  @OneToMany(() => Project, (project) => project.lead)
+  @OneToMany(() => Project, (project) => project.lead,{
+          cascade: true,
+  })
   ownProjects: Project[];
 
   @ApiProperty({ description: 'When user was created' })

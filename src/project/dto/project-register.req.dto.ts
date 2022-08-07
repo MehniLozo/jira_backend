@@ -28,5 +28,6 @@ export class ProjectRegisterRequestDto {
 
   userIds: number[];
 
+  @IsNotEmpty()
   leadId: number;
 }

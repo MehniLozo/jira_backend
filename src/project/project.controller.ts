@@ -33,10 +33,7 @@ export class ProjectController {
   async createProject(
     @Body() projectRegisterRequestDto: ProjectRegisterRequestDto,
   ): Promise<any> {
-    console.log(projectRegisterRequestDto)
-    const res =  await this.projectService.createProject(projectRegisterRequestDto);
-    console.log(res);
-    return res;
+    return await this.projectService.createProject(projectRegisterRequestDto);
   }
 
   @Get('/:projectId')
