@@ -1,12 +1,5 @@
 import { ProjectCategory } from '../project.constants';
-import {
-  IsNotEmpty,
-  Length,
-  IsUrl,
-  IsEnum,
-  IsString,
-  IsInt,
-} from 'class-validator';
+import { IsNotEmpty, Length, IsUrl, IsEnum, IsString } from 'class-validator';
 
 export class ProjectRegisterRequestDto {
   @IsNotEmpty()

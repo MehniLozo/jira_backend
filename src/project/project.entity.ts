@@ -37,7 +37,7 @@ export class Project extends BaseEntity {
   url: string;
 
   @ApiProperty({ description: "Project's description" })
-  @Index({ unique: true })
+  @Index({ unique: false })
   @Column({
     length: 200,
   })
@@ -56,14 +56,8 @@ export class Project extends BaseEntity {
   @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })
   issues: Issue[];
 
-  /*
-  @ApiProperty({ description: "Project's Users" })
-  @OneToMany(() => User, (user) => user.project)
-  users: Promise<User[]>;
-  */
-  //-------
   @ApiProperty({ description: "Project's Users2" })
-  @ManyToMany(() => User, (user) => user.projects,{ cascade: true })
+  @ManyToMany(() => User, (user) => user.projects, { cascade: true })
   @JoinTable({ name: 'projects_users' })
   users: User[];
 
@@ -76,7 +70,7 @@ export class Project extends BaseEntity {
 
   @RelationId((project: Project) => project.lead)
   leadId: number;
-  //-------
+
   @ApiProperty({ description: 'When project was created' })
   @CreateDateColumn()
   createdAt: Date;

@@ -56,8 +56,8 @@ export class User extends BaseEntity {
   projects: Project[];
 
   @ApiProperty({ description: "User's own Projects" })
-  @OneToMany(() => Project, (project) => project.lead,{
-          cascade: true,
+  @OneToMany(() => Project, (project) => project.lead, {
+    cascade: true,
   })
   ownProjects: Project[];
 
