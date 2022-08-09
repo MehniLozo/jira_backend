@@ -23,4 +23,8 @@ export class ProjectRegisterRequestDto {
 
   @IsNotEmpty()
   leadId: number;
+
+  tagIds: number[];
+
+  newTags: string[];
 }

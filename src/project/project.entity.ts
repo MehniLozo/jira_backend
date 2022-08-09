@@ -16,6 +16,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../user/user.entity';
 import { Issue } from '../issue/issue.entity';
 import { ProjectCategory } from './project.constants';
+import { Tag } from '../tag/tag.entity';
 
 @Entity({ name: 'projects' })
 export class Project extends BaseEntity {
@@ -51,6 +52,14 @@ export class Project extends BaseEntity {
     default: ProjectCategory.SOFTWARE,
   })
   category: ProjectCategory;
+
+  @ApiProperty({ description: "Projects Tags" })
+  @ManyToMany(() => Tag, (tag) => tag.projects, { cascade: true })
+  @JoinTable({ name: 'projects_tags' })
+  tags: Tag[];
+
+  @RelationId((project: Project) => project.tags)
+  tagIds: number[];
 
   @ApiProperty({ description: "Project's Issues" })
   @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })
