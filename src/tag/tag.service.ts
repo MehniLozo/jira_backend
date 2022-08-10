@@ -10,14 +10,19 @@ export class TagService {
   ) {}
 
   async createTag(
-    tagRegister: TagRegisterRequestDto,
+    tagRegister: TagRegisterRequestDto|any,
   ): Promise<Tag> {
     return await this.tagRepo.save(tagRegister);
   }
 
   async findAllTags(): Promise <Tag[]>{
     return await this.tagRepo.find({
-      select: { id: true , name: true}
+      select: { name: true}
+    });
+  }
+  async deleteTag(tagId:number): Promise <any>{
+    return await this.tagRepo.delete({
+      id: tagId
     });
   }
 }

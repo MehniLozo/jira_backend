@@ -14,7 +14,9 @@ import {
 } from '@nestjs/swagger';
 import { Project } from './project.entity';
 import { ProjectService } from './project.service';
+import { TagService } from '../tag/tag.service';
 import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
+import { TagRegisterRequestDto } from '../tag/dto/tag-register.req.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
@@ -22,7 +24,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(private readonly projectService: ProjectService,private readonly tagService: TagService) {}
 
   @Post('/project')
   @ApiCreatedResponse({
@@ -33,6 +35,22 @@ export class ProjectController {
   async createProject(
     @Body() projectRegisterRequestDto: ProjectRegisterRequestDto,
   ): Promise<any> {
+    // console.log("projectRegisterRequestDto.newTags")
+    // console.log(projectRegisterRequestDto.newTags)
+    /* if(projectRegisterRequestDto.newTags.length > 0)
+    {
+       const newTagsDTOS  = projectRegisterRequestDto.newTags.map((projectName) => ({name: projectName, creatorId: projectRegisterRequestDto.leadId}))
+       const newTagsIds = await newTagsDTOS.map(async(tagRegister) => {
+        const newTag = await this.tagService.createTag(tagRegister);
+        console.log("IDS Inside")
+        console.log(newTag.id);
+        return newTag.id;
+      })
+       console.log("new tag ids?")
+      // const newTagsIds = [1,2,3];
+      // projectRegisterRequestDto.tagIds = [...projectRegisterRequestDto.tagIds,...newTagsIds]
+    }
+    console.log(projectRegisterRequestDto.tagIds);*/
     return await this.projectService.createProject(projectRegisterRequestDto);
   }
 

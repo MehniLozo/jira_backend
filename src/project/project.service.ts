@@ -18,13 +18,15 @@ export class ProjectService {
   async getProjectById(id: number): Promise<Project | string> {
     return await this.projectRepo.findOne({
       where: { id },
-      relations: ['issues', 'users',"lead"],
+      relations: ['issues', 'users',"lead","tags"],
     });
   }
   async updateProjectById(
     id: number,
     body: ProjectRegisterRequestDto,
   ): Promise<any> {
+    console.log("insidde service duude")
+    console.log(body)
     return await this.projectRepo.update(id, body);
   }
   async deleteProject(id: number): Promise<any> {

@@ -54,12 +54,8 @@ export class Project extends BaseEntity {
   category: ProjectCategory;
 
   @ApiProperty({ description: "Projects Tags" })
-  @ManyToMany(() => Tag, (tag) => tag.projects, { cascade: true })
-  @JoinTable({ name: 'projects_tags' })
+  @ManyToMany(() => Tag, (tag) => tag.projects)
   tags: Tag[];
-
-  @RelationId((project: Project) => project.tags)
-  tagIds: number[];
 
   @ApiProperty({ description: "Project's Issues" })
   @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })

@@ -26,14 +26,15 @@ export class Tag extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToOne(() => User, (user) => user.tags)
+  @ManyToOne(() => User, (user) => user.tags,{cascade: true})
   creator: Promise<User>;
 
   @RelationId((tag: Tag) => tag.creator)
   creatorId: number;
 
   @ApiProperty({ description: "Projects Tags" })
-  @ManyToMany(() => Project, (project) => project.tags)
+  @ManyToMany(() => Project, (project) => project.tags, { cascade: ['insert', 'update'] })
+  @JoinTable({ name: 'tags_projects' })
   projects: Project[];
 
   @ApiProperty({ description: 'When the tag was created' })
