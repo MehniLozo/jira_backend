@@ -16,15 +16,18 @@ import { Project } from './project.entity';
 import { ProjectService } from './project.service';
 import { TagService } from '../tag/tag.service';
 import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
-import { TagRegisterRequestDto } from '../tag/dto/tag-register.req.dto';
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+// import { TagRegisterRequestDto } from '../tag/dto/tag-register.req.dto';
+// import { UseGuards } from '@nestjs/common';
+// import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 //@UseGuards(JwtAuthGuard)
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService,private readonly tagService: TagService) {}
+  constructor(
+    private readonly projectService: ProjectService,
+    private readonly tagService: TagService,
+  ) {}
 
   @Post('/project')
   @ApiCreatedResponse({

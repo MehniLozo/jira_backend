@@ -6,7 +6,7 @@ import {
   Put,
   Param,
   Body,
-  UseGuards,
+  // UseGuards,
   Req,
 } from '@nestjs/common';
 import {
@@ -17,7 +17,7 @@ import {
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { UserRegisterRequestDto } from './dto/user-register.req.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+// import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 //@UseGuards(JwtAuthGuard)
 @ApiTags('User')

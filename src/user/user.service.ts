@@ -31,7 +31,7 @@ export class UserService {
   async getUserById(id: number): Promise<User> {
     return await this.userRepo.findOne({
       where: { id },
-      relations: ['projects', 'projects.lead','projects.tags'],
+      relations: ['projects', 'projects.lead', 'projects.tags'],
     });
   }
 
