@@ -25,6 +25,9 @@ export class IssueService {
       .select()
       .where(`MATCH(title) AGAINST ('${searchTerm}*' IN BOOLEAN MODE)`)
       .orWhere(`MATCH(description) AGAINST ('${searchTerm}*' IN BOOLEAN MODE)`)
+      .orderBy('updatedAt', 'DESC')
+      .skip(0)
+      .take(10)
       .getMany();
     return { issues };
   }

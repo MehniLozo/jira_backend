@@ -6,11 +6,17 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
+  ManyToMany,
+  Index,
+  RelationId,
+  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../user/user.entity';
 import { Issue } from '../issue/issue.entity';
 import { ProjectCategory } from './project.constants';
+import { Tag } from '../tag/tag.entity';
 
 @Entity({ name: 'projects' })
 export class Project extends BaseEntity {
@@ -27,13 +33,18 @@ export class Project extends BaseEntity {
   })
   @Column({
     unique: true,
+    length: 200,
   })
   url: string;
 
   @ApiProperty({ description: "Project's description" })
-  @Column()
+  @Index({ unique: false })
+  @Column({
+    length: 200,
+  })
   description: string;
 
+  @ApiProperty({ description: "Project's Category" })
   @Column({
     name: 'category',
     type: 'enum',
@@ -42,11 +53,28 @@ export class Project extends BaseEntity {
   })
   category: ProjectCategory;
 
+  @ApiProperty({ description: 'Projects Tags' })
+  @ManyToMany(() => Tag, (tag) => tag.projects, { onDelete: 'CASCADE' })
+  tags: Tag[];
+
+  @ApiProperty({ description: "Project's Issues" })
   @OneToMany(() => Issue, (issue) => issue.project, { onDelete: 'CASCADE' })
   issues: Issue[];
 
-  @OneToMany(() => User, (user) => user.project)
-  users: Promise<User[]>;
+  @ApiProperty({ description: "Project's Users2" })
+  @ManyToMany(() => User, (user) => user.projects, { cascade: true })
+  @JoinTable({ name: 'projects_users' })
+  users: User[];
+
+  @RelationId((project: Project) => project.users)
+  userIds: number[];
+
+  @ApiProperty({ description: "Project's Owner" })
+  @ManyToOne(() => User, (user) => user.ownProjects)
+  lead: Promise<User>;
+
+  @RelationId((project: Project) => project.lead)
+  leadId: number;
 
   @ApiProperty({ description: 'When project was created' })
   @CreateDateColumn()

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -14,7 +15,9 @@ import {
   Body,
   Param,
   UseGuards,
-  Query,
+  // Query,
+  // DefaultValuePipe,
+  // ParseIntPipe,
 } from '@nestjs/common';
 import { IssueRegisterRequestDto } from './dto/issue-register.req.dto';
 import { IssueUpdateRequestDto } from './dto/issue-update.req.dto';
@@ -47,17 +50,26 @@ export class IssueController {
   async findIssueById(@Param('issueId') issueId: string) {
     return await this.issueService.getIssueById(parseInt(issueId));
   }
-
+  /*
   @Get('')
   @ApiCreatedResponse({
     description:
       'List registered issue by some requested search terms.These terms could exist anywhere within the issue dataframe : title,body,type .. ',
     type: Issue,
   })
-  async findIssuesBySearchTerm(@Query() query?: any) {
-    return await this.issueService.getIssuesBySearchTerm(query.searchTerm);
+   async findIssuesBySearchTerm(
+    // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+    @Query('searchTerm') searchTerm?: string,
+  ): Promise<Pagination<Issue>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.issueService.paginate({
+      page,
+      limit,
+    });
   }
-
+  */
   @Put('/:issueId')
   @ApiCreatedResponse({
     description: 'Modify a specific target issue',

@@ -17,7 +17,7 @@ export class CommentService {
   }
 
   async getCommentById(id: number): Promise<Comment> {
-    return this.commentRepo.findOne({ where: { id } , relations : ['user'] });
+    return this.commentRepo.findOne({ where: { id }, relations: ['user'] });
   }
 
   async modifyComment(id: number, newMessage: object): Promise<any> {

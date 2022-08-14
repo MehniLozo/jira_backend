@@ -26,6 +26,10 @@ export class IssueRegisterRequestDto {
   reporterId: number;
 
   @IsNotEmpty()
+  @IsInt()
+  creatorId: number;
+
+  @IsNotEmpty()
   @IsEnum(IssueStatus)
   status: IssueStatus;
 

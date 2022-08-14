@@ -11,21 +11,28 @@ export class UserService {
   async createUser(userRegister: UserRegisterRequestDto): Promise<User> {
     const salt = await bcrypt.genSalt();
     userRegister.password = await bcrypt.hash(userRegister.password, salt);
-
     return await this.userRepo.save(userRegister);
   }
   async getUsers(): Promise<User[]> {
-    return this.userRepo.find();
+    return this.userRepo.find({
+      select: {
+        id: true,
+        username: true,
+        avatarUrl: true,
+      },
+    });
   }
 
   async getByUsername(username: string): Promise<User> {
     return await this.userRepo.findOne({
       where: { username },
-      relations: ['project'],
     });
   }
   async getUserById(id: number): Promise<User> {
-    return await this.userRepo.findOne({ where: { id } });
+    return await this.userRepo.findOne({
+      where: { id },
+      relations: ['projects', 'projects.lead', 'projects.tags'],
+    });
   }
 
   async modifyUser(id: number, body: UserRegisterRequestDto): Promise<any> {

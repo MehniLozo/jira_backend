@@ -7,12 +7,12 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
-  ManyToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Issue } from '../issue/issue.entity';
 import { Project } from '../project/project.entity';
 import { Comment } from '../comment/comment.entity';
+import { Tag } from '../tag/tag.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -32,12 +32,13 @@ export class User extends BaseEntity {
   })
   @Column({
     unique: true,
+    length: 768,
   })
   email: string;
 
   @ApiProperty({ description: 'Hashed user password' })
   @Column()
-  password: string; //password gotta be hashed
+  password: string;
 
   @ApiProperty({ description: "User's avatar" })
   @Column()
@@ -50,10 +51,19 @@ export class User extends BaseEntity {
   @ManyToMany(() => Issue, (issue) => issue.users)
   issues: Issue[];
 
-  @ApiProperty({ description: "User's Project" })
-  projectId: number;
-  @ManyToOne(() => Project, (project) => project.users)
-  project: Project;
+  @ApiProperty({ description: "User's belong to Projects" })
+  @ManyToMany(() => Project, (project) => project.users)
+  projects: Project[];
+
+  @ApiProperty({ description: "User's own Projects" })
+  @OneToMany(() => Project, (project) => project.lead, {
+    cascade: true,
+  })
+  ownProjects: Project[];
+
+  @ApiProperty({ description: "User's tags" })
+  @OneToMany(() => Tag, (tag) => tag.creator)
+  tags: Tag[];
 
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()

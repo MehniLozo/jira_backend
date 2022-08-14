@@ -18,4 +18,8 @@ export class ProjectRegisterRequestDto {
   @IsNotEmpty()
   @IsEnum(ProjectCategory)
   category: ProjectCategory;
+
+  userIds: number[];
+
+  leadId: number;
 }

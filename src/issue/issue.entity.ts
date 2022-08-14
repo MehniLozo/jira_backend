@@ -26,7 +26,7 @@ export class Issue extends BaseEntity {
   id: number;
 
   @ApiProperty({ description: 'Issue title', example: 'Compilation' })
-  @Index("title",{fulltext:true})
+  @Index('title')
   @Column({ nullable: false, unique: true })
   title: string;
 
@@ -44,8 +44,13 @@ export class Issue extends BaseEntity {
   @Column({ nullable: true })
   listPosition: number;
 
+<<<<<<< HEAD
   @Index("description",{fulltext:true})
   @Column('varchar', { nullable: true, length: 768 })
+=======
+  @Index('description')
+  @Column({ type: 'varchar', nullable: true, length: 768 })
+>>>>>>> Features-ManyProjectWithR
   description: string | null;
 
   @Column('integer', { nullable: true })
@@ -68,8 +73,14 @@ export class Issue extends BaseEntity {
   @OneToOne(() => User)
   reporter: User;
   @ApiProperty({ description: 'Reporter' })
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   reporterId: number;
+
+  @OneToOne(() => User)
+  creator: User;
+  @ApiProperty({ description: 'Creator' })
+  @Column({ nullable: false })
+  creatorId: number;
 
   @ManyToOne(() => Project, (project) => project.issues, {
     onDelete: 'CASCADE',

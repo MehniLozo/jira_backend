@@ -8,9 +8,8 @@ import { UserModule } from './user/user.module';
 import { ProjectModule } from './project/project.module';
 import { IssueModule } from './issue/issue.module';
 import { CommentModule } from './comment/comment.module';
+import { TagModule } from './tag/tag.module';
 import { AuthModule } from './auth/auth.module';
-//import { APP_GUARD } from '@nestjs/core';
-//import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { ProjectController } from './project/project.controller';
 import { UserController } from './user/user.controller';
@@ -24,6 +23,7 @@ import { CommentController } from './comment/comment.controller';
     ProjectModule,
     IssueModule,
     CommentModule,
+    TagModule,
     AuthModule,
   ],
   controllers: [AppController],

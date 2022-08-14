@@ -6,7 +6,7 @@ import {
   Put,
   Param,
   Body,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,

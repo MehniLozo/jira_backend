@@ -14,6 +14,7 @@ import {
 } from '@nestjs/swagger';
 import { Project } from './project.entity';
 import { ProjectService } from './project.service';
+import { TagService } from '../tag/tag.service';
 import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -22,7 +23,10 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @ApiTags('Project')
 @Controller('projects')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(
+    private readonly projectService: ProjectService,
+    private readonly tagService: TagService,
+  ) {}
 
   @Post('/project')
   @ApiCreatedResponse({
