@@ -44,13 +44,8 @@ export class Issue extends BaseEntity {
   @Column({ nullable: true })
   listPosition: number;
 
-<<<<<<< HEAD
-  @Index("description",{fulltext:true})
-  @Column('varchar', { nullable: true, length: 768 })
-=======
   @Index('description')
   @Column({ type: 'varchar', nullable: true, length: 768 })
->>>>>>> Features-ManyProjectWithR
   description: string | null;
 
   @Column('integer', { nullable: true })
