@@ -5,24 +5,20 @@ import { Repository } from 'typeorm';
 import { TagRegisterRequestDto } from './dto/tag-register.req.dto';
 @Injectable()
 export class TagService {
-  constructor(
-    @InjectRepository(Tag) private tagRepo: Repository<Tag>,
-  ) {}
+  constructor(@InjectRepository(Tag) private tagRepo: Repository<Tag>) {}
 
-  async createTag(
-    tagRegister: TagRegisterRequestDto|any,
-  ): Promise<Tag> {
+  async createTag(tagRegister: TagRegisterRequestDto | any): Promise<Tag> {
     return await this.tagRepo.save(tagRegister);
   }
 
-  async findAllTags(): Promise <Tag[]>{
+  async findAllTags(): Promise<Tag[]> {
     return await this.tagRepo.find({
-      select: { name: true}
+      select: { name: true },
     });
   }
-  async deleteTag(tagId:number): Promise <any>{
+  async deleteTag(tagId: number): Promise<any> {
     return await this.tagRepo.delete({
-      id: tagId
+      id: tagId,
     });
   }
 }

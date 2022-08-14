@@ -10,8 +10,6 @@ import { IssueModule } from './issue/issue.module';
 import { CommentModule } from './comment/comment.module';
 import { TagModule } from './tag/tag.module';
 import { AuthModule } from './auth/auth.module';
-//import { APP_GUARD } from '@nestjs/core';
-//import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { AuthMiddleware } from './auth/auth.middleware';
 import { ProjectController } from './project/project.controller';
 import { UserController } from './user/user.controller';
@@ -35,11 +33,11 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .forRoutes
-      //ProjectController,
-      //UserController,
-      //IssueController,
-      //CommentController,
-      ();
+      .forRoutes(
+        ProjectController,
+        UserController,
+        IssueController,
+        CommentController,
+      );
   }
 }

@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Delete,
-  Put,
-  Body,
-  Param,
-} from '@nestjs/common';
+import { Controller, Post, Get, Delete, Body, Param } from '@nestjs/common';
 
 import {
   ApiBadRequestResponse,
@@ -17,7 +9,6 @@ import {
 import { Tag } from './tag.entity';
 import { TagService } from './tag.service';
 import { TagRegisterRequestDto } from './dto/tag-register.req.dto';
-
 
 @ApiTags('Tag')
 @Controller('tags')
@@ -31,8 +22,8 @@ export class TagController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async createTag(
-        @Body() tagRegisterRequestDto: TagRegisterRequestDto,
-    ): Promise<Tag> {
+    @Body() tagRegisterRequestDto: TagRegisterRequestDto,
+  ): Promise<Tag> {
     return await this.tagService.createTag(tagRegisterRequestDto);
   }
 

@@ -53,8 +53,8 @@ export class Project extends BaseEntity {
   })
   category: ProjectCategory;
 
-  @ApiProperty({ description: "Projects Tags" })
-  @ManyToMany(() => Tag, (tag) => tag.projects,{onDelete: 'CASCADE'})
+  @ApiProperty({ description: 'Projects Tags' })
+  @ManyToMany(() => Tag, (tag) => tag.projects, { onDelete: 'CASCADE' })
   tags: Tag[];
 
   @ApiProperty({ description: "Project's Issues" })

@@ -8,10 +8,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
   ManyToOne,
   ManyToMany,
-  Index,
   RelationId,
   JoinTable,
 } from 'typeorm';
@@ -26,14 +24,16 @@ export class Tag extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToOne(() => User, (user) => user.tags,{cascade: true})
+  @ManyToOne(() => User, (user) => user.tags, { cascade: true })
   creator: Promise<User>;
 
   @RelationId((tag: Tag) => tag.creator)
   creatorId: number;
 
-  @ApiProperty({ description: "Projects Tags" })
-  @ManyToMany(() => Project, (project) => project.tags, { cascade: ['insert', 'update'] })
+  @ApiProperty({ description: 'Projects Tags' })
+  @ManyToMany(() => Project, (project) => project.tags, {
+    cascade: ['insert', 'update'],
+  })
   @JoinTable({ name: 'tags_projects' })
   projects: Project[];
 
