@@ -15,7 +15,7 @@ import {
   Body,
   Param,
   UseGuards,
-  // Query,
+  Query,
   // DefaultValuePipe,
   // ParseIntPipe,
 } from '@nestjs/common';
@@ -70,6 +70,21 @@ export class IssueController {
     });
   }
   */
+  @Get('')
+  @ApiCreatedResponse({
+    description:
+      'List registered issue by some requested search terms.These terms could exist anywhere within the issue dataframe : title,body,type .. ',
+    type: Issue,
+  })
+  async findIssuesBySearchTerm(@Query() query?: any) {
+    return await this.issueService.getIssuesBySearchTerm(query.searchTerm);
+  }
+  @Get('')
+  @ApiCreatedResponse({
+    description:
+      'List registered issue by some requested search terms.These terms could exist anywhere within the issue dataframe : title,body,type .. ',
+    type: Issue,
+  })
   @Put('/:issueId')
   @ApiCreatedResponse({
     description: 'Modify a specific target issue',

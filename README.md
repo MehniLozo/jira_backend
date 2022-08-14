@@ -1,10 +1,11 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### Issues
+- Issue searching with pagination ; Load only the first 10 issues
+- Issue search indexes ?? automatic index upload instead of manually inserting them
 - Unit tests fix
 - issues_users updating
 - Validate the containerization and do the merge Feature + Arch
-- Current search is not flexible , it does need the whole exact query word to bring a correct search
 ### Functionalities TODOS
 - Email sender to specific people who are concerned with a specific issue
   Basically,if these members are included in assignee or as reporter role they would get noticed about any changes happened to their issue , whether that is a change of state, description , comments etc...
