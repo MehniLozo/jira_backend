@@ -71,9 +71,10 @@ export class Project extends BaseEntity {
 
   @ApiProperty({ description: "Project's Owner" })
   @ManyToOne(() => User, (user) => user.ownProjects)
+  @JoinTable({ name: 'leadId' })
   lead: Promise<User>;
 
-  @RelationId((project: Project) => project.lead)
+  @Column({ nullable: true })
   leadId: number;
 
   @ApiProperty({ description: 'When project was created' })

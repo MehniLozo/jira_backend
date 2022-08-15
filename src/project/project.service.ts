@@ -13,7 +13,9 @@ export class ProjectService {
   async createProject(
     projectRegister: ProjectRegisterRequestDto,
   ): Promise<Project> {
-    return await this.projectRepo.save(projectRegister);
+    const pro = await this.projectRepo.save(projectRegister);
+    // console.log(await this.projectRepo.findOne({ where: { id: pro.id } }));
+    return pro;
   }
   async getProjectById(id: number): Promise<Project | string> {
     return await this.projectRepo.findOne({
