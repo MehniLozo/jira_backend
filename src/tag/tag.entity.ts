@@ -12,6 +12,7 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+  RelationId,
 } from 'typeorm';
 
 @Entity({ name: 'tags' })
@@ -33,10 +34,13 @@ export class Tag extends BaseEntity {
 
   @ApiProperty({ description: 'Projects Tags' })
   @ManyToMany(() => Project, (project) => project.tags, {
-    cascade: ['insert', 'update'],
+    cascade: true,
   })
   @JoinTable({ name: 'tags_projects' })
   projects: Project[];
+
+  @RelationId((tag: Tag) => tag.projects)
+  projectIds: number[];
 
   @ApiProperty({ description: 'When the tag was created' })
   @CreateDateColumn()
