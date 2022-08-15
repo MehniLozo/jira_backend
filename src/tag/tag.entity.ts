@@ -10,8 +10,8 @@ import {
   UpdateDateColumn,
   ManyToOne,
   ManyToMany,
-  RelationId,
   JoinTable,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity({ name: 'tags' })
@@ -25,9 +25,10 @@ export class Tag extends BaseEntity {
   name: string;
 
   @ManyToOne(() => User, (user) => user.tags, { cascade: true })
+  @JoinColumn({ name: 'creatorId' })
   creator: Promise<User>;
 
-  @RelationId((tag: Tag) => tag.creator)
+  @Column({ nullable: true })
   creatorId: number;
 
   @ApiProperty({ description: 'Projects Tags' })
