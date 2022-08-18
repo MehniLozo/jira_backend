@@ -19,15 +19,19 @@ export class IssueService {
     });
   }
 
-  async getIssuesBySearchTerm(searchTerm: string): Promise<any> {
+  async getIssuesBySearchTerm(
+    searchTerm: string,
+    skip: number,
+    take: number,
+  ): Promise<any> {
     const issues = await this.issueRepo
       .createQueryBuilder()
       .select()
       .where(`MATCH(title) AGAINST ('${searchTerm}*' IN BOOLEAN MODE)`)
       .orWhere(`MATCH(description) AGAINST ('${searchTerm}*' IN BOOLEAN MODE)`)
       .orderBy('updatedAt', 'DESC')
-      .skip(0)
-      .take(10)
+      .skip(skip)
+      .take(take)
       .getMany();
     return { issues };
   }

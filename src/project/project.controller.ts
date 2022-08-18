@@ -59,7 +59,7 @@ export class ProjectController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async getProjectsByUser(
     @Param('userId') userId: string,
-    @Query('skip') skip = 1,
+    @Query('skip') skip = 0,
     @Query('take') take = 10,
   ): Promise<Project[]> {
     take = take > 15 ? 15 : take;

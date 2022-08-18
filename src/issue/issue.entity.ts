@@ -26,7 +26,7 @@ export class Issue extends BaseEntity {
   id: number;
 
   @ApiProperty({ description: 'Issue title', example: 'Compilation' })
-  @Index('title')
+  @Index('issue_title')
   @Column({ nullable: false, unique: true })
   title: string;
 
@@ -44,7 +44,7 @@ export class Issue extends BaseEntity {
   @Column({ nullable: true })
   listPosition: number;
 
-  @Index('description')
+  @Index('issue_description')
   @Column({ type: 'varchar', nullable: true, length: 768 })
   description: string | null;
 
