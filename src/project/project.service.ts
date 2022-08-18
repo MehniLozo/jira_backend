@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Project } from './project.entity';
+import { User } from '../user/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
 import { Repository } from 'typeorm';
@@ -8,6 +9,7 @@ import { Repository } from 'typeorm';
 export class ProjectService {
   constructor(
     @InjectRepository(Project) private projectRepo: Repository<Project>,
+    @InjectRepository(User) private userRepo: Repository<User>,
   ) {}
 
   async createProject(
@@ -22,6 +24,19 @@ export class ProjectService {
       where: { id },
       relations: ['issues', 'users', 'lead', 'tags'],
     });
+  }
+  async getProjectsByUser(
+    id: number,
+    skip: number,
+    take: number,
+  ): Promise<Project[]> {
+    return await this.projectRepo
+      .createQueryBuilder('project')
+      .leftJoinAndSelect('project.users', 'user')
+      .where(`user.id = ${id}`)
+      .skip(skip)
+      .take(take)
+      .getMany();
   }
   async updateProjectById(
     id: number,

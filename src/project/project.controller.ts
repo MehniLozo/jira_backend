@@ -6,6 +6,7 @@ import {
   Put,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -48,6 +49,25 @@ export class ProjectController {
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findProjectById(@Param('projectId') projectId: string) {
     return await this.projectService.getProjectById(parseInt(projectId));
+  }
+
+  @Get('/user/:userId')
+  @ApiCreatedResponse({
+    description: 'Get projects from a certain user; Pagination purpose',
+    type: Project,
+  })
+  @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
+  async getProjectsByUser(
+    @Param('userId') userId: string,
+    @Query('skip') skip = 1,
+    @Query('take') take = 10,
+  ): Promise<Project[]> {
+    take = take > 15 ? 15 : take;
+    return await this.projectService.getProjectsByUser(
+      parseInt(userId),
+      skip,
+      take,
+    );
   }
 
   @Put('/:projectId')
