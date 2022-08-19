@@ -13,6 +13,7 @@ import { Issue } from '../issue/issue.entity';
 import { Project } from '../project/project.entity';
 import { Comment } from '../comment/comment.entity';
 import { Tag } from '../tag/tag.entity';
+import { Device } from 'src/device/device.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -64,6 +65,10 @@ export class User extends BaseEntity {
   @ApiProperty({ description: "User's tags" })
   @OneToMany(() => Tag, (tag) => tag.creator)
   tags: Tag[];
+
+  @ApiProperty({ description: "User's devices" })
+  @OneToMany(() => Device, (device) => device.user, { onDelete: 'CASCADE' })
+  devices: Issue[];
 
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()
