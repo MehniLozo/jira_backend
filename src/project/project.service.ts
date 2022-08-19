@@ -34,6 +34,7 @@ export class ProjectService {
       .createQueryBuilder('project')
       .leftJoinAndSelect('project.users', 'user')
       .where(`user.id = ${id}`)
+      .leftJoinAndSelect('project.tags', 'tag')
       .skip(skip)
       .take(take)
       .getMany();
