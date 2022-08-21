@@ -1,11 +1,15 @@
 # Jira clone Backend
 ## Backend service for Jira Clone
 ### Issues
+- Caching problem : 
+    - Update user cache inside of Redis while updating users or its projects aka Dynamic caching
+- Make session registeration inside mysql DB
 - Issue searching with pagination ; Load only the first 10 issues
 - Issue search indexes ?? automatic index upload instead of manually inserting them
 - Unit tests fix
 - issues_users updating
 - Validate the containerization and do the merge Feature + Arch
+    - DB in its own container pls
 ### Functionalities TODOS
 - Store Sessions for multiple devices of users
 - Email sender to specific people who are concerned with a specific issue
