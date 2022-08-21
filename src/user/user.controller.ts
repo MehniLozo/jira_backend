@@ -1,4 +1,5 @@
 import {
+  CacheInterceptor,
   Controller,
   Post,
   Get,
@@ -8,6 +9,8 @@ import {
   Body,
   UseGuards,
   Req,
+  UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -36,6 +39,9 @@ export class UserController {
   ): Promise<User> {
     return await this.userService.createUser(userRegisterRequestDto);
   }
+
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @Get('/currentUser')
   @ApiCreatedResponse({
     description: 'Get current user',
@@ -54,6 +60,8 @@ export class UserController {
     return await this.userService.getUsers();
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @Get('/:userId')
   @ApiCreatedResponse({
     description: 'Get informations about a certain user',

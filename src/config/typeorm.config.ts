@@ -13,5 +13,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   charset: 'utf8mb4_unicode_ci',
   synchronize: true,
-  logging: false,
+  logging: true,
 };

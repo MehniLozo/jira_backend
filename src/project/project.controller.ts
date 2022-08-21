@@ -7,7 +7,13 @@ import {
   Body,
   Param,
   Query,
+  CacheInterceptor,
+  UseInterceptors,
+  CacheTTL,
+  Inject,
+  CACHE_MANAGER,
 } from '@nestjs/common';
+import { Cache } from 'cache-manager'
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -25,8 +31,10 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @Controller('projects')
 export class ProjectController {
   constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly projectService: ProjectService,
     private readonly tagService: TagService,
+
   ) {}
 
   @Post('/project')
@@ -41,6 +49,8 @@ export class ProjectController {
     return await this.projectService.createProject(projectRegisterRequestDto);
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @Get('/:projectId')
   @ApiCreatedResponse({
     description: 'Get a specific project by ID',
@@ -51,6 +61,8 @@ export class ProjectController {
     return await this.projectService.getProjectById(parseInt(projectId));
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @Get('/user/:userId')
   @ApiCreatedResponse({
     description: 'Get projects from a certain user; Pagination purpose',
@@ -80,10 +92,16 @@ export class ProjectController {
     @Param('projectId') projectId: string,
     @Body() projectUpdate: ProjectRegisterRequestDto,
   ) {
-    return await this.projectService.updateProjectById(
+    const update =  await this.projectService.updateProjectById(
       parseInt(projectId),
       projectUpdate,
     );
+    if (update)
+    {
+      const updatedProject = await this.projectService.getProjectById(parseInt(projectId))
+      await this.cacheManager.set(`api/projects/${projectId}`, updatedProject);
+    }
+    return update
   }
 
   @Delete('/:projectId')
@@ -93,6 +111,7 @@ export class ProjectController {
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async deleteProject(@Param('projectId') projectId: string) {
+    await this.cacheManager.del(`api/projects/${projectId}`);
     return await this.projectService.deleteProject(parseInt(projectId));
   }
 }
