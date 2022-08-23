@@ -2,12 +2,33 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+const session = require('express-session');
+import { getRepository } from 'typeorm';
+import { Session } from './session/session';
+import { TypeormStore } from 'connect-typeorm'
+import { Repository } from 'typeorm';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
+
+  // const sessionRepository = getRepository(Session);
+
+  app.use(
+    session({
+      name: 'jira_session',
+      secret: 'catty',
+      resave:false,
+      saveUninitialized:false,
+      cookie: {
+        maxAge: 60000,
+      },
+      // store: new TypeormStore().connect(sessionRepository)
+    })
+  )
+
 
   const options = new DocumentBuilder()
     .setTitle('Jira API')
