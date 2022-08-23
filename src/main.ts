@@ -18,8 +18,8 @@ async function bootstrap() {
 
   app.use(
     session({
-      name: 'jira_session',
-      secret: 'catty',
+      name: process.env.SESSION_NAME,
+      secret: process.env.SESSION_SECRET,
       resave:false,
       saveUninitialized:false,
       cookie: {
