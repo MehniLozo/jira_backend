@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 const session = require('express-session');
 import { getRepository } from 'typeorm';
 import { Session } from './session/session';
-import { TypeormStore } from 'connect-typeorm'
+import { TypeormStore } from 'connect-typeorm';
 import { Repository } from 'typeorm';
 
 async function bootstrap() {
@@ -20,15 +20,14 @@ async function bootstrap() {
     session({
       name: process.env.SESSION_NAME,
       secret: process.env.SESSION_SECRET,
-      resave:false,
-      saveUninitialized:false,
+      resave: false,
+      saveUninitialized: false,
       cookie: {
         maxAge: 60000,
       },
       // store: new TypeormStore().connect(sessionRepository)
-    })
-  )
-
+    }),
+  );
 
   const options = new DocumentBuilder()
     .setTitle('Jira API')

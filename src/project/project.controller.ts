@@ -13,7 +13,7 @@ import {
   Inject,
   CACHE_MANAGER,
 } from '@nestjs/common';
-import { Cache } from 'cache-manager'
+import { Cache } from 'cache-manager';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -34,7 +34,6 @@ export class ProjectController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly projectService: ProjectService,
     private readonly tagService: TagService,
-
   ) {}
 
   @Post('/project')
@@ -92,16 +91,17 @@ export class ProjectController {
     @Param('projectId') projectId: string,
     @Body() projectUpdate: ProjectRegisterRequestDto,
   ) {
-    const update =  await this.projectService.updateProjectById(
+    const update = await this.projectService.updateProjectById(
       parseInt(projectId),
       projectUpdate,
     );
-    if (update)
-    {
-      const updatedProject = await this.projectService.getProjectById(parseInt(projectId))
+    if (update) {
+      const updatedProject = await this.projectService.getProjectById(
+        parseInt(projectId),
+      );
       await this.cacheManager.set(`api/projects/${projectId}`, updatedProject);
     }
-    return update
+    return update;
   }
 
   @Delete('/:projectId')
