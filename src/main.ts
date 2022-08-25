@@ -2,11 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+/*
 const session = require('express-session');
+
 import { getRepository } from 'typeorm';
 import { Session } from './session/session';
 import { TypeormStore } from 'connect-typeorm';
 import { Repository } from 'typeorm';
+*/
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,7 +18,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   // const sessionRepository = getRepository(Session);
-
+  /*
   app.use(
     session({
       name: process.env.SESSION_NAME,
@@ -28,7 +31,7 @@ async function bootstrap() {
       // store: new TypeormStore().connect(sessionRepository)
     }),
   );
-
+    */
   const options = new DocumentBuilder()
     .setTitle('Jira API')
     .setDescription('Backend API')
