@@ -2,7 +2,9 @@
 ## Backend service for Jira Clone
 ### Issues
 - Caching problem : 
+    - Each user should have his own JWT secret verifier key and gonna be stored in his row
     - Update user cache inside of Redis while updating users or its projects aka Dynamic caching
+
 - Make session registeration inside mysql DB
 - Issue searching with pagination ; Load only the first 10 issues
 - Issue search indexes ?? automatic index upload instead of manually inserting them
