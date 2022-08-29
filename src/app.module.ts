@@ -21,6 +21,7 @@ import { UserController } from './user/user.controller';
 import { IssueController } from './issue/issue.controller';
 import { CommentController } from './comment/comment.controller';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CaslModule } from './casl/casl.module';
 import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
@@ -41,6 +42,7 @@ import * as redisStore from 'cache-manager-redis-store';
     CommentModule,
     TagModule,
     AuthModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [

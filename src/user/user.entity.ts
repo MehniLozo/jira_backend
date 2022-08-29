@@ -70,6 +70,9 @@ export class User extends BaseEntity {
   @OneToMany(() => Device, (device) => device.user, { onDelete: 'CASCADE' })
   devices: Issue[];
 
+  @Column()
+  isAdmin: boolean;
+
   @ApiProperty({ description: 'When user was created' })
   @CreateDateColumn()
   createdAt: Date;
