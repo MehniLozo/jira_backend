@@ -1,61 +1,17 @@
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import {
-  TypeOrmModuleAsyncOptions,
-  TypeOrmModuleOptions,
-} from '@nestjs/typeorm';
-require('dotenv').config();
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import dotenv from 'dotenv';
 
-export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: async (): Promise<TypeOrmModuleOptions> => {
-    return {
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT, 10),
-      username: process.env.DB_USERNAME,
-      database: process.env.DB_NAME,
-      password: process.env.DB_PASSWORD,
-      entities: [__dirname + '/../**/*.entity.{js,ts}'],
-      extra: {
-        charset: 'utf8mb4_unicode_ci',
-      },
-      synchronize: true,
-      logging: true,
-    };
-  },
-};
+dotenv.config();
+
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT, 10),
   username: process.env.DB_USERNAME,
   database: process.env.DB_NAME,
-  password:process.env.DB_PASSWORD,
+  password: process.env.DB_PASSWORD,
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   charset: 'utf8mb4_unicode_ci',
-  synchronize: false,
-  logging: true,
+  synchronize: true,
+  logging: false,
 };
-
-/*
-export const typeOrmTestConfig: TypeOrmModuleAsyncOptions = {
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: async (): Promise<TypeOrmModuleOptions> => {
-    return {
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT, 10),
-      username: process.env.DB_USERNAME,
-      database: process.env.DB_TEST_NAME,
-      password: process.env.DB_PASSWORD,*/
-      //entities: [__dirname + '/../**/*.entity.{js,ts}'],
-      /*extra: {
-        charset: 'utf8mb4_unicode_ci',
-      },
-      synchronize: true,
-      logging: true,
-    };
-  },
-};*/
