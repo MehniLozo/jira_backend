@@ -1,10 +1,21 @@
-import { Ability,AbilityBuilder,AbilityClass,ExtractSubjectType,InferSubjects } from '@casl/ability';
+import {
+  Ability,
+  AbilityBuilder,
+  AbilityClass,
+  ExtractSubjectType,
+  InferSubjects,
+} from '@casl/ability';
 import { Action } from './actions';
 import { User } from '../user/user.entity';
+import { Project } from '../project/project.entity';
+import { Issue } from '../issue/issue.entity';
+import { Comment } from '../comment/comment.entity';
 import { Injectable } from '@nestjs/common';
 
 // type Subjects = InferSubjects<typeof Article | typeof User> | 'all';
-type Subjects = InferSubjects<typeof User> | 'all';
+type Subjects =
+  | InferSubjects<typeof User | typeof Project | typeof Issue | typeof Comment>
+  | 'all';
 
 export type AppAbility = Ability<[Action, Subjects]>;
 

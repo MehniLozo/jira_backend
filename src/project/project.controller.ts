@@ -25,6 +25,10 @@ import { TagService } from '../tag/tag.service';
 import { ProjectRegisterRequestDto } from './dto/project-register.req.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { PoliciesGuard } from 'src/auth/guards/PoliciesGuard';
+import { AppAbility } from '../casl/casl-ability.factory';
+import { Action } from '../casl/actions';
+import { CheckPolicies } from '../auth/guards/PolicyHandler';
 
 @UseGuards(JwtAuthGuard)
 @ApiTags('Project')
@@ -55,6 +59,8 @@ export class ProjectController {
     description: 'Get a specific project by ID',
     type: Project,
   })
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
   async findProjectById(@Param('projectId') projectId: string) {
     return await this.projectService.getProjectById(parseInt(projectId));
@@ -68,6 +74,8 @@ export class ProjectController {
     type: Project,
   })
   @ApiBadRequestResponse({ description: 'Something wrong. Try again!' })
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Project))
   async getProjectsByUser(
     @Param('userId') userId: string,
     @Query('skip') skip = 0,
