@@ -11,6 +11,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
       Issue
     ])
   ],
+  // tslint:disable-next-line
   providers: [IssueService,Repository<Issue>],
   controllers: [IssueController],
   exports: [IssueService],

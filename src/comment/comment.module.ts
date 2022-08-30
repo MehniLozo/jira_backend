@@ -11,6 +11,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
       Comment
     ])
   ],
+  // tslint:disable-next-line
   providers: [CommentService,Repository<Comment>],
   controllers: [CommentController],
   exports: [CommentService],
