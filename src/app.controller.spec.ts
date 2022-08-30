@@ -6,6 +6,7 @@ describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
+    jest.setTimeout(10000);
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [AppService],
@@ -17,6 +18,6 @@ describe('AppController', () => {
   describe('root', () => {
     it('should return "Hello World!"', () => {
       expect(appController.getHello()).toBe('Hello World!');
-    });
+    }, 30000);
   });
 });
