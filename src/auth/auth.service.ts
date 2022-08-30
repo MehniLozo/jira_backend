@@ -22,10 +22,10 @@ export class AuthService {
     return null;
   }
   async login(user: any) {
-    const payload = { username: user.username, sub: user.userId};
+    const payload = { username: user.username, sub: user.userId };
     const access_token = this.jwtService.sign(payload);
     const userCache = await this.userService.getByUsername(user.username);
-    await this.cacheManager.set(access_token, userCache , { ttl : 1661521172});
+    await this.cacheManager.set(access_token, userCache, { ttl: 1661521172 });
     return {
       access_token,
     };
